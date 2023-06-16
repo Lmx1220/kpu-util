@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.lmx.basic</groupId>
+        <artifactId>kpu-util</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>kpu-mvc</artifactId>
+    <name>${project.artifactId}</name>
+    <description>公共模块</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.lmx.basic</groupId>
+            <artifactId>kpu-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.lmx.basic</groupId>
+            <artifactId>kpu-databases</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.lmx.basic</groupId>
+            <artifactId>kpu-cache-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-web</artifactId>
+        </dependency>
+    </dependencies>
+</project>
