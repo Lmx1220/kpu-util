@@ -20,9 +20,8 @@ public interface PageController<Entity, PageQuery> extends BaseController<Entity
      * 处理查询参数
      *
      * @param params 前端传递的参数
-     * @author tangyh
-     * @date 2021/7/3 3:25 下午
-     * @create [2021/7/3 3:25 下午 ] [tangyh] [初始创建]
+     * @author lmx
+     * @date 2023/6/17 13:24
      */
     default void handlerQueryParams(PageParams<PageQuery> params) {
     }

@@ -20,10 +20,21 @@
         <module>kpu-parent</module>
         <module>kpu-annotation</module>
         <module>kpu-core</module>
-        <module>kpu-uid</module>
-        <module>kpu-databases</module>
-        <module>kpu-cache-starter</module>
+        <module>kpu-boot-util</module>
         <module>kpu-mvc</module>
+        <module>kpu-databases</module>
+        <module>kpu-log-starter</module>
+        <module>kpu-swagger2-starter</module>
+        <module>kpu-validator-starter</module>
+        <module>kpu-jwt-starter</module>
+        <!--        <module>kpu-dozer-starter</module>-->
+        <module>kpu-xss-starter</module>
+        <!--        <module>kpu-cloud-starter</module>-->
+        <module>kpu-cache-starter</module>
+        <!--        <module>kpu-mq-starter</module>-->
+        <!--        <module>kpu-echo-starter</module>-->
+        <module>kpu-uid</module>
+        <!--        <module>kpu-all</module>-->
     </modules>
 
     <dependencyManagement>
@@ -51,6 +62,17 @@
             <dependency>
                 <groupId>cn.lmx.basic</groupId>
                 <artifactId>kpu-cache-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.lmx.basic</groupId>
+                <artifactId>kpu-mvc</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.lmx.basic</groupId>
+                <artifactId>kpu-boot-util</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

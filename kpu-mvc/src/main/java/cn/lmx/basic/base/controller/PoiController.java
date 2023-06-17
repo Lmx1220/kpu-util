@@ -80,10 +80,8 @@ public interface PoiController<Entity, PageQuery> extends PageController<Entity,
      *
      * @param params params
      * @return java.util.List<?>
-     * @author tangyh
-     * @date 2021/5/23 10:25 下午
-     * @create [2021/5/23 10:25 下午 ] [tangyh] [初始创建]
-     * @update [2021/5/23 10:25 下午 ] [tangyh] [变更描述]
+     * @author lmx
+     * @date 2023/6/17 13:24
      */
     default List<?> findExportList(PageParams<PageQuery> params) {
         params.setSize(params.getSize() == -1 ? Convert.toLong(Integer.MAX_VALUE) : params.getSize());
@@ -168,9 +166,8 @@ public interface PoiController<Entity, PageQuery> extends PageController<Entity,
      * 子类增强ExportParams
      *
      * @param ep ep
-     * @author tangyh
-     * @date 2021/5/23 10:27 下午
-     * @create [2021/5/23 10:27 下午 ] [tangyh] [初始创建]
+     * @author lmx
+     * @date 2023/6/17 13:24
      */
     default void enhanceExportParams(ExportParams ep) {
     }

@@ -1,0 +1,2 @@
+org.springframework.context.ApplicationContextInitializer=\
+    cn.lmx.basic.log.KpuMdcAdapterInitializer

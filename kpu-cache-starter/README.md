@@ -20,7 +20,7 @@ CachePlusOps则将caffeine不支持等缓存类型进行了空实现，能保证
 ```
 pom.xml
 <dependency>
-    <groupId>top.tangyh.basic</groupId>
+    <groupId>cn.lmx.basic</groupId>
     <artifactId>kpu-cache-starter</artifactId>
 </dependency>
 
@@ -38,7 +38,7 @@ kpu:
 ```
 pom.xml
 <dependency>
-    <groupId>top.tangyh.basic</groupId>
+    <groupId>cn.lmx.basic</groupId>
     <artifactId>kpu-cache-starter</artifactId>
     <exclusions>
         <exclusion>
