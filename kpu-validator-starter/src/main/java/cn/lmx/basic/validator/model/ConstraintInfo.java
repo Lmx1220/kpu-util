@@ -7,9 +7,9 @@ import lombok.experimental.Accessors;
 import java.util.Map;
 
 /**
- * @author zuihou
+ * @author lmx
  * @description: 检验约束信息
- * @date 2023/6/17 13:24
+ * @date 2023/6/21 19:43
  */
 @Data
 @ToString

@@ -27,12 +27,12 @@
         <module>kpu-swagger2-starter</module>
         <module>kpu-validator-starter</module>
         <module>kpu-jwt-starter</module>
-        <!--        <module>kpu-dozer-starter</module>-->
+        <module>kpu-dozer-starter</module>
         <module>kpu-xss-starter</module>
         <!--        <module>kpu-cloud-starter</module>-->
         <module>kpu-cache-starter</module>
         <!--        <module>kpu-mq-starter</module>-->
-        <!--        <module>kpu-echo-starter</module>-->
+        <module>kpu-echo-starter</module>
         <module>kpu-uid</module>
         <!--        <module>kpu-all</module>-->
     </modules>

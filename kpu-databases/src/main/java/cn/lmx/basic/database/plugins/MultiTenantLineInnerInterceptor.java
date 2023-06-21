@@ -153,7 +153,7 @@ public class MultiTenantLineInnerInterceptor extends JsqlParserSupport implement
             // 过滤退出执行
             return;
         }
-        // update by zuihou
+        // update by lmx
         Expression expression = this.andExpression(table, update.getWhere());
         if (expression == null) {
             return;
@@ -170,7 +170,7 @@ public class MultiTenantLineInnerInterceptor extends JsqlParserSupport implement
             // 过滤退出执行
             return;
         }
-        // update by zuihou
+        // update by lmx
         Expression expression = this.andExpression(delete.getTable(), delete.getWhere());
         if (expression == null) {
             return;
@@ -182,7 +182,7 @@ public class MultiTenantLineInnerInterceptor extends JsqlParserSupport implement
      * delete update 语句 where 处理
      */
     protected Expression andExpression(Table table, Expression where) {
-        // update by zuihou 返回空即表示当前语句不需要拼接 租户id
+        // update by lmx 返回空即表示当前语句不需要拼接 租户id
         if (tenantLineHandler.getTenantId() == null) {
             return null;
         }
@@ -213,7 +213,7 @@ public class MultiTenantLineInnerInterceptor extends JsqlParserSupport implement
         FromItem fromItem = plainSelect.getFromItem();
         if (fromItem instanceof Table) {
             // Table fromTable = (Table) fromItem;
-            // update by zuihou
+            // update by lmx
             /* Expression builderExpression = builderExpression(plainSelect.getWhere(), fromTable);
             if (builderExpression != null) {
                 plainSelect.setWhere(builderExpression);
@@ -259,7 +259,7 @@ public class MultiTenantLineInnerInterceptor extends JsqlParserSupport implement
             if (!tenantLineHandler.ignoreTable(fromTable.getName())) {
                 // #1186 github
                 Expression builderExpression = builderExpression(where, fromTable);
-                // update by zuihou
+                // update by lmx
                 if (builderExpression != null) {
                     plainSelect.setWhere(builderExpression);
                 }
@@ -409,7 +409,7 @@ public class MultiTenantLineInnerInterceptor extends JsqlParserSupport implement
                 // 过滤退出执行
                 return;
             }
-            // update by zuihou
+            // update by lmx
             Expression builderExpression = builderExpression(join.getOnExpression(), fromTable);
             if (builderExpression == null) {
                 return;
@@ -421,7 +421,7 @@ public class MultiTenantLineInnerInterceptor extends JsqlParserSupport implement
     /**
      * 处理条件
      *
-     * @update [2021年07月10日09:28:28] [zuihou] 支持拼接多个租户id
+     * @update [2023/6/21 19:43] [lmx] 支持拼接多个租户id
      */
     protected Expression builderExpression(Expression currentExpression, Table table) {
         ValueListExpression listExpression = tenantLineHandler.getTenantIdList();

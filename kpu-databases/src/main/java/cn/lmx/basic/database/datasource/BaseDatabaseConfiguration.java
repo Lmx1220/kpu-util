@@ -223,7 +223,7 @@ public abstract class BaseDatabaseConfiguration implements InitializingBean {
             newConfiguration = new MybatisConfiguration();
         }
 
-//         zuihou 改过这里：  这里一定要复制一次， 否则多数据源时，会导致拦截器等执行多次
+//         lmx 改过这里：  这里一定要复制一次， 否则多数据源时，会导致拦截器等执行多次
         MybatisConfiguration configuration = new MybatisConfiguration();
 //        BeanUtil.copyProperties(newConfiguration, configuration);
         BeanUtils.copyProperties(newConfiguration, configuration);

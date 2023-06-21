@@ -194,7 +194,7 @@ public class EnumDeserializer
             return _fromString(p, ctxt, p.getText());
         }
 
-        // zuihou 新增的代码！ 支持前端传递对象 {"code": "xx"}
+        // lmx 新增的代码！ 支持前端传递对象 {"code": "xx"}
         if (curr == JsonToken.START_OBJECT) {
             CompactStringObjectMap lookup = ctxt.isEnabled(DeserializationFeature.READ_ENUMS_USING_TO_STRING)
                     ? _getToStringLookup(ctxt) : _lookupByName;
@@ -229,7 +229,7 @@ public class EnumDeserializer
             throws IOException {
         CompactStringObjectMap lookup = ctxt.isEnabled(DeserializationFeature.READ_ENUMS_USING_TO_STRING)
                 ? _getToStringLookup(ctxt) : _lookupByName;
-        // zuihou 增强
+        // lmx 增强
         if (StrUtil.isBlank(text) || StrPool.NULL.equals(text)) {
             return null;
         }

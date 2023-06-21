@@ -27,7 +27,7 @@ import static cn.lmx.basic.exception.code.ExceptionCode.JWT_PARSER_TOKEN_FAIL;
 /**
  * Secure工具类
  *
- * @author zuihou
+ * @author lmx
  */
 @Slf4j
 public final class JwtUtil {
