@@ -29,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author lmx
  * @version 1.0
  * @description: 自定义枚举属性转换器
- * @date 2023/6/16 15:46
+ * @date 2023/7/4 14:27
  */
 public class MybatisEnumTypeHandler<E extends Enum<E>> extends BaseTypeHandler<E> {
 

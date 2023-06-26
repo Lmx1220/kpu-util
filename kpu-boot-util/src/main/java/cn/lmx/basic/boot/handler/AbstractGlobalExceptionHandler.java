@@ -47,7 +47,7 @@ import static cn.lmx.basic.exception.code.ExceptionCode.REQUIRED_FILE_PARAM_EX;
 /**
  * @author lmx
  * @description: 全局异常统一处理
- * @date 2023/6/16 22:05
+ * @date 2023/7/4 14:27
  */
 @SuppressWarnings("AlibabaUndefineMagicConstant")
 @Slf4j

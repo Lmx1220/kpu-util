@@ -24,7 +24,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * 启动条件：
  * 1，存在web环境
  * 2，配置文件中kpu.log.enabled=true 或者 配置文件中不存在：kpu.log.enabled 值
- * @date 2023/6/16 23:51
+ * @date 2023/7/4 14:27
  */
 @EnableAsync
 @Configuration

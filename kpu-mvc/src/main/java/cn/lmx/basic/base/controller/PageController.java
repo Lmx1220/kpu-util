@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  * @author lmx
  * @version 1.0
  * @description: 分页控制器
- * @date 2023/6/16 18:03
+ * @date 2023/7/4 14:27
  */
 public interface PageController<Entity, PageQuery> extends BaseController<Entity> {
 
@@ -21,7 +21,7 @@ public interface PageController<Entity, PageQuery> extends BaseController<Entity
      *
      * @param params 前端传递的参数
      * @author lmx
-     * @date 2023/6/17 13:24
+     * @date 2023/7/4 14:27
      */
     default void handlerQueryParams(PageParams<PageQuery> params) {
     }

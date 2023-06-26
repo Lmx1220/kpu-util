@@ -16,7 +16,7 @@ import static cn.lmx.basic.xss.utils.XssUtils.xssClean;
  * @author lmx
  * @version 1.0
  * @description: 跨站攻击请求包装器
- * @date 2023/6/17 13:13
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public class XssRequestWrapper extends HttpServletRequestWrapper {

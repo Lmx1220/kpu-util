@@ -18,7 +18,7 @@ import java.io.IOException;
  * "desc": "xxx"
  * }
  * </pre>
- * @date 2023/6/16 12:59
+ * @date 2023/7/4 14:27
  */
 public class EnumSerializer extends StdSerializer<BaseEnum> {
     public static final EnumSerializer INSTANCE = new EnumSerializer();

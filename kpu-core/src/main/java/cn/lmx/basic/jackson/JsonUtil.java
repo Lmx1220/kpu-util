@@ -29,7 +29,7 @@ import static cn.lmx.basic.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
  * @author lmx
  * @version 1.0
  * @description: 对 jack json 进行封装
- * @date 2023/6/16 13:15
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public final class JsonUtil {

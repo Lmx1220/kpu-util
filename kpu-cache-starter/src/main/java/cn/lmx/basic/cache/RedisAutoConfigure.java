@@ -41,7 +41,7 @@ import java.util.Optional;
  * @author lmx
  * @version 1.0
  * @description: 配置类
- * @date 2023/6/16 16:11
+ * @date 2023/7/4 14:27
  */
 @ConditionalOnClass(RedisConnectionFactory.class)
 @ConditionalOnProperty(prefix = CustomCacheProperties.PREFIX, name = "type", havingValue = "REDIS", matchIfMissing = true)

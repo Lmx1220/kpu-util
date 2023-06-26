@@ -16,7 +16,7 @@ import java.util.function.Supplier;
  * @version 1.0
  * @description: 断言<br>
  * 断言某些对象或值是否符合规定，否则抛出异常。经常用于做变量检查
- * @date 2023/6/16 13:26
+ * @date 2023/7/4 14:27
  */
 public class ArgumentAssert {
 

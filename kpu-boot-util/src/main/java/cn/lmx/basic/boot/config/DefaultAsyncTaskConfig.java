@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * @author lmx
  * @description: 异步任务配置
- * @date 2023/6/16 22:05
+ * @date 2023/7/4 14:27
  */
 @Setter
 @Getter

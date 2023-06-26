@@ -15,7 +15,7 @@ import static cn.lmx.basic.exception.BaseException.BASE_VALID_PARAM;
 /**
  * @author lmx
  * @description: 断言
- * @date 2019-07-22 14:44
+ * @date 2023/7/4 14:27
  * @see BizException
  * @see cn.lmx.basic.utils.ArgumentAssert
  * @since 4.0

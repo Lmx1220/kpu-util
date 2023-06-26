@@ -35,7 +35,7 @@ import java.util.Map;
  * @author lmx
  * @version 1.0
  * @description: 导入导出
- * @date 2023/6/16 18:03
+ * @date 2023/7/4 14:27
  */
 public interface PoiController<Entity, PageQuery> extends PageController<Entity, PageQuery> {
     /**
@@ -81,7 +81,7 @@ public interface PoiController<Entity, PageQuery> extends PageController<Entity,
      * @param params params
      * @return java.util.List<?>
      * @author lmx
-     * @date 2023/6/17 13:24
+     * @date 2023/7/4 14:27
      */
     default List<?> findExportList(PageParams<PageQuery> params) {
         params.setSize(params.getSize() == -1 ? Convert.toLong(Integer.MAX_VALUE) : params.getSize());
@@ -167,7 +167,7 @@ public interface PoiController<Entity, PageQuery> extends PageController<Entity,
      *
      * @param ep ep
      * @author lmx
-     * @date 2023/6/17 13:24
+     * @date 2023/7/4 14:27
      */
     default void enhanceExportParams(ExportParams ep) {
     }

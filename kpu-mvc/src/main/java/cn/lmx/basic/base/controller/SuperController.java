@@ -31,7 +31,7 @@ import java.lang.reflect.ParameterizedType;
  * 其中 page、export、preview 的查询条件一致，若子类重写了 handlerQueryParams、query、handlerResult 等任意方法，均衡受到影响
  * <p>
  * 若重写扩展方法无法满足，则可以重写page、save等方法，但切记不要修改 @RequestMapping 参数
- * @date 2023/6/16 18:06
+ * @date 2023/7/4 14:27
  */
 public abstract class SuperController<S extends SuperService<Entity>, Id extends Serializable, Entity, PageQuery, SaveDTO, UpdateDTO> extends SuperSimpleController<S, Entity>
         implements SaveController<Entity, SaveDTO>, UpdateController<Entity, UpdateDTO>, DeleteController<Entity, Id>, PoiController<Entity, PageQuery>, QueryController<Entity, Id, PageQuery> {

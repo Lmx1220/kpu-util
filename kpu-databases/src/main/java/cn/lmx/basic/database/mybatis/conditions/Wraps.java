@@ -27,7 +27,7 @@ import static cn.lmx.basic.utils.StrPool.UNDERSCORE;
  * @author lmx
  * @version 1.0
  * @description: Wrappers 工具类， 该方法的主要目的是为了 缩短代码长度
- * @date 2023/6/16 15:46
+ * @date 2023/7/4 14:27
  */
 public final class Wraps {
     /**
@@ -157,7 +157,7 @@ public final class Wraps {
      * 1. 若model不为空，则将model中不为空的参数拼接到sql中；
      * 2. 若extra中有 _st、_ed、_ge、_gt、_le、_lt、_eq、_ne、_like、_likeLeft、_likeRigth 等结尾的参数，在sql中拼接为相应的查询条件
      * @author lmx
-     * @date 2023/6/16 15:54
+     * @date 2023/7/4 14:27
      * @version 1.0
      */
     public static <Entity> QueryWrap<Entity> q(Entity model, Map<String, Object> extra, Class<Entity> modelClazz) {

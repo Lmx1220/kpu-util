@@ -9,7 +9,7 @@ import org.springframework.lang.NonNull;
  * @author lmx
  * @version 1.0
  * @description: 初始化TtlMDCAdapter实例，并替换MDC中的adapter对象
- * @date 2023/6/16 23:52
+ * @date 2023/7/4 14:27
  */
 public class KpuMdcAdapterInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
     @Override

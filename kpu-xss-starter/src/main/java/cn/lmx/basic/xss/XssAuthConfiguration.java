@@ -21,7 +21,7 @@ import static cn.lmx.basic.xss.filter.XssFilter.IGNORE_PATH;
  * @author lmx
  * @version 1.0
  * @description: XSS 跨站攻击自动配置
- * @date 2023/6/17 13:13
+ * @date 2023/7/4 14:27
  */
 @AllArgsConstructor
 @EnableConfigurationProperties({XssProperties.class})

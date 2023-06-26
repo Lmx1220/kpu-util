@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  * @version 1.0
  * @description: 基于xss的 json 序列化器
  * 在本项目中，没有使用该类
- * @date 2023/6/17 13:11
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public class XssStringJsonSerializer extends JsonSerializer<String> {

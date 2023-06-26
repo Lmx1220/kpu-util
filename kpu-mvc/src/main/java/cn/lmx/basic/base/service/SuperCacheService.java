@@ -17,7 +17,7 @@ import java.util.function.Function;
  * 其中：
  * 1，getByIdCache 方法 会先从缓存查询，后从DB查询 （取决于实现类）
  * 2、SuperService 上的方法
- * @date 2023/6/16 17:59
+ * @date 2023/7/4 14:27
  */
 public interface SuperCacheService<T> extends SuperService<T> {
 

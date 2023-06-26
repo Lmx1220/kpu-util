@@ -4,7 +4,7 @@ package cn.lmx.basic.interfaces.echo;
  * @author lmx
  * @version 1.0
  * @description: 回显数据的3个步骤：（出现回显失败时，认真debug该方法）
- * @date 2023/6/16 13:09
+ * @date 2023/7/4 14:27
  */
 public interface EchoService {
     /**

@@ -14,7 +14,7 @@ import static cn.lmx.basic.exception.code.ExceptionCode.SERVICE_MAPPER_ERROR;
 
 /**
  * @author lmx
- * @date 2023/6/21 19:43
+ * @date 2023/7/4 14:27
  */
 
 /**
@@ -28,7 +28,7 @@ import static cn.lmx.basic.exception.code.ExceptionCode.SERVICE_MAPPER_ERROR;
  * @param <M> Mapper
  * @param <T> 实体
  * @author lmx
- * @date 2023/6/16 18:00
+ * @date 2023/7/4 14:27
  * @version 1.0
  */
 public class SuperServiceImpl<M extends SuperMapper<T>, T> extends ServiceImpl<M, T> implements SuperService<T> {

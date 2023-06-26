@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author lmx
  * @version 1.0
  * @description: 键值对 通用对象
- * @date 2023/6/16 13:17
+ * @date 2023/7/4 14:27
  */
 @Data
 @Accessors(chain = true)

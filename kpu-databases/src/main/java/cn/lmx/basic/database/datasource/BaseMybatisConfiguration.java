@@ -50,7 +50,7 @@ import java.util.Properties;
  * <p>
  * 拦截器执行一定是：
  * WriteInterceptor > DataScopeInterceptor > PaginationInterceptor
- * @date 2023/6/16 15:50
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public abstract class BaseMybatisConfiguration {

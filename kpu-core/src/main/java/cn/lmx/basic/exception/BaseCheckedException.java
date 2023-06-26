@@ -4,7 +4,7 @@ package cn.lmx.basic.exception;
  * @author lmx
  * @version 1.0
  * @description: 运行期异常基类
- * @date 2023/6/16 12:49
+ * @date 2023/7/4 14:27
  */
 public abstract class BaseCheckedException extends Exception implements BaseException {
 

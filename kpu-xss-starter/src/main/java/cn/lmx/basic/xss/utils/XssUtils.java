@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  * @author lmx
  * @version 1.0
  * @description: XSS 工具类， 用于过滤特殊字符
- * @date 2023/6/17 13:13
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public class XssUtils {

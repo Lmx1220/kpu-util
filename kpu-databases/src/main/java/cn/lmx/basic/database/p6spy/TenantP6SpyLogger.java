@@ -10,7 +10,7 @@ import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
  * @author lmx
  * @version 1.0
  * @description: 用于 p6spy 在输出的sql日志中，打印当前租户、当前用户ID、当前数据源连接url
- * @date 2023/6/16 15:17
+ * @date 2023/7/4 14:27
  */
 public class TenantP6SpyLogger implements MessageFormattingStrategy {
     public static final String REGX = "[\\s]+";

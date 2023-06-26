@@ -10,7 +10,7 @@ import lombok.Getter;
  * NONE、COLUMN、SCHEMA 模式开源
  * <p>
  * DATASOURCE 模式收费，购买咨询作者
- * @date 2023/6/16 14:53
+ * @date 2023/7/4 14:27
  */
 @Getter
 public enum MultiTenantType {

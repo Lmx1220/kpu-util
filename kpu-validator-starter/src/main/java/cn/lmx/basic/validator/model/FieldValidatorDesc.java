@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author lmx
  * @description: 字段校验规则信息
- * @date 2023/6/17 13:24
+ * @date 2023/7/4 14:27
  */
 @Data
 @ToString

@@ -51,7 +51,7 @@ import java.util.List;
  * 10. SlaveDatabaseAutoConfiguration 类上面需要配置 @EnableConfigurationProperties({MybatisPlusSlaveProperties.class}) ， 构造器第一个参数也改成 MybatisPlusSlaveProperties
  * <p>
  * 完成上述修改后， 位于cn.lmx.basic.product.dao 包下的dao 将操作  master 库， cn.lmx.basic.order.dao中的dao 将操作slave库
- * @date 2023/6/16 15:48
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public abstract class BaseMasterDatabaseConfiguration extends BaseDatabaseConfiguration {
@@ -89,7 +89,7 @@ public abstract class BaseMasterDatabaseConfiguration extends BaseDatabaseConfig
      * @return javax.sql.DataSource Druid数据源
      * @description: 数据源信息
      * @author lmx
-     * @date 2023/6/16 15:49
+     * @date 2023/7/4 14:27
      * @version 1.0
      */
     @Bean(name = DATABASE_PREFIX + "DruidDataSource", initMethod = "init")

@@ -13,7 +13,7 @@ import java.util.Map;
  * @author lmx
  * @description: swagger2 属性配置
  * 必须配置 prefix ，才能有提示
- * @date 2023/6/17 13:24
+ * @date 2023/7/4 14:27
  */
 @Data
 @ConfigurationProperties(prefix = SwaggerProperties.PREFIX)

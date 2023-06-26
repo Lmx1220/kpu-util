@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @author lmx
  * @description: 公共配置类, 一些公共工具配置
- * @date 2023/6/16 22:05
+ * @date 2023/7/4 14:27
  */
 @AllArgsConstructor
 public class GlobalMvcConfigurer implements WebMvcConfigurer {

@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
  * @author lmx
  * @version 1.0
  * @description: 数据库工具类
- * @date 2023/6/16 13:31
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public class DbPlusUtil {
@@ -177,7 +177,7 @@ public class DbPlusUtil {
      * @param executor executor
      * @return java.lang.String
      * @author lmx
-     * @date 2023/6/16 14:55
+     * @date 2023/7/4 14:27
      */
     public static String getDatabase(DataSource executor) {
         try {

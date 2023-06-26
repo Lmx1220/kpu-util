@@ -6,7 +6,7 @@ package cn.lmx.basic.exception;
  * @description: 非业务异常
  * <p>
  * 用于在处理非业务逻辑时，进行抛出的异常。
- * @date 2023/6/16 12:51
+ * @date 2023/7/4 14:27
  * @see Exception
  */
 public class CommonException extends BaseCheckedException {

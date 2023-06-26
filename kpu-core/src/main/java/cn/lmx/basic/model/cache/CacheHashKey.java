@@ -16,7 +16,7 @@ import static cn.lmx.basic.utils.StrPool.COLON;
  * @author lmx
  * @version 1.0
  * @description: hash 缓存 key 封装
- * @date 2023/6/16 13:19
+ * @date 2023/7/4 14:27
  */
 @Data
 @ToString(callSuper = true)

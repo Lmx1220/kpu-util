@@ -7,7 +7,7 @@ import cn.lmx.basic.utils.StrPool;
  * @author lmx
  * @version 1.0
  * @description: 非运行期异常基类，所有自定义非运行时异常继承该类
- * @date 2023/6/16 12:50
+ * @date 2023/7/4 14:27
  * @see RuntimeException
  */
 public class BaseUncheckedException extends RuntimeException implements BaseException {

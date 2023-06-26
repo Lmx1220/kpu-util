@@ -26,7 +26,7 @@ import java.util.List;
  * @author lmx
  * @version 1.0
  * @description: 查询Controller
- * @date 2023/6/16 18:04
+ * @date 2023/7/4 14:27
  */
 public interface QueryController<Entity, Id extends Serializable, PageQuery> extends PageController<Entity, PageQuery> {
 

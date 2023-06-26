@@ -22,7 +22,7 @@ import java.io.IOException;
  * http://www.jianshu.com/p/bf8f0e8aee23
  *
  * @author lmx
- * @date 2023/6/21 19:43
+ * @date 2023/7/4 14:27
  */
 @Configuration
 @ConditionalOnClass({DozerBeanMapperFactoryBean.class, Mapper.class})

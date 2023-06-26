@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author lmx
  * @version 1.0
  * @description: 操作日志配置类
- * @date 2023/6/16 23:54
+ * @date 2023/7/4 14:27
  */
 @ConfigurationProperties(prefix = OptLogProperties.PREFIX)
 @Data

@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @description: 表单字段验证：正则表达式
  * <p>
  * 跟 javax.validation.constraints.Pattern 的区别在于： 本类校验时，传递过来的参数为null或者""时，不会校验正则表达式
- * @date 2023/6/16 12:23
+ * @date 2023/7/4 14:27
  */
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
@@ -108,7 +108,7 @@ public @interface NotEmptyPattern {
          * JDK flag value
          *
          * @author lmx
-         * @date 2023/6/16 14:55
+         * @date 2023/7/4 14:27
          */
         private final int value;
 

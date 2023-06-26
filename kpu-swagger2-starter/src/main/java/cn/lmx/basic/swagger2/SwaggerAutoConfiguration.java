@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 /**
  * @author lmx
  * @description: swagger 包扫描配置
- * @date 2023/6/17 13:24
+ * @date 2023/7/4 14:27
  */
 @Import({
         Swagger2Configuration.class

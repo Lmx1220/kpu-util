@@ -37,7 +37,7 @@ import java.util.Objects;
  * <p>
  * 本类跟jackson-databind包中的EnumDeserializer类同包名，利用类加载机制，会加载此类，不会加载到jackson-databind中的类
  * 参考 BasicDeserializerFactory#1495 行代码
- * @date 2023/6/16 14:30
+ * @date 2023/7/4 14:27
  */
 @SuppressWarnings("ALL")
 @JacksonStdImpl // was missing until 2.6

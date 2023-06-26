@@ -16,7 +16,7 @@ import java.util.List;
  * 其中：
  * 1，updateAllById 执行后，会清除缓存
  * 2，saveBatchSomeColumn 批量插入
- * @date 2023/6/16 17:57
+ * @date 2023/7/4 14:27
  */
 @SuppressWarnings("ALL")
 public interface SuperService<T> extends IService<T> {

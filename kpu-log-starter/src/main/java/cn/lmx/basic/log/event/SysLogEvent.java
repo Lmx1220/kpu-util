@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationEvent;
  * @author lmx
  * @version 1.0
  * @description: 系统日志事件
- * @date 2023/6/16 23:54
+ * @date 2023/7/4 14:27
  */
 public class SysLogEvent extends ApplicationEvent {
 

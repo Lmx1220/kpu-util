@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * @author lmx
  * @version 1.0
  * @description: 忽略全局响应包装
- * @date 2023/6/16 12:21
+ * @date 2023/7/4 14:27
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = {ElementType.METHOD, ElementType.TYPE})

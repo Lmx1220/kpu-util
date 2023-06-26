@@ -17,7 +17,7 @@ import java.util.regex.PatternSyntaxException;
  * @author lmx
  * @version 1.0
  * @description: NotEmptyPattern注解的 约束验证器
- * @date 2023/6/17 13:24
+ * @date 2023/7/4 14:27
  */
 public class NotEmptyPatternConstraintValidator implements ConstraintValidator<NotEmptyPattern, CharSequence> {
     private static final Log LOG = LoggerFactory.make(MethodHandles.lookup());

@@ -15,7 +15,7 @@ import java.util.function.Function;
  * @description: 缓存增强
  * <p>
  * 使用本类接口时， 请切记，生产环境一定要配置成 REDIS ！！！
- * @date 2023/6/16 16:12
+ * @date 2023/7/4 14:27
  */
 public interface CachePlusOps extends CacheOps {
     /**

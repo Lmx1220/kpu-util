@@ -26,7 +26,7 @@ import static cn.lmx.basic.converter.EnumSerializer.ALL_ENUM_KEY_FIELD;
  * 此反序列化类有bug，请使用 com.fasterxml.jackson.databind.deser.std.EnumDeserializer
  * bug1： 不支持接收List<Enum>
  * bug2: 传错参数没有报错
- * @date 2023/6/16 12:58
+ * @date 2023/7/4 14:27
  * @see com.fasterxml.jackson.databind.deser.std.EnumDeserializer
  */
 @Slf4j

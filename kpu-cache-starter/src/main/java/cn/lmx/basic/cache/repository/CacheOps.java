@@ -11,7 +11,7 @@ import java.util.function.Function;
  * @author lmx
  * @version 1.0
  * @description: 缓存操作公共接口
- * @date 2023/6/16 16:12
+ * @date 2023/7/4 14:27
  */
 public interface CacheOps {
 

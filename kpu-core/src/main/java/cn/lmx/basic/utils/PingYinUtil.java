@@ -8,7 +8,7 @@ import java.util.Random;
  * @author lmx
  * @version 1.0
  * @description: 得到中文首字母
- * @date 2023/6/16 13:31
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public final class PingYinUtil {

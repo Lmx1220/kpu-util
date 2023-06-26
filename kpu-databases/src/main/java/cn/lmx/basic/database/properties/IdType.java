@@ -3,7 +3,7 @@ package cn.lmx.basic.database.properties;
 
 /**
  * @author lmx
- * @date 2023/6/16 14:53
+ * @date 2023/7/4 14:27
  */
 public enum IdType {
     /**

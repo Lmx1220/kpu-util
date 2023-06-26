@@ -9,7 +9,7 @@ import java.util.Map;
  * @author lmx
  * @version 1.0
  * @description: Spring工具类
- * @date 2023/6/16 13:31
+ * @date 2023/7/4 14:27
  */
 public final class SpringUtils {
     private static ApplicationContext applicationContext;

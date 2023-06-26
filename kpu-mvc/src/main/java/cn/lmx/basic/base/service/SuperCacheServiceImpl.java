@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
  * 3，removeByIds：重写 ServiceImpl 类的方法，删除db后，淘汰缓存
  * 4，updateAllById： 新增的方法： 修改数据（所有字段）后，淘汰缓存
  * 5，updateById：重写 ServiceImpl 类的方法，修改db后，淘汰缓存
- * @date 2023/6/16 17:58
+ * @date 2023/7/4 14:27
  */
 public abstract class SuperCacheServiceImpl<M extends SuperMapper<T>, T> extends SuperServiceImpl<M, T> implements SuperCacheService<T> {
 

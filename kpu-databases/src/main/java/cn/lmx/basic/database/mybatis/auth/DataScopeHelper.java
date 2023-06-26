@@ -7,7 +7,7 @@ import cn.lmx.basic.model.database.DataScope;
  * @author lmx
  * @version 1.0
  * @description: 数据权限保证类
- * @date 2023/6/16 15:43
+ * @date 2023/7/4 14:27
  */
 public class DataScopeHelper {
     protected static final ThreadLocal<DataScope> LOCAL_DATA_SCOPE = new ThreadLocal<>();
@@ -41,7 +41,7 @@ public class DataScopeHelper {
      * @param dataScope sql中需要动态拼接条件的表的别名
      * @description: 开启数据权限
      * @author lmx
-     * @date 2023/6/16 15:56
+     * @date 2023/7/4 14:27
      * @version 1.0
      */
     public static void startDataScope(DataScope dataScope) {

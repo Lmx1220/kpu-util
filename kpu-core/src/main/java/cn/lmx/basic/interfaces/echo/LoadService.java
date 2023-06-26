@@ -11,7 +11,7 @@ import java.util.Set;
  * @description: 加载数据
  * <p>
  * 只保留一个方法，若一个表，想要有多重回显场景，可以新建多个实现类，返回不一样的Map
- * @date 2023/6/16 13:10
+ * @date 2023/7/4 14:27
  */
 public interface LoadService {
     /**

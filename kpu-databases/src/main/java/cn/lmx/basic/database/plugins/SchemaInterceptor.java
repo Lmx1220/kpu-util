@@ -23,7 +23,7 @@ import java.sql.SQLException;
  * @author lmx
  * @version 1.0
  * @description: SCHEMA模式插件
- * @date 2023/6/16 15:56
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public class SchemaInterceptor implements InnerInterceptor {

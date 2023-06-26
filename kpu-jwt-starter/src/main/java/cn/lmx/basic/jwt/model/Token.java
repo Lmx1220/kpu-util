@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @author lmx
  * @version 1.0
  * @description: Token 信息类，用于存储 token 信息，包括 token 本身、有效期、到期时间等信息
- * @date 2023/6/17 12:11
+ * @date 2023/7/4 14:27
  */
 @Data
 @NoArgsConstructor

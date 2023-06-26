@@ -11,7 +11,7 @@ import java.util.Map;
  * @author lmx
  * @version 1.0
  * @description: 缓存配置
- * @date 2023/6/16 16:16
+ * @date 2023/7/4 14:27
  */
 @Data
 @ConfigurationProperties(prefix = CustomCacheProperties.PREFIX)

@@ -52,7 +52,7 @@ import static cn.lmx.basic.utils.StrPool.EMPTY;
  * 3. 将查询出来结果回显到obj的 @Echo注解的字段中
  *
  * @author lmx
- * @date 2023/6/21 19:43
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public class EchoServiceImpl implements EchoService, EnvironmentCapable, InitializingBean {

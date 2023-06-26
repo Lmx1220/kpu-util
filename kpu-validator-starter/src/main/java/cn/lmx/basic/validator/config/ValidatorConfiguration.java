@@ -34,7 +34,7 @@ import javax.validation.constraints.NotNull;
  * @author lmx
  * @version 1.0
  * @description: 验证器配置
- * @date 2023/6/17 13:23
+ * @date 2023/7/4 14:27
  */
 public class ValidatorConfiguration {
 

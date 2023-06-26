@@ -9,7 +9,7 @@ import java.util.Map;
  * @author lmx
  * @version 1.0
  * @description: sql过滤
- * @date 2023/6/16 13:26
+ * @date 2023/7/4 14:27
  */
 public final class AntiSqlFilterUtils {
     private static final String[] KEY_WORDS = {";", "\"", "'", "/*", "*/", "--", "exec",

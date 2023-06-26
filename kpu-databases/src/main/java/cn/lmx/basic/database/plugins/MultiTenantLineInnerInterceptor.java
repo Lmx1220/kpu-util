@@ -36,7 +36,7 @@ import java.util.Properties;
  * 相对于mybatis-plus 的 TenantLineInnerInterceptor，本插件支持：
  * 1. select 语句 where条件拼接多个租户id （tenant_id in (1，2，3，4)）
  * 2. insert、update、 delete 时，不传递租户id，则不拼接
- * @date 2023/6/16 15:53
+ * @date 2023/7/4 14:27
  */
 @Data
 @NoArgsConstructor

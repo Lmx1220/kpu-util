@@ -8,7 +8,7 @@ import cn.lmx.basic.exception.code.BaseExceptionCode;
  * @description: 业务异常
  * <p>
  * 用于在处理业务逻辑时，进行抛出的异常。
- * @date 2023/6/16 12:50
+ * @date 2023/7/4 14:27
  */
 public class BizException extends BaseUncheckedException {
 

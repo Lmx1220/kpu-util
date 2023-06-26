@@ -33,7 +33,7 @@ import java.time.LocalDateTime;
  * updateTime：LocalDateTime.now()
  * createdBy：BaseContextHandler.getUserId()
  * updatedBy：BaseContextHandler.getUserId()
- * @date 2023/6/16 15:51
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public class KpuMetaObjectHandler implements MetaObjectHandler {

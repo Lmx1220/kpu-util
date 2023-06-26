@@ -19,7 +19,7 @@ import static cn.lmx.basic.utils.DateUtils.*;
  * @author lmx
  * @version 1.0
  * @description: 解决入参为 Date类型
- * @date 2023/6/16 15:58
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public class String2DateConverter extends BaseDateConverter<Date> implements Converter<String, Date> {

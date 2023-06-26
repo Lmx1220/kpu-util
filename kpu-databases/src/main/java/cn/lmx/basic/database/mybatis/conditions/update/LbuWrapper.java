@@ -27,7 +27,7 @@ import static com.baomidou.mybatisplus.core.enums.WrapperKeyword.APPLY;
  * <p>
  * 1, 对nested、eq、ne、gt、ge、lt、le、in、*like*、 等方法 进行条件判断，null 或 "" 字段不加入查询
  * 2，对*like*相关方法的参数 %和_ 符号进行转义，便于模糊查询
- * @date 2023/6/16 15:45
+ * @date 2023/7/4 14:27
  */
 public class LbuWrapper<T> extends AbstractLambdaWrapper<T, LbuWrapper<T>>
         implements Update<LbuWrapper<T>, SFunction<T, ?>> {

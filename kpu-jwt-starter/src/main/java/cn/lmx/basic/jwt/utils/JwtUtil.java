@@ -123,7 +123,7 @@ public final class JwtUtil {
         // 组装Token信息
         Token tokenInfo = new Token();
         tokenInfo.setToken(builder.compact());
-        tokenInfo.setExpire(expire);
+        tokenInfo.setExpire(expMillis / 1000);
         tokenInfo.setExpiration(DateUtils.date2LocalDateTime(exp));
         return tokenInfo;
     }

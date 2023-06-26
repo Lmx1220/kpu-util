@@ -14,7 +14,7 @@ import java.lang.reflect.ParameterizedType;
  * <p>
  * 基类该类后，没有任何方法。
  * 可以让业务Controller继承 SuperSimpleController 后，按需实现 *Controller 接口
- * @date 2023/6/16 18:07
+ * @date 2023/7/4 14:27
  */
 public abstract class SuperSimpleController<S extends SuperService<Entity>, Entity> implements BaseController<Entity> {
 

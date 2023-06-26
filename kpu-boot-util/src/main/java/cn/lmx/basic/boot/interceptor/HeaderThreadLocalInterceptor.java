@@ -21,7 +21,7 @@ import static cn.lmx.basic.boot.utils.WebUtils.getHeader;
  * <p>
  * 该拦截器要优先于系统中其他的业务拦截器
  * <p>
- * @date 2023/6/16 22:05
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public class HeaderThreadLocalInterceptor implements AsyncHandlerInterceptor {

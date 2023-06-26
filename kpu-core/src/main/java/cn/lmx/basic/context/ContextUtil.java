@@ -11,14 +11,14 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author lmx
  * @version 1.0
  * @description: 获取当前线程变量中的 用户id、用户昵称、租户编码、账号等信息
- * @date 2023/6/16 13:24
+ * @date 2023/7/4 14:27
  */
 public final class ContextUtil {
     /**
      * 支持多线程传递参数
      *
      * @author lmx
-     * @date 2023/6/16 14:55
+     * @date 2023/7/4 14:27
      */
     private static final ThreadLocal<Map<String, String>> THREAD_LOCAL = new ThreadLocal<>();
 

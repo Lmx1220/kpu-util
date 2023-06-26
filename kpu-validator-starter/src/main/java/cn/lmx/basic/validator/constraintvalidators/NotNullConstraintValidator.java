@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * @author lmx
  * @version 1.0
  * @description: 自定义一个验证 NotNull 的校验器。自定义类需要实现IValidatable接口
- * @date 2023/6/17 13:24
+ * @date 2023/7/4 14:27
  */
 public class NotNullConstraintValidator implements ConstraintValidator<NotNull, IValidatable> {
 

@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * 启动条件：
  * 1，配置文件中： ${SwaggerProperties.PREFIX}.enable=true
  * 2，配置文件中不存在： ${SwaggerProperties.PREFIX}.enable 值
- * @date 2023/6/17 13:24
+ * @date 2023/7/4 14:27
  */
 @EnableSwagger2WebMvc
 @ConditionalOnProperty(prefix = "knife4j", name = "enable", havingValue = Swagger2Configuration.TRUE, matchIfMissing = true)
@@ -42,7 +42,7 @@ public class Swagger2Configuration {
      * 升级springboot2.6.6后临时处理，防止swagger报错
      *
      * @author lmx
-     * @date 2023/6/17 13:24
+     * @date 2023/7/4 14:27
      */
     @Bean
     public BeanPostProcessor springfoxHandlerProviderBeanPostProcessor() {

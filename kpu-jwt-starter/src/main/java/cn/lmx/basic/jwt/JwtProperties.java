@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author lmx
  * @version 1.0
  * @description: 认证服务端 属性
- * @date 2023/6/17 12:13
+ * @date 2023/7/4 14:27
  */
 @Data
 @NoArgsConstructor

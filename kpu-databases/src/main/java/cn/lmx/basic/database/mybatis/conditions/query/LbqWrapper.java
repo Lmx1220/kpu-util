@@ -52,7 +52,7 @@ import static com.baomidou.mybatisplus.core.enums.WrapperKeyword.APPLY;
  * 4，对*like*相关方法的参数 %和_ 符号进行转义，便于模糊查询
  * 5，增加 leFooter 方法， 将日期参数值，强制转换成当天 23：59：59
  * 6，增加 geHeader 方法， 将日期参数值，强制转换成当天 00：00：00
- * @date 2023/6/16 15:44
+ * @date 2023/7/4 14:27
  */
 public class LbqWrapper<T> extends AbstractLambdaWrapper<T, LbqWrapper<T>>
         implements Query<LbqWrapper<T>, T, SFunction<T, ?>> {

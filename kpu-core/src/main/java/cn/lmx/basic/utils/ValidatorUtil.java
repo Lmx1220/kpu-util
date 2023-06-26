@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
  * @author lmx
  * @version 1.0
  * @description: 校验器：利用正则表达式校验邮箱、手机号等
- * @date 2023/6/16 13:31
+ * @date 2023/7/4 14:27
  */
 public final class ValidatorUtil {
     /**

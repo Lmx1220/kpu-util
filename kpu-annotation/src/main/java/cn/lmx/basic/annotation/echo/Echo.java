@@ -23,7 +23,7 @@ import static cn.hutool.core.text.CharSequenceUtil.EMPTY;
  * <p>
  * 强烈建议：不要对象之间互相依赖
  * 如： User 想要注入 File， File也想注入User
- * @date 2023/6/16 12:24
+ * @date 2023/7/4 14:27
  */
 
 @Retention(RetentionPolicy.RUNTIME)

@@ -17,7 +17,7 @@ import java.io.Serializable;
  * <p>
  * 继承该类，在SuperController类的基础上扩展了以下方法：
  * 1，get ： 根据ID查询缓存，若缓存不存在，则查询DB
- * @date 2023/6/16 18:05
+ * @date 2023/7/4 14:27
  */
 public abstract class SuperCacheController<S extends SuperCacheService<Entity>, Id extends Serializable, Entity, PageQuery, SaveDTO, UpdateDTO>
         extends SuperController<S, Id, Entity, PageQuery, SaveDTO, UpdateDTO> {

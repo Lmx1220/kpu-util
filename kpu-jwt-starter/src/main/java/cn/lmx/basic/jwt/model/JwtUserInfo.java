@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author lmx
  * @version 1.0
  * @description: jwt 存储的 内容
- * @date 2023/6/17 12:11
+ * @date 2023/7/4 14:27
  */
 @Data
 @AllArgsConstructor

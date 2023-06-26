@@ -21,7 +21,7 @@ import static cn.lmx.basic.database.properties.MultiTenantType.SCHEMA;
  * @author lmx
  * @version 1.0
  * @description: 客户端认证配置
- * @date 2023/6/16 14:55
+ * @date 2023/7/4 14:27
  */
 @Data
 @NoArgsConstructor
@@ -85,7 +85,7 @@ public class DatabaseProperties {
      * 如： 若所有服务的租户库都是  kpu_base， 则该参数配置为：  kpu_base。
      *
      * @author lmx
-     * @date 2023/6/16 14:55
+     * @date 2023/7/4 14:27
      */
     private List<String> initDatabasePrefix = Arrays.asList(TENANT_BASE_POOL_NAME_HEADER);
     /**

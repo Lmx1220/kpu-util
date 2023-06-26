@@ -16,7 +16,7 @@ import java.util.List;
  * @author lmx
  * @version 1.0
  * @description: 删除Controller
- * @date 2023/6/16 18:03
+ * @date 2023/7/4 14:27
  */
 public interface DeleteController<Entity, Id extends Serializable> extends BaseController<Entity> {
 

@@ -26,7 +26,7 @@ import static cn.lmx.basic.utils.DateUtils.*;
  * 4. yyyy-MM-dd HH:mm:ss
  * 5. yyyy年MM月dd日HH时mm分ss秒
  * 6. yyyy/MM/dd HH:mm:ss
- * @date 2023/6/16 15:58
+ * @date 2023/7/4 14:27
  */
 @SuppressWarnings("ALL")
 public class KpuLocalDateTimeDeserializer extends JSR310DateTimeDeserializerBase<LocalDateTime> {

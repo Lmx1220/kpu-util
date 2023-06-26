@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * <p>
  * 把一个拥有对属性进行set和get方法的类，我们就可以称之为JavaBean。
  * </p>
- * @date 2023/6/16 13:26
+ * @date 2023/7/4 14:27
  */
 public class BeanPlusUtil extends BeanUtil {
 

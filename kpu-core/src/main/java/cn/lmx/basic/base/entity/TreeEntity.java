@@ -9,8 +9,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +18,7 @@ import java.util.List;
  * @author lmx
  * @version 1.0
  * @description: 包括id、create_time、created_by、updated_by、update_time、label、parent_id、sort_value 字段的表继承的树形实体
- * @date 2023/6/16 12:44
+ * @date 2023/7/4 14:27
  */
 @Getter
 @Setter
@@ -28,15 +26,6 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class TreeEntity<E, T extends Serializable> extends Entity<T> {
-
-    /**
-     * 名称
-     */
-    @ApiModelProperty(value = "名称")
-    @NotEmpty(message = "名称不能为空")
-    @Size(max = 255, message = "名称长度不能超过255")
-    @TableField(value = "label")
-    protected String label;
 
     /**
      * 父ID

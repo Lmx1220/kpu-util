@@ -7,7 +7,7 @@ import cn.lmx.basic.exception.code.ExceptionCode;
  * @author lmx
  * @version 1.0
  * @description: 401 未认证 未登录
- * @date 2023/6/16 12:53
+ * @date 2023/7/4 14:27
  */
 public class UnauthorizedException extends BaseUncheckedException {
 

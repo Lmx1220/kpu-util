@@ -12,7 +12,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
  * @author lmx
  * @version 1.0
  * @description: 此时定义的序列化操作表示可以序列化所有类的对象，当然，这个对象所在的类一定要实现序列化接口
- * @date 2023/6/16 16:12
+ * @date 2023/7/4 14:27
  */
 public class RedisObjectSerializer extends Jackson2JsonRedisSerializer<Object> {
     public RedisObjectSerializer() {

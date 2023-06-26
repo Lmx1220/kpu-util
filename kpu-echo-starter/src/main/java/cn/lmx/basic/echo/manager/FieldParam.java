@@ -12,7 +12,7 @@ import java.io.Serializable;
  * 封装字段上标记了 Echo 注解的字段
  *
  * @author lmx
- * @date 2023/6/21 19:43
+ * @date 2023/7/4 14:27
  */
 @Data
 @AllArgsConstructor

@@ -11,7 +11,7 @@ import java.util.List;
  * @author lmx
  * @version 1.0
  * @description: 忽略XSS 配置类
- * @date 2023/6/17 13:12
+ * @date 2023/7/4 14:27
  */
 @Data
 @ConfigurationProperties(prefix = XssProperties.PREFIX)

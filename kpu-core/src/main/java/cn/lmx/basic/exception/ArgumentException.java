@@ -9,7 +9,7 @@ import cn.lmx.basic.exception.code.ExceptionCode;
  * @description: 业务参数异常
  * <p>
  * 用于在业务中，检测到非法参数时，进行抛出的异常。
- * @date 2023/6/16 12:47
+ * @date 2023/7/4 14:27
  */
 public class ArgumentException extends BaseUncheckedException {
 

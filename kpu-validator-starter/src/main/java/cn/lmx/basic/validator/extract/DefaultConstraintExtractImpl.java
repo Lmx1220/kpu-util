@@ -28,7 +28,7 @@ import static cn.lmx.basic.validator.utils.ValidatorConstants.*;
 /**
  * @author lmx
  * @description: 缺省的约束提取器
- * @date 2023/6/17 13:24
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public class DefaultConstraintExtractImpl implements IConstraintExtract {

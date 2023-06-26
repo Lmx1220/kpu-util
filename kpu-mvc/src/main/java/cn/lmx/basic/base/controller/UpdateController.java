@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author lmx
  * @version 1.0
  * @description: 修改Controller
- * @date 2023/6/16 18:08
+ * @date 2023/7/4 14:27
  */
 public interface UpdateController<Entity, UpdateDTO> extends BaseController<Entity> {
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * @author lmx
  * @version 1.0
  * @description: DAO for WORKER_NODE
- * @date 2023/6/16 14:35
+ * @date 2023/7/4 14:27
  */
 @Repository
 @InterceptorIgnore(tenantLine = "true", dynamicTableName = "true")

@@ -22,7 +22,7 @@ import static cn.lmx.basic.utils.StrPool.COLON;
  * @author lmx
  * @version 1.0
  * @description: cache key
- * @date 2023/6/16 13:22
+ * @date 2023/7/4 14:27
  */
 @FunctionalInterface
 public interface CacheKeyBuilder {

@@ -40,7 +40,7 @@ import static cn.lmx.basic.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
 /**
  * @author lmx
  * @description: 基础配置类
- * @date 2023/6/16 22:05
+ * @date 2023/7/4 14:27
  */
 @AutoConfigureBefore(JacksonAutoConfiguration.class)
 public abstract class BaseConfig {

@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * @author lmx
  * @version 1.0
  * @description: 包括id、create_time、created_by字段的表继承的基础实体
- * @date 2023/6/16 12:43
+ * @date 2023/7/4 14:27
  */
 @Getter
 @Setter

@@ -46,7 +46,7 @@ import java.util.function.Consumer;
  * 注意：BaseDatabaseConfiguration 和 DynamicDataSourceAutoConfiguration 只能同时加载一个
  * <p>
  * 对 MybatisPlusAutoConfiguration 的增强
- * @date 2023/6/16 15:50
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public abstract class BaseDatabaseConfiguration implements InitializingBean {

@@ -25,7 +25,7 @@ import static cn.lmx.basic.utils.DateUtils.*;
  * @author lmx
  * @version 1.0
  * @description: jackson 自定义序列化 & 反序列化 规则
- * @date 2023/6/16 13:15
+ * @date 2023/7/4 14:27
  */
 public class KpuJacksonModule extends SimpleModule {
 

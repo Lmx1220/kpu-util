@@ -4,7 +4,7 @@ package cn.lmx.basic.interfaces.validator;
  * @author lmx
  * @version 1.0
  * @description: 实现了此接口，表示此类将会支持验证框架。
- * @date 2023/6/16 13:12
+ * @date 2023/7/4 14:27
  */
 public interface IValidatable {
 

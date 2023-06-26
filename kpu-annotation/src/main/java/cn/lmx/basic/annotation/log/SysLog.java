@@ -6,7 +6,7 @@ import java.lang.annotation.*;
  * @author lmx
  * @version 1.0
  * @description: 操作日志注解
- * @date 2023/6/16 12:26
+ * @date 2023/7/4 14:27
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

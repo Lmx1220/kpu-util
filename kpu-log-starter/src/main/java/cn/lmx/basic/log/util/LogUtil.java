@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
  * @author lmx
  * @version 1.0
  * @description: 日志工具类
- * @date 2023/6/16 23:53
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 public final class LogUtil {

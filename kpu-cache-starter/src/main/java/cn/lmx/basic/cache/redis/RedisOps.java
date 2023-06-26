@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
  * 加锁解决缓存击穿， 缓存空值解决缓存穿透。参考：
  * <p>
  * https://blog.csdn.net/haoxin963/article/details/83245113
- * @date 2023/6/16 16:14
+ * @date 2023/7/4 14:27
  */
 @Getter
 @Slf4j
@@ -230,7 +230,7 @@ public class RedisOps {
      * @param pattern pattern
      * @description: 批量扫描后删除 匹配到的key
      * @author lmx
-     * @date 2023/6/16 18:10
+     * @date 2023/7/4 14:27
      * @version 1.0
      */
     public void scanUnlink(@NonNull String pattern) {

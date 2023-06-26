@@ -47,7 +47,7 @@ import java.util.function.Consumer;
  * @author lmx
  * @version 1.0
  * @description: 操作日志使用spring event异步入库
- * @date 2023/6/16 23:55
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 @Aspect

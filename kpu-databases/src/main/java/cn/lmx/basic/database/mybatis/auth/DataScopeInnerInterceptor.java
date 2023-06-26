@@ -25,7 +25,7 @@ import java.util.function.Function;
  * @author lmx
  * @version 1.0
  * @description: mybatis 数据权限拦截器 联系作者购买企业版后，获取完整功能源码
- * @date 2023/6/16 15:44
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 @AllArgsConstructor

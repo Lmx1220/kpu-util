@@ -25,7 +25,7 @@ import java.lang.annotation.*;
  * public class UserController extends SuperCacheController { }
  * <p>
  * 则：UserController 的所有CRUD方法均分别需要 user:add、user:update、user:delete、user:view 等权限
- * @date 2023/6/16 12:26
+ * @date 2023/7/4 14:27
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

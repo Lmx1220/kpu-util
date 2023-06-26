@@ -4,7 +4,7 @@ package cn.lmx.basic.context;
  * @author lmx
  * @version 1.0
  * @description: 跟上下文常量工具类
- * @date 2023/6/16 13:24
+ * @date 2023/7/4 14:27
  */
 public final class ContextConstants {
     public static final String DEF_TENANT = "master";

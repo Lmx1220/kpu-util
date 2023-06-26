@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * @author lmx
  * @version 1.0
  * @description: AuthInfo
- * @date 2023/6/17 12:11
+ * @date 2023/7/4 14:27
  */
 @Data
 @Accessors(chain = true)

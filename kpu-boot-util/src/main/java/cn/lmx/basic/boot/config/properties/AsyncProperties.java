@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * @author lmx
  * @description: 异步线程配置
- * @date 2023/6/16 22:05
+ * @date 2023/7/4 14:27
  */
 @Getter
 @Setter

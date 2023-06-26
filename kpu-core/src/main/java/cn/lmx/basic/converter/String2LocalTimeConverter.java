@@ -13,7 +13,7 @@ import static cn.lmx.basic.utils.DateUtils.DEFAULT_TIME_FORMAT;
  * @author lmx
  * @version 1.0
  * @description: 解决入参为 Date类型
- * @date 2023/6/16 15:59
+ * @date 2023/7/4 14:27
  */
 public class String2LocalTimeConverter extends BaseDateConverter<LocalTime> implements Converter<String, LocalTime> {
 

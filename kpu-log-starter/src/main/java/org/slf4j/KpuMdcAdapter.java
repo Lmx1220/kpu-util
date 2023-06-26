@@ -12,7 +12,7 @@ import java.util.Set;
  * @author lmx
  * @version 1.0
  * @description: 重构{@link LogbackMDCAdapter}类，搭配TransmittableThreadLocal实现父子线程之间的数据传递
- * @date 2023/6/16 23:49
+ * @date 2023/7/4 14:27
  */
 @SuppressWarnings("ALL")
 public class KpuMdcAdapter implements MDCAdapter {

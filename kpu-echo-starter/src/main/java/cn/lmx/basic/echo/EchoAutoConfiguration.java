@@ -19,7 +19,7 @@ import java.util.Map;
  * 关联字段数据注入工具 自动配置类
  *
  * @author lmx
- * @date 2023/6/21 19:43
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 @Configuration
@@ -45,9 +45,9 @@ public class EchoAutoConfiguration {
      *
      * @param strategyMap 回显查询实例
      * @return cn.lmx.basic.echo.core.EchoService
-     * @author tangyh
-     * @date 2021/8/15 10:17 下午
-     * @create [2021/8/15 10:17 下午 ] [tangyh] [初始创建]
+     * @author lmx
+     * @date 2023-07-04 14:27
+     * @create [2023-07-04 14:27 ] [lmx] [初始创建]
      */
     @Bean
     @ConditionalOnMissingBean

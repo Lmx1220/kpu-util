@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  * @author lmx
  * @version 1.0
  * @description: 在启动类上添加该注解来启动表单验证功能
- * @date 2023/6/17 13:22
+ * @date 2023/7/4 14:27
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

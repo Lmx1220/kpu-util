@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 /**
  * @author lmx
  * @description: 全局响应体包装
- * @date 2023/6/16 22:05
+ * @date 2023/7/4 14:27
  */
 public class AbstractGlobalResponseBodyAdvice implements ResponseBodyAdvice {
     @Override

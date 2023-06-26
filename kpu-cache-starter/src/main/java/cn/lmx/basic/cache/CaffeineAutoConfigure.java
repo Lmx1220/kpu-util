@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Primary;
  * @author lmx
  * @version 1.0
  * @description: 内存缓存配置
- * @date 2023/6/16 16:11
+ * @date 2023/7/4 14:27
  */
 @Slf4j
 @ConditionalOnProperty(prefix = CustomCacheProperties.PREFIX, name = "type", havingValue = "CAFFEINE")

@@ -28,7 +28,7 @@ import static org.apache.ibatis.mapping.SqlCommandType.*;
  * @author lmx
  * @version 1.0
  * @description: 演示环境写权限控制 拦截器 该拦截器只用于演示环境， 开发和生产都不需要
- * @date 2023/6/16 15:43
+ * @date 2023/7/4 14:27
  */
 @SuppressWarnings("AlibabaUndefineMagicConstant")
 @Slf4j

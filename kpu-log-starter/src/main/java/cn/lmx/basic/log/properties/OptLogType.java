@@ -4,7 +4,7 @@ package cn.lmx.basic.log.properties;
  * @author lmx
  * @version 1.0
  * @description: 日志类型
- * @date 2023/6/16 23:53
+ * @date 2023/7/4 14:27
  */
 public enum OptLogType {
     /**

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  * 使用dozer对复杂对象进行转换时，若对象标记了 @Accessors(chain = true) 注解， 会报NPE异常
  *
  * @author lmx
- * @date 2023/6/21 19:43
+ * @date 2023/7/4 14:27
  */
 public class DozerUtils {
     private final Mapper mapper;

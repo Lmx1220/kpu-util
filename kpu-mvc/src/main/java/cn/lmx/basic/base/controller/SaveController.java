@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author lmx
  * @version 1.0
  * @description: 新增
- * @date 2023/6/16 18:04
+ * @date 2023/7/4 14:27
  */
 public interface SaveController<Entity, SaveDTO> extends BaseController<Entity> {
 
