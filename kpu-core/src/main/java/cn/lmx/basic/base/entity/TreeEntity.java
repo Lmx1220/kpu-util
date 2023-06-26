@@ -30,15 +30,6 @@ import java.util.List;
 public class TreeEntity<E, T extends Serializable> extends Entity<T> {
 
     /**
-     * 名称
-     */
-    @ApiModelProperty(value = "名称")
-    @NotEmpty(message = "名称不能为空")
-    @Size(max = 255, message = "名称长度不能超过255")
-    @TableField(value = "label")
-    protected String label;
-
-    /**
      * 父ID
      */
     @ApiModelProperty(value = "父ID")
