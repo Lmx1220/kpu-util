@@ -39,9 +39,9 @@
         <p6spy.version>3.9.1</p6spy.version>
 
         <dozer.version>6.5.0</dozer.version>
-        <knife4j.version>2.0.9</knife4j.version>
+        <knife4j.version>4.1.0</knife4j.version>
         <springfox.version>2.10.5</springfox.version>
-        <swagger-models.version>1.5.22</swagger-models.version>
+        <swagger-models.version>1.6.6</swagger-models.version>
         <jjwt.version>0.11.2</jjwt.version>
 
         <fastjson.version>1.2.83</fastjson.version>
@@ -183,10 +183,11 @@
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-dependencies</artifactId>
-                <version>${knife4j.version}</version>
+                <version>4.1.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
 
             <dependency>
                 <groupId>io.springfox</groupId>
@@ -299,47 +300,47 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <repositories>
-        <repository>
-            <id>aliyun-central</id>
-            <url>https://maven.aliyun.com/repository/central/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>central</id>
-            <url>https://repo1.maven.org/maven2</url>
-        </repository>
-        <!--        <repository>-->
-        <!--            <id>spring-milestones</id>-->
-        <!--            <name>Spring Milestones</name>-->
-        <!--            <url>https://repo.spring.io/libs-milestone</url>-->
-        <!--        </repository>-->
-        <!--        <repository>-->
-        <!--            <id>oss-public</id>-->
-        <!--            <url>https://s01.oss.sonatype.org/content/repositories/public</url>-->
-        <!--        </repository>-->
-    </repositories>
-    <pluginRepositories>
-        <!--        <pluginRepository>-->
-        <!--            <id>aliyun-plugin</id>-->
-        <!--            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>-->
-        <!--            <snapshots>-->
-        <!--                <enabled>false</enabled>-->
-        <!--            </snapshots>-->
-        <!--        </pluginRepository>-->
-        <pluginRepository>
-            <id>aliyun-central-plugin</id>
-            <url>https://maven.aliyun.com/repository/central/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
+    <!--    <repositories>-->
+    <!--        <repository>-->
+    <!--            <id>aliyun-central</id>-->
+    <!--            <url>https://maven.aliyun.com/repository/central/</url>-->
+    <!--            <releases>-->
+    <!--                <enabled>true</enabled>-->
+    <!--            </releases>-->
+    <!--            <snapshots>-->
+    <!--                <enabled>false</enabled>-->
+    <!--            </snapshots>-->
+    <!--        </repository>-->
+    <!--        <repository>-->
+    <!--            <id>central</id>-->
+    <!--            <url>https://repo1.maven.org/maven2</url>-->
+    <!--        </repository>-->
+    <!--        &lt;!&ndash;        <repository>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <id>spring-milestones</id>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <name>Spring Milestones</name>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <url>https://repo.spring.io/libs-milestone</url>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        </repository>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        <repository>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <id>oss-public</id>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <url>https://s01.oss.sonatype.org/content/repositories/public</url>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        </repository>&ndash;&gt;-->
+    <!--    </repositories>-->
+    <!--    <pluginRepositories>-->
+    <!--        &lt;!&ndash;        <pluginRepository>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <id>aliyun-plugin</id>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            <snapshots>&ndash;&gt;-->
+    <!--        &lt;!&ndash;                <enabled>false</enabled>&ndash;&gt;-->
+    <!--        &lt;!&ndash;            </snapshots>&ndash;&gt;-->
+    <!--        &lt;!&ndash;        </pluginRepository>&ndash;&gt;-->
+    <!--        <pluginRepository>-->
+    <!--            <id>aliyun-central-plugin</id>-->
+    <!--            <url>https://maven.aliyun.com/repository/central/</url>-->
+    <!--            <snapshots>-->
+    <!--                <enabled>false</enabled>-->
+    <!--            </snapshots>-->
+    <!--        </pluginRepository>-->
+    <!--    </pluginRepositories>-->
     <build>
         <finalName>${project.artifactId}</finalName>
         <pluginManagement>

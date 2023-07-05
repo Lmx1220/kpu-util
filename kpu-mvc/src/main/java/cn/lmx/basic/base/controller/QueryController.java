@@ -1,7 +1,6 @@
 package cn.lmx.basic.base.controller;
 
 import cn.lmx.basic.annotation.log.SysLog;
-import cn.lmx.basic.annotation.security.PreAuth;
 import cn.lmx.basic.base.R;
 import cn.lmx.basic.base.request.PageParams;
 import cn.lmx.basic.database.mybatis.conditions.Wraps;
@@ -42,7 +41,6 @@ public interface QueryController<Entity, Id extends Serializable, PageQuery> ext
     @ApiOperation(value = "单体查询", notes = "单体查询")
     @GetMapping("/{id}")
     @SysLog("'查询:' + #id")
-    @PreAuth("hasAnyPermission('{}view')")
     default R<Entity> get(@PathVariable Id id) {
         return success(getBaseService().getById(id));
     }
@@ -56,7 +54,6 @@ public interface QueryController<Entity, Id extends Serializable, PageQuery> ext
     @ApiOperation(value = "分页列表查询")
     @PostMapping(value = "/page")
     @SysLog(value = "'分页列表查询:第' + #params?.current + '页, 显示' + #params?.size + '行'", response = false)
-    @PreAuth("hasAnyPermission('{}view')")
     default R<IPage<Entity>> page(@RequestBody @Validated PageParams<PageQuery> params) {
         return success(query(params));
     }
@@ -70,7 +67,6 @@ public interface QueryController<Entity, Id extends Serializable, PageQuery> ext
     @ApiOperation(value = "批量查询", notes = "批量查询")
     @PostMapping("/query")
     @SysLog("批量查询")
-    @PreAuth("hasAnyPermission('{}view')")
     default R<List<Entity>> query(@RequestBody Entity data) {
         QueryWrap<Entity> wrapper = Wraps.q(data);
         return success(getBaseService().list(wrapper));
