@@ -1,22 +1,18 @@
-package cn.lmx.basic.base.service;
+package cn.lmx.basic.base.manager.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ReflectUtil;
 import cn.lmx.basic.base.entity.SuperEntity;
+import cn.lmx.basic.base.manager.SuperCacheManager;
 import cn.lmx.basic.base.mapper.SuperMapper;
 import cn.lmx.basic.cache.repository.CacheOps;
 import cn.lmx.basic.model.cache.CacheKey;
 import cn.lmx.basic.model.cache.CacheKeyBuilder;
-import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
-import com.baomidou.mybatisplus.core.toolkit.*;
-import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import org.apache.ibatis.binding.MapperMethod;
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,29 +20,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-
 /**
- * @param <M>
- * @param <T>
  * @author lmx
- * @version 1.0
- * @description: 基于 CacheOps 实现的 缓存实现
- * 默认的key规则： #{CacheKeyBuilder#key()}:id
- * <p>
- * 1，getByIdCache：新增的方法： 先查缓存，在查db
- * 2，removeById：重写 ServiceImpl 类的方法，删除db后，淘汰缓存
- * 3，removeByIds：重写 ServiceImpl 类的方法，删除db后，淘汰缓存
- * 4，updateAllById： 新增的方法： 修改数据（所有字段）后，淘汰缓存
- * 5，updateById：重写 ServiceImpl 类的方法，修改db后，淘汰缓存
- * @date 2023/7/4 14:27
+ * @version v1.0.0
+ * @date 2023/07/06  16:10
  */
-public abstract class SuperCacheServiceImpl<M extends SuperMapper<T>, T> extends SuperServiceImpl<M, T> implements SuperCacheService<T> {
-
+public abstract class SuperCacheManagerImpl<M extends SuperMapper<T>, T> extends SuperManagerImpl<M, T> implements SuperCacheManager<T> {
     protected static final int MAX_BATCH_KEY_SIZE = 20;
     @Autowired
     protected CacheOps cacheOps;
@@ -57,6 +39,7 @@ public abstract class SuperCacheServiceImpl<M extends SuperMapper<T>, T> extends
      * @return 缓存key构造器
      */
     protected abstract CacheKeyBuilder cacheKeyBuilder();
+
 
     @Override
     @Transactional(readOnly = true)
@@ -77,7 +60,7 @@ public abstract class SuperCacheServiceImpl<M extends SuperMapper<T>, T> extends
         List<List<CacheKey>> partitionKeys = Lists.partition(keys, MAX_BATCH_KEY_SIZE);
 
         // 用切割后的 partitionKeys 分批去缓存查， 返回的是缓存中存在的数据
-        List<T> valueList = partitionKeys.stream().map(ks -> (List<T>) cacheOps.find(ks)).flatMap(Collection::stream).collect(Collectors.toList());
+        List<T> valueList = partitionKeys.stream().map(ks -> cacheOps.<T>find(ks)).flatMap(Collection::stream).collect(Collectors.toList());
 
         // 所有的key
         List<Serializable> keysList = Lists.newArrayList(ids);
@@ -145,81 +128,17 @@ public abstract class SuperCacheServiceImpl<M extends SuperMapper<T>, T> extends
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateAllById(T model) {
-        boolean updateBool = super.updateAllById(model);
+        boolean save = super.updateAllById(model);
         delCache(model);
-        return updateBool;
+        return save;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateById(T model) {
-        boolean updateBool = super.updateById(model);
+        boolean save = super.updateById(model);
         delCache(model);
-        return updateBool;
-    }
-
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean saveBatch(Collection<T> entityList, int batchSize) {
-        String sqlStatement = getSqlStatement(SqlMethod.INSERT_ONE);
-        return executeBatch(entityList, batchSize, (sqlSession, entity) -> {
-            sqlSession.insert(sqlStatement, entity);
-
-            // 设置缓存
-            setCache(entity);
-        });
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public boolean saveOrUpdateBatch(Collection<T> entityList, int batchSize) {
-        TableInfo tableInfo = TableInfoHelper.getTableInfo(getEntityClass());
-        Assert.notNull(tableInfo, "error: can not execute. because can not find cache of TableInfo for entity!");
-        String keyProperty = tableInfo.getKeyProperty();
-        Assert.notEmpty(keyProperty, "error: can not execute. because can not find column for id from entity!");
-
-        BiPredicate<SqlSession, T> predicate = (sqlSession, entity) -> {
-            Object idVal = ReflectionKit.getFieldValue(entity, keyProperty);
-            return StringUtils.checkValNull(idVal)
-                    || CollectionUtils.isEmpty(sqlSession.selectList(getSqlStatement(SqlMethod.SELECT_BY_ID), entity));
-        };
-
-        BiConsumer<SqlSession, T> consumer = (sqlSession, entity) -> {
-            MapperMethod.ParamMap<T> param = new MapperMethod.ParamMap<>();
-            param.put(Constants.ENTITY, entity);
-            sqlSession.update(getSqlStatement(SqlMethod.UPDATE_BY_ID), param);
-
-            // 清理缓存
-            delCache(entity);
-        };
-
-        String sqlStatement = SqlHelper.getSqlStatement(this.mapperClass, SqlMethod.INSERT_ONE);
-        return SqlHelper.executeBatch(getEntityClass(), log, entityList, batchSize, (sqlSession, entity) -> {
-            if (predicate.test(sqlSession, entity)) {
-                sqlSession.insert(sqlStatement, entity);
-                // 设置缓存
-                setCache(entity);
-            } else {
-                consumer.accept(sqlSession, entity);
-            }
-        });
-
-
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public boolean updateBatchById(Collection<T> entityList, int batchSize) {
-        String sqlStatement = getSqlStatement(SqlMethod.UPDATE_BY_ID);
-        return executeBatch(entityList, batchSize, (sqlSession, entity) -> {
-            MapperMethod.ParamMap<T> param = new MapperMethod.ParamMap<>();
-            param.put(Constants.ENTITY, entity);
-            sqlSession.update(sqlStatement, param);
-
-            // 清理缓存
-            delCache(entity);
-        });
+        return save;
     }
 
     @Override
@@ -280,5 +199,4 @@ public abstract class SuperCacheServiceImpl<M extends SuperMapper<T>, T> extends
             return ReflectUtil.getFieldValue(model, idField);
         }
     }
-
 }

@@ -1,10 +1,13 @@
 package cn.lmx.basic.base.controller;
 
 import cn.lmx.basic.base.R;
+import cn.lmx.basic.base.entity.SuperEntity;
 import cn.lmx.basic.base.service.SuperService;
 import cn.lmx.basic.context.ContextUtil;
 import cn.lmx.basic.exception.BizException;
 import cn.lmx.basic.exception.code.BaseExceptionCode;
+
+import java.io.Serializable;
 
 /**
  * @author lmx
@@ -18,7 +21,7 @@ import cn.lmx.basic.exception.code.BaseExceptionCode;
  * @description: 基础接口
  * @date 2023/7/4 14:27
  */
-public interface BaseController<Entity> {
+public interface BaseController<Id extends Serializable, Entity extends SuperEntity<Id>, SaveVO, UpdateVO, PageQuery, ResultVO> {
 
     /**
      * 获取实体的类型
@@ -27,12 +30,15 @@ public interface BaseController<Entity> {
      */
     Class<Entity> getEntityClass();
 
+    Class<ResultVO> getResultVOClass();
+
+
     /**
      * 获取Service
      *
      * @return Service
      */
-    SuperService<Entity> getBaseService();
+    SuperService<Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO> getSuperService();
 
 
     /**

@@ -3,7 +3,9 @@ package cn.lmx.basic.base.controller;
 import cn.lmx.basic.annotation.log.SysLog;
 import cn.lmx.basic.annotation.security.PreAuth;
 import cn.lmx.basic.base.R;
+import cn.lmx.basic.base.entity.SuperEntity;
 import cn.lmx.basic.base.service.SuperCacheService;
+import cn.lmx.basic.utils.BeanPlusUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.io.Serializable;
 
 /**
+ * @param <Id>        ID
+ * @param <Entity>    实体
+ * @param <SaveVO>    保存VO
+ * @param <UpdateVO>  修改VO
+ * @param <PageQuery> 分页查询参数
+ * @param <ResultVO>  返回VO
  * @author lmx
  * @version 1.0
  * @description: SuperCacheController
@@ -19,8 +27,8 @@ import java.io.Serializable;
  * 1，get ： 根据ID查询缓存，若缓存不存在，则查询DB
  * @date 2023/7/4 14:27
  */
-public abstract class SuperCacheController<S extends SuperCacheService<Entity>, Id extends Serializable, Entity, PageQuery, SaveDTO, UpdateDTO>
-        extends SuperController<S, Id, Entity, PageQuery, SaveDTO, UpdateDTO> {
+public abstract class SuperCacheController<S extends SuperCacheService<Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO>, Id extends Serializable, Entity extends SuperEntity<Id>, SaveVO, UpdateVO, PageQuery, ResultVO>
+        extends SuperController<S, Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO> {
 
     /**
      * 查询
@@ -31,8 +39,8 @@ public abstract class SuperCacheController<S extends SuperCacheService<Entity>, 
     @Override
     @SysLog("'查询:' + #id")
     @PreAuth("hasAnyPermission('{}view')")
-    public R<Entity> get(@PathVariable Id id) {
-        return success(baseService.getByIdCache(id));
+    public R<ResultVO> get(@PathVariable Id id) {
+        return success(BeanPlusUtil.toBean(baseService.getByIdCache(id), getResultVOClass()));
     }
 
 

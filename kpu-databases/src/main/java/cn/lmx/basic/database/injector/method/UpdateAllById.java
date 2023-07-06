@@ -21,7 +21,6 @@ public class UpdateAllById extends AlwaysUpdateSomeColumnById {
     }
 
     // 怎么替代这个方法？
-    @Override
     public String getMethod(SqlMethod sqlMethod) {
         // 自定义 mapper 方法名
         return "updateAllById";

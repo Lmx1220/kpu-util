@@ -1,11 +1,13 @@
 package cn.lmx.basic.base.service;
 
-import cn.lmx.basic.base.mapper.SuperMapper;
-import cn.lmx.basic.exception.BizException;
-import cn.lmx.basic.exception.code.ExceptionCode;
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
+import cn.lmx.basic.base.entity.SuperEntity;
+import cn.lmx.basic.base.manager.SuperManager;
+import cn.lmx.basic.database.mybatis.conditions.query.QueryWrap;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -19,39 +21,40 @@ import java.util.List;
  * @date 2023/7/4 14:27
  */
 @SuppressWarnings("ALL")
-public interface SuperService<T> extends IService<T> {
-    /**
-     * 获取实体的类型
-     *
-     * @return
-     */
-    @Override
-    Class<T> getEntityClass();
+public interface SuperService<Id extends Serializable, Entity extends SuperEntity<Id>, SaveVO, UpdateVO, PageQuery, ResultVO> {
 
-    /**
-     * 批量保存数据
-     * <p>
-     * 注意：该方法仅仅测试过mysql
-     *
-     * @param entityList
-     * @return
-     */
-    default boolean saveBatchSomeColumn(List<T> entityList) {
-        if (entityList.isEmpty()) {
-            return true;
-        }
-        if (entityList.size() > 5000) {
-            throw BizException.wrap(ExceptionCode.TOO_MUCH_DATA_ERROR);
-        }
-        return SqlHelper.retBool(((SuperMapper) getBaseMapper()).insertBatchSomeColumn(entityList));
-    }
+    SuperManager getSuperManager();
 
-    /**
-     * 根据id修改 entity 的所有字段
-     *
-     * @param entity
-     * @return
-     */
-    boolean updateAllById(T entity);
+    Class<Entity> getEntityClass();
+
+    Class<Id> getIdClass();
+
+    @Transactional(rollbackFor = Exception.class)
+    Entity save(SaveVO saveVO);
+
+    @Transactional(rollbackFor = Exception.class)
+    Entity updateById(UpdateVO updateVO);
+
+    @Transactional(rollbackFor = Exception.class)
+    Entity updateAllById(UpdateVO updateVO);
+
+    Entity getById(Serializable id);
+
+    void removeByIds(List<Id> ids);
+
+    void page(IPage<Entity> page, QueryWrap<Entity> wrapper);
+
+    List<Entity> list();
+
+    List<Entity> list(QueryWrap<Entity> wrapper);
+
+    Entity copy(Id id);
+
+    List<Entity> listByIds(Collection<? extends Serializable> idList);
+
+    boolean removeById(Serializable id);
+
+    boolean removeByIds(Collection<?> idList);
+
 
 }
