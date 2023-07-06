@@ -39,6 +39,7 @@ import java.util.Objects;
  * 参考 BasicDeserializerFactory#1495 行代码
  * @date 2023/7/4 14:27
  */
+@Deprecated
 @SuppressWarnings("ALL")
 @JacksonStdImpl // was missing until 2.6
 public class EnumDeserializer
