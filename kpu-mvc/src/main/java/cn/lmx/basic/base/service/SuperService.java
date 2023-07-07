@@ -2,7 +2,7 @@ package cn.lmx.basic.base.service;
 
 import cn.lmx.basic.base.entity.SuperEntity;
 import cn.lmx.basic.base.manager.SuperManager;
-import cn.lmx.basic.database.mybatis.conditions.query.QueryWrap;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,11 +42,11 @@ public interface SuperService<Id extends Serializable, Entity extends SuperEntit
 
     void removeByIds(List<Id> ids);
 
-    void page(IPage<Entity> page, QueryWrap<Entity> wrapper);
+    void page(IPage<Entity> page, Wrapper<Entity> wrapper);
 
     List<Entity> list();
 
-    List<Entity> list(QueryWrap<Entity> wrapper);
+    List<Entity> list(Wrapper<Entity> wrapper);
 
     Entity copy(Id id);
 
@@ -56,5 +56,8 @@ public interface SuperService<Id extends Serializable, Entity extends SuperEntit
 
     boolean removeByIds(Collection<?> idList);
 
+    boolean remove(Wrapper<Entity> wrapper);
+
+    boolean saveBatch(Collection<Entity> entityList);
 
 }

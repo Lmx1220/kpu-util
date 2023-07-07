@@ -4,9 +4,9 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.lmx.basic.base.entity.SuperEntity;
 import cn.lmx.basic.base.manager.SuperCacheManager;
 import cn.lmx.basic.base.service.SuperCacheService;
-import cn.lmx.basic.database.mybatis.conditions.query.QueryWrap;
 import cn.lmx.basic.utils.ArgumentAssert;
 import cn.lmx.basic.utils.BeanPlusUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,7 +149,7 @@ public class SuperCacheServiceImpl<M extends SuperCacheManager<Entity>, Id exten
     }
 
     @Override
-    public void page(IPage<Entity> page, QueryWrap<Entity> wrapper) {
+    public void page(IPage<Entity> page, Wrapper<Entity> wrapper) {
         getSuperManager().page(page, wrapper);
     }
 
@@ -159,7 +159,7 @@ public class SuperCacheServiceImpl<M extends SuperCacheManager<Entity>, Id exten
     }
 
     @Override
-    public List<Entity> list(QueryWrap<Entity> wrapper) {
+    public List<Entity> list(Wrapper<Entity> wrapper) {
         return getSuperManager().list(wrapper);
     }
 

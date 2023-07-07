@@ -5,9 +5,9 @@ import cn.lmx.basic.base.entity.SuperEntity;
 import cn.lmx.basic.base.manager.SuperManager;
 import cn.lmx.basic.base.manager.impl.SuperManagerImpl;
 import cn.lmx.basic.base.service.SuperService;
-import cn.lmx.basic.database.mybatis.conditions.query.QueryWrap;
 import cn.lmx.basic.utils.ArgumentAssert;
 import cn.lmx.basic.utils.BeanPlusUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -153,7 +153,7 @@ public class SuperServiceImpl<M extends SuperManager<Entity>, Id extends Seriali
     }
 
     @Override
-    public void page(IPage<Entity> page, QueryWrap<Entity> wrapper) {
+    public void page(IPage<Entity> page, Wrapper<Entity> wrapper) {
         getSuperManager().page(page, wrapper);
     }
 
@@ -163,7 +163,7 @@ public class SuperServiceImpl<M extends SuperManager<Entity>, Id extends Seriali
     }
 
     @Override
-    public List<Entity> list(QueryWrap<Entity> wrapper) {
+    public List<Entity> list(Wrapper<Entity> wrapper) {
         return getSuperManager().list(wrapper);
     }
 
@@ -190,6 +190,16 @@ public class SuperServiceImpl<M extends SuperManager<Entity>, Id extends Seriali
     @Override
     public boolean removeByIds(Collection<?> idList) {
         return getSuperManager().removeByIds(idList);
+    }
+
+    @Override
+    public boolean remove(Wrapper<Entity> wrapper) {
+        return getSuperManager().remove(wrapper);
+    }
+
+    @Override
+    public boolean saveBatch(Collection<Entity> entityList) {
+        return getSuperManager().saveBatch(entityList);
     }
 
     /**
