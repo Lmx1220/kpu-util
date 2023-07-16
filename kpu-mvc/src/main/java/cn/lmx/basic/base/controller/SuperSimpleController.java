@@ -1,8 +1,10 @@
 package cn.lmx.basic.base.controller;
 
+import cn.lmx.basic.base.entity.SuperEntity;
 import cn.lmx.basic.base.service.SuperService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
 /**
@@ -16,18 +18,27 @@ import java.lang.reflect.ParameterizedType;
  * 可以让业务Controller继承 SuperSimpleController 后，按需实现 *Controller 接口
  * @date 2023/7/4 14:27
  */
-public abstract class SuperSimpleController<S extends SuperService<Entity>, Entity> implements BaseController<Entity> {
+public abstract class SuperSimpleController<S extends SuperService<Entity>, Id extends Serializable, Entity extends SuperEntity<Id>, SaveVO, UpdateVO, PageQuery, ResultVO> implements BaseController<Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO> {
 
     @Autowired
     protected S baseService;
     Class<Entity> entityClass = null;
+    Class<ResultVO> resultVOClass = null;
 
     @Override
     public Class<Entity> getEntityClass() {
         if (entityClass == null) {
-            this.entityClass = (Class<Entity>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+            this.entityClass = (Class<Entity>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[2];
         }
         return this.entityClass;
+    }
+
+    @Override
+    public Class<ResultVO> getResultVOClass() {
+        if (resultVOClass == null) {
+            this.resultVOClass = (Class<ResultVO>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[6];
+        }
+        return this.resultVOClass;
     }
 
     @Override

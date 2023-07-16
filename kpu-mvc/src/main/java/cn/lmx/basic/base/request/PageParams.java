@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class PageParams<T> {
 
     @NotNull(message = "查询对象model不能为空")
     @ApiModelProperty(value = "查询参数", required = true)
+    @Valid
     private T model;
 
     @ApiModelProperty(value = "页面大小", example = "10")

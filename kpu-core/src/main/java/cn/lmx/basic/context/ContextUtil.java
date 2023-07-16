@@ -109,17 +109,17 @@ public final class ContextUtil {
      *
      * @return 登录账号
      */
-    public static String getAccount() {
-        return get(ContextConstants.JWT_KEY_ACCOUNT, String.class);
+    public static String getUsername() {
+        return get(ContextConstants.JWT_KEY_USERNAME, String.class);
     }
 
     /**
      * 登录账号
      *
-     * @param account 登录账号
+     * @param username 登录账号
      */
-    public static void setAccount(String account) {
-        set(ContextConstants.JWT_KEY_ACCOUNT, account);
+    public static void setUsername(String username) {
+        set(ContextConstants.JWT_KEY_USERNAME, username);
     }
 
 
@@ -128,8 +128,8 @@ public final class ContextUtil {
      *
      * @return 用户姓名
      */
-    public static String getName() {
-        return get(ContextConstants.JWT_KEY_NAME, String.class);
+    public static String getNickName() {
+        return get(ContextConstants.JWT_KEY_NICK_NAME, String.class);
     }
 
     /**
@@ -137,8 +137,8 @@ public final class ContextUtil {
      *
      * @param name 用户姓名
      */
-    public static void setName(String name) {
-        set(ContextConstants.JWT_KEY_NAME, name);
+    public static void setNickName(String name) {
+        set(ContextConstants.JWT_KEY_NICK_NAME, name);
     }
 
     /**
@@ -165,8 +165,8 @@ public final class ContextUtil {
 
     public static void setTenant(String val) {
         set(ContextConstants.JWT_KEY_TENANT, val);
-        setTenantBasePoolName(val);
-        setTenantExtendPoolName(val);
+        setTenantBasePoolNickName(val);
+        setTenantExtendPoolNickName(val);
     }
 
     public static void clearDatabase() {
@@ -191,7 +191,7 @@ public final class ContextUtil {
      *
      * @param tenant
      */
-    public static void setTenantBasePoolName(Object tenant) {
+    public static void setTenantBasePoolNickName(Object tenant) {
         set(ContextConstants.TENANT_BASE_POOL_NAME_HEADER, tenant);
     }
 
@@ -200,7 +200,7 @@ public final class ContextUtil {
      *
      * @param tenant
      */
-    public static void setTenantExtendPoolName(Object tenant) {
+    public static void setTenantExtendPoolNickName(Object tenant) {
         set(ContextConstants.TENANT_EXTEND_POOL_NAME_HEADER, tenant);
     }
 

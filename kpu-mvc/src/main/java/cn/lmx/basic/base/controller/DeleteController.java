@@ -3,6 +3,7 @@ package cn.lmx.basic.base.controller;
 import cn.lmx.basic.annotation.log.SysLog;
 import cn.lmx.basic.annotation.security.PreAuth;
 import cn.lmx.basic.base.R;
+import cn.lmx.basic.base.entity.SuperEntity;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ import java.util.List;
  * @description: 删除Controller
  * @date 2023/7/4 14:27
  */
-public interface DeleteController<Entity, Id extends Serializable> extends BaseController<Entity> {
+public interface DeleteController<Id extends Serializable, Entity extends SuperEntity<Id>, SaveVO, UpdateVO, PageQuery, ResultVO> extends BaseController<Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO> {
 
     /**
      * 删除方法

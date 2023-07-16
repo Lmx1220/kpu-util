@@ -1,10 +1,22 @@
 package cn.lmx.basic.base.controller;
 
+
 import cn.hutool.core.bean.BeanUtil;
+import cn.lmx.basic.annotation.log.SysLog;
+import cn.lmx.basic.base.R;
+import cn.lmx.basic.base.entity.SuperEntity;
 import cn.lmx.basic.base.request.PageParams;
 import cn.lmx.basic.database.mybatis.conditions.Wraps;
 import cn.lmx.basic.database.mybatis.conditions.query.QueryWrap;
+import cn.lmx.basic.interfaces.echo.EchoService;
+import cn.lmx.basic.utils.BeanPlusUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.io.Serializable;
 
 /**
  * @param <Entity>    实体
@@ -14,7 +26,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  * @description: 分页控制器
  * @date 2023/7/4 14:27
  */
-public interface PageController<Entity, PageQuery> extends BaseController<Entity> {
+public interface PageController<Id extends Serializable, Entity extends SuperEntity<Id>, SaveVO, UpdateVO, PageQuery, ResultVO> extends BaseController<Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO> {
 
     /**
      * 处理查询参数
@@ -22,6 +34,7 @@ public interface PageController<Entity, PageQuery> extends BaseController<Entity
      * @param params 前端传递的参数
      * @author lmx
      * @date 2023/7/4 14:27
+     * @create [2023/7/4 14:27 ] [lmx] [初始创建]
      */
     default void handlerQueryParams(PageParams<PageQuery> params) {
     }
@@ -35,21 +48,19 @@ public interface PageController<Entity, PageQuery> extends BaseController<Entity
      * @return 分页信息
      */
     default IPage<Entity> query(PageParams<PageQuery> params) {
-        // 处理查询参数，如：覆盖前端传递的 current、size、sort 等参数 以及 model 中的参数 【提供给之类重写】【无默认实现】
+        // 处理查询参数，如：覆盖前端传递的 current、size、sort 等参数 以及 model 中的参数 【提供给子类重写】【无默认实现】
         handlerQueryParams(params);
 
         // 构建分页参数(current、size)和排序字段等
         IPage<Entity> page = params.buildPage(getEntityClass());
-        Entity model = BeanUtil.toBean(params.getModel(), getEntityClass());
+        Entity model = (Entity) BeanUtil.toBean(params.getModel(), getEntityClass());
 
-        // 根据前端传递的参数，构建查询条件【提供给之类重写】【有默认实现】
+        // 根据前端传递的参数，构建查询条件【提供给子类重写】【有默认实现】
         QueryWrap<Entity> wrapper = handlerWrapper(model, params);
 
         // 执行单表分页查询
         getBaseService().page(page, wrapper);
 
-        // 处理查询后的分页结果， 如：调用EchoService回显字典、关联表数据等 【提供给之类重写】【无默认实现】
-        handlerResult(page);
         return page;
     }
 
@@ -65,12 +76,42 @@ public interface PageController<Entity, PageQuery> extends BaseController<Entity
     }
 
     /**
+     * 获取echo Service
+     *
+     * @return
+     */
+    default EchoService getEchoService() {
+        return null;
+    }
+
+    /**
      * 处理查询后的数据
      * <p>
      * 如：执行@Echo回显
      *
      * @param page 分页对象
      */
-    default void handlerResult(IPage<Entity> page) {
+    default void handlerResult(IPage<ResultVO> page) {
+        EchoService echoService = getEchoService();
+        if (echoService != null) {
+            echoService.action(page);
+        }
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param params 分页参数
+     * @return 分页数据s
+     */
+    @ApiOperation(value = "分页列表查询")
+    @PostMapping(value = "/page")
+    @SysLog(value = "'分页列表查询:第' + #params?.current + '页, 显示' + #params?.size + '行'", response = false)
+    default R<IPage<ResultVO>> page(@RequestBody @Validated PageParams<PageQuery> params) {
+        IPage<Entity> page = query(params);
+        IPage<ResultVO> voPage = BeanPlusUtil.toBeanPage(page, getResultVOClass());
+        // 处理查询后的分页结果， 如：调用EchoService回显字典、关联表数据等 【提供给子类重写】【有默认实现】
+        handlerResult(voPage);
+        return success(voPage);
     }
 }

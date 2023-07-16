@@ -26,9 +26,9 @@ public class JwtTest {
 //        String basic ="enVpaG91X2FkbWluX3VpOnp1aWhvdV9hZG1pbl91aV9zZWNyZXQ=";
 
         JwtUserInfo user = new JwtUserInfo();
-        user.setAccount("姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50");
+        user.setUsername("姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50");
         user.setUserId(Long.MAX_VALUE);
-        user.setName("姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50");
+        user.setNickName("姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50姓名长度不能超过50");
         AuthInfo authInfo = new TokenUtil(properties).createAuthInfo(user, null);
         System.out.println(authInfo);
         System.out.println(authInfo.getToken());

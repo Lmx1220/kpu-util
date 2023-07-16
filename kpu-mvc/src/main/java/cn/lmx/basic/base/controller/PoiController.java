@@ -14,6 +14,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.lmx.basic.annotation.log.SysLog;
 import cn.lmx.basic.annotation.security.PreAuth;
 import cn.lmx.basic.base.R;
+import cn.lmx.basic.base.entity.SuperEntity;
 import cn.lmx.basic.base.request.PageParams;
 import cn.lmx.basic.utils.BeanPlusUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +39,7 @@ import java.util.Map;
  * @description: 导入导出
  * @date 2023/7/4 14:27
  */
-public interface PoiController<Entity, PageQuery> extends PageController<Entity, PageQuery> {
+public interface PoiController<Id extends Serializable, Entity extends SuperEntity<Id>, SaveVO, UpdateVO, PageQuery, ResultVO> extends PageController<Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO> {
     /**
      * 获取实体的类型
      *

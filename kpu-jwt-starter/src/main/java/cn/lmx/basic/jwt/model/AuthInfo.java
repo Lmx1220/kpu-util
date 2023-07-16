@@ -24,9 +24,9 @@ public class AuthInfo {
     @ApiModelProperty(value = "刷新令牌")
     private String refreshToken;
     @ApiModelProperty(value = "用户名")
-    private String name;
+    private String nickName;
     @ApiModelProperty(value = "账号名")
-    private String account;
+    private String username;
     @ApiModelProperty(value = "头像")
     private Long avatarId;
     @ApiModelProperty(value = "工作描述")
