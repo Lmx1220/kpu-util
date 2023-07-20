@@ -1,7 +1,6 @@
 package cn.lmx.basic.log.event;
 
 
-import cn.hutool.core.util.StrUtil;
 import cn.lmx.basic.context.ContextUtil;
 import cn.lmx.basic.model.log.OptLogDTO;
 import lombok.AllArgsConstructor;
@@ -32,7 +31,7 @@ public class SysLogListener {
         OptLogDTO sysLog = (OptLogDTO) event.getSource();
 
         // 非租户模式 (NONE) ， 需要修改这里的判断
-        if (sysLog == null || StrUtil.isEmpty(sysLog.getTenantCode())) {
+        if (sysLog == null) {
             log.warn("租户编码不存在，忽略操作日志=={}", sysLog != null ? sysLog.getRequestUri() : "");
             return;
         }

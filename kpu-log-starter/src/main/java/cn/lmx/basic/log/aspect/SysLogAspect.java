@@ -225,7 +225,7 @@ public class SysLogAspect {
             }
         }
 
-        String controllerMethodDescription = LogUtil.getDescribe(sysLog);
+        String controllerMethodDescription = LogUtil.getRemarks(sysLog);
 
         if (StrUtil.isNotEmpty(controllerMethodDescription) && StrUtil.contains(controllerMethodDescription, StrPool.HASH)) {
             //获取方法参数值

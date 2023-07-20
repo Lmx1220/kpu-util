@@ -47,11 +47,11 @@ public enum MultiTenantType {
      */
     SCHEMA_COLUMN("SCHEMA&字段混合模式"),
     ;
-    private String describe;
+    private String remarks;
 
 
-    MultiTenantType(String describe) {
-        this.describe = describe;
+    MultiTenantType(String remarks) {
+        this.remarks = remarks;
     }
 
     public boolean eq(String val) {

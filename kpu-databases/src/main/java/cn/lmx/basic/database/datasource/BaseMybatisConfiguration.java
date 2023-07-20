@@ -92,7 +92,7 @@ public abstract class BaseMybatisConfiguration {
     @ConditionalOnMissingBean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        log.info("检测到 kpu.database.multiTenantType={}，已启用 {} 模式", databaseProperties.getMultiTenantType().name(), databaseProperties.getMultiTenantType().getDescribe());
+        log.info("检测到 kpu.database.multiTenantType={}，已启用 {} 模式", databaseProperties.getMultiTenantType().name(), databaseProperties.getMultiTenantType().getRemarks());
         if (StrUtil.equalsAny(databaseProperties.getMultiTenantType().name(),
                 MultiTenantType.SCHEMA.name(), MultiTenantType.SCHEMA_COLUMN.name())) {
             ArgumentAssert.notNull(databaseProperties.getDbType(), "SCHEMA 模式请在mysql.yml、oracle.yml、sqlserver.yml中配置: {}.dbType", DatabaseProperties.PREFIX);
