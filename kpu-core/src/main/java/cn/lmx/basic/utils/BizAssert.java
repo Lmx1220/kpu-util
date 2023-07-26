@@ -18,7 +18,7 @@ import static cn.lmx.basic.exception.BaseException.BASE_VALID_PARAM;
  * @date 2023/7/4 14:27
  * @see BizException
  * @see cn.lmx.basic.utils.ArgumentAssert
- * @since 4.0
+ * @since 1.0
  */
 @Deprecated
 public final class BizAssert {

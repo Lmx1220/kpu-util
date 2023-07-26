@@ -47,12 +47,12 @@ public class EnumDeserializer
         implements ContextualDeserializer {
     private static final long serialVersionUID = 1L;
     /**
-     * @since 2.7.3
+     * @since 1.0.0
      */
     protected final CompactStringObjectMap _lookupByName;
     protected final Boolean _caseInsensitive;
     /**
-     * @since 2.8
+     * @since 1.0
      */
     private final Enum<?> _enumDefaultValue;
     protected Object[] _enumsByIndex;
@@ -60,12 +60,12 @@ public class EnumDeserializer
      * Alternatively, we may need a different lookup object if "use toString"
      * is defined.
      *
-     * @since 2.7.3
+     * @since 1.0.0
      */
     protected CompactStringObjectMap _lookupByToString;
 
     /**
-     * @since 2.9
+     * @since 1.0
      */
     public EnumDeserializer(EnumResolver byNameResolver, Boolean caseInsensitive) {
         super(byNameResolver.getEnumClass());
@@ -76,7 +76,7 @@ public class EnumDeserializer
     }
 
     /**
-     * @since 2.9
+     * @since 1.0
      */
     protected EnumDeserializer(EnumDeserializer base, Boolean caseInsensitive) {
         super(base);
@@ -108,7 +108,7 @@ public class EnumDeserializer
      * using a creator (static factory method)
      *
      * @return Deserializer based on given factory method
-     * @since 2.8
+     * @since 1.0
      */
     public static JsonDeserializer<?> deserializerForCreator(DeserializationConfig config,
                                                              Class<?> enumClass, AnnotatedMethod factory,
@@ -127,7 +127,7 @@ public class EnumDeserializer
      * using a zero-/no-args factory method
      *
      * @return Deserializer based on given no-args factory method
-     * @since 2.8
+     * @since 1.0
      */
     public static JsonDeserializer<?> deserializerForNoArgsCreator(DeserializationConfig config,
                                                                    Class<?> enumClass, AnnotatedMethod factory) {
@@ -139,7 +139,7 @@ public class EnumDeserializer
     }
 
     /**
-     * @since 2.9
+     * @since 1.0
      */
     public EnumDeserializer withResolved(Boolean caseInsensitive) {
         if (Objects.equals(_caseInsensitive, caseInsensitive)) {

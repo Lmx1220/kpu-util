@@ -78,7 +78,7 @@ public class PageParams<T> {
      *
      * @param entityClazz 字段中标注了@TableName 或 @TableId 注解的实体类。
      * @return 分页对象
-     * @since 3.5.0
+     * @since 1.0.0
      */
     @JsonIgnore
     public <E> IPage<E> buildPage(Class<?> entityClazz) {
