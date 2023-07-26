@@ -4,7 +4,6 @@ import cn.lmx.basic.base.entity.SuperEntity;
 import cn.lmx.basic.base.manager.SuperManager;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -22,20 +21,18 @@ import java.util.List;
  */
 @SuppressWarnings("ALL")
 public interface SuperService<Id extends Serializable, Entity extends SuperEntity<Id>, SaveVO, UpdateVO, PageQuery, ResultVO> {
-
-    SuperManager getSuperManager();
+    Class<Id> getIdClass();
 
     Class<Entity> getEntityClass();
 
-    Class<Id> getIdClass();
 
-    @Transactional(rollbackFor = Exception.class)
+    SuperManager getSuperManager();
+
+
     Entity save(SaveVO saveVO);
 
-    @Transactional(rollbackFor = Exception.class)
     Entity updateById(UpdateVO updateVO);
 
-    @Transactional(rollbackFor = Exception.class)
     Entity updateAllById(UpdateVO updateVO);
 
     Entity getById(Serializable id);

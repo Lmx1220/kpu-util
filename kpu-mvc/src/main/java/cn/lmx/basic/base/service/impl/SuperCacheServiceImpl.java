@@ -4,11 +4,11 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.lmx.basic.base.entity.SuperEntity;
 import cn.lmx.basic.base.manager.SuperCacheManager;
 import cn.lmx.basic.base.service.SuperCacheService;
+import cn.lmx.basic.cache.repository.CacheOps;
 import cn.lmx.basic.utils.ArgumentAssert;
 import cn.lmx.basic.utils.BeanPlusUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,45 +33,17 @@ import java.util.function.Function;
  * 5，updateById：重写 ServiceImpl 类的方法，修改db后，淘汰缓存
  * @date 2023/7/4 14:27
  */
-public class SuperCacheServiceImpl<M extends SuperCacheManager<Entity>, Id extends Serializable, Entity extends SuperEntity<Id>, SaveVO, UpdateVO, PageQuery, ResultVO> extends SuperServiceImpl<M, Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO>
+public abstract class SuperCacheServiceImpl<M extends SuperCacheManager<Entity>, Id extends Serializable, Entity extends SuperEntity<Id>, SaveVO, UpdateVO, PageQuery, ResultVO>
+        extends SuperServiceImpl<M, Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO>
         implements SuperCacheService<Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO> {
+
     @Autowired
-    protected M superCacheManager;
-    protected Class<M> managerClass = currentManagerClass();
-    protected Class<Entity> entityClass = currentModelClass();
-    protected Class<Id> idClass = currentIdClass();
+    protected CacheOps cacheOps;
 
     @Override
-    public M getSuperCacheManager() {
-        return superCacheManager;
-    }
-
-    @Override
+    @Transactional(readOnly = true)
     public Entity getByIdCache(Id id) {
-        return getSuperCacheManager().getByIdCache(id);
-    }
-
-
-    @Override
-    public Class<Entity> getEntityClass() {
-        return entityClass;
-    }
-
-    @Override
-    public Class<Id> getIdClass() {
-        return idClass;
-    }
-
-    protected Class<M> currentManagerClass() {
-        return (Class<M>) ReflectionKit.getSuperClassGenericType(this.getClass(), SuperCacheManager.class, 0);
-    }
-
-    protected Class<Id> currentIdClass() {
-        return (Class<Id>) ReflectionKit.getSuperClassGenericType(this.getClass(), SuperCacheManager.class, 1);
-    }
-
-    protected Class<Entity> currentModelClass() {
-        return (Class<Entity>) ReflectionKit.getSuperClassGenericType(this.getClass(), SuperCacheManager.class, 2);
+        return superManager.getByIdCache(id);
     }
 
     @Override
@@ -170,6 +142,7 @@ public class SuperCacheServiceImpl<M extends SuperCacheManager<Entity>, Id exten
         Entity entity = BeanPlusUtil.toBean(old, getEntityClass());
         entity.setId(null);
         superManager.save(entity);
+
         return entity;
     }
 
@@ -208,17 +181,17 @@ public class SuperCacheServiceImpl<M extends SuperCacheManager<Entity>, Id exten
 
     @Override
     public List<Entity> findByIds(Collection<? extends Serializable> ids, Function<Collection<? extends Serializable>, Collection<Entity>> loader) {
-        return getSuperManager().findByIds(ids, loader);
+        return superManager.findByIds(ids, loader);
     }
 
     @Override
     public void refreshCache() {
-        getSuperManager().refreshCache();
+        superManager.refreshCache();
     }
 
     @Override
     public void clearCache() {
-        getSuperCacheManager().clearCache();
+        superManager.clearCache();
 
     }
 }

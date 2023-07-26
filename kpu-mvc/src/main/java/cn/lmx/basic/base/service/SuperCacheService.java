@@ -1,7 +1,6 @@
 package cn.lmx.basic.base.service;
 
 import cn.lmx.basic.base.entity.SuperEntity;
-import cn.lmx.basic.base.manager.SuperCacheManager;
 import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
@@ -22,7 +21,6 @@ import java.util.function.Function;
  */
 public interface SuperCacheService<Id extends Serializable, Entity extends SuperEntity<Id>, SaveVO, UpdateVO, PageQuery, ResultVO>
         extends SuperService<Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO> {
-    SuperCacheManager getSuperCacheManager();
 
     Entity getByIdCache(Id id);
 

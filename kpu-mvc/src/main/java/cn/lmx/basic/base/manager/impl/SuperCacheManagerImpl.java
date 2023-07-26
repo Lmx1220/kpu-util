@@ -3,6 +3,7 @@ package cn.lmx.basic.base.manager.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ReflectUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.lmx.basic.base.entity.SuperEntity;
 import cn.lmx.basic.base.manager.SuperCacheManager;
 import cn.lmx.basic.base.mapper.SuperMapper;
@@ -28,8 +29,8 @@ import java.util.stream.Collectors;
  * @version v1.0.0
  * @date 2023/07/06  16:10
  */
-public abstract class SuperCacheManagerImpl<M extends SuperMapper<T>, T> extends SuperManagerImpl<M, T> implements SuperCacheManager<T> {
-    protected static final int MAX_BATCH_KEY_SIZE = 20;
+public abstract class SuperCacheManagerImpl<M extends SuperMapper<T>, T extends SuperEntity> extends SuperManagerImpl<M, T> implements SuperCacheManager<T> {
+    protected static final int MAX_BATCH_KEY_SIZE = 500;
     @Autowired
     protected CacheOps cacheOps;
 
@@ -64,6 +65,7 @@ public abstract class SuperCacheManagerImpl<M extends SuperMapper<T>, T> extends
 
         // 所有的key
         List<Serializable> keysList = Lists.newArrayList(ids);
+        log.debug(StrUtil.format("keysList:{}, valueList:{}", keysList.size(), valueList.size()));
         // 缓存不存在的key
         Set<Serializable> missedKeys = Sets.newLinkedHashSet();
 
@@ -88,6 +90,33 @@ public abstract class SuperCacheManagerImpl<M extends SuperMapper<T>, T> extends
         }
         return allList;
     }
+//    @Transactional(readOnly = true)
+//    public <E> Set<E> findCollectByIds(List<Long> keyIdList, Function<Collection<? extends Serializable>, Collection<T>> loader) {
+//        if (CollUtil.isEmpty(keyIdList)) {
+//            return Collections.emptySet();
+//        }
+//        // 拼接keys
+//        List<CacheKey> cacheKeys = keyIdList.stream().map(cacheKeyBuilder()::key).collect(Collectors.toList());
+//       List<E>  resultList=cacheOps.find(cacheKeys);
+//       if (resultList.size() != cacheKeys.size()){
+//           log.warn("key和结果数据不一致，请排查原因！");
+//
+//       }
+//       Set<E> resultIdSet = new HashSet<>();
+//       /*
+//        * 有可能缓存中不存在某些缓存，导致resultList中部分元素是null
+//        */
+//        for (int i = 0; i < resultList.size(); i++) {
+//            List<E> resultIdList = (List<E>) resultList.get(i);
+//            if(resultIdList!=null) {
+//                resultIdSet.addAll(resultIdList);
+//            }else {
+//                Long keyId = keyIdList.get(i);
+//                loader.apply(keyId).forEach(this::setCache);
+//            }
+//        }
+//        return resultIdSet;
+//    }
 
     @Override
     @Transactional(readOnly = true)

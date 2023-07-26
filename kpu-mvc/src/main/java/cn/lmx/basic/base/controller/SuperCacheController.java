@@ -5,6 +5,7 @@ import cn.lmx.basic.annotation.security.PreAuth;
 import cn.lmx.basic.base.R;
 import cn.lmx.basic.base.entity.SuperEntity;
 import cn.lmx.basic.base.service.SuperCacheService;
+import cn.lmx.basic.base.service.SuperService;
 import cn.lmx.basic.utils.BeanPlusUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +28,14 @@ import java.io.Serializable;
  * 1，get ： 根据ID查询缓存，若缓存不存在，则查询DB
  * @date 2023/7/4 14:27
  */
-public abstract class SuperCacheController<S extends SuperCacheService<Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO>, Id extends Serializable, Entity extends SuperEntity<Id>, SaveVO, UpdateVO, PageQuery, ResultVO>
-        extends SuperController<S, Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO> {
+public abstract class SuperCacheController<S extends SuperService<Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO>,
+        Id extends Serializable, Entity extends SuperEntity<Id>, SaveVO, UpdateVO, PageQuery, ResultVO>
+        extends SuperPoiController<S, Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO> {
+
+    @Override
+    public SuperCacheService<Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO> getSuperService() {
+        return (SuperCacheService) superService;
+    }
 
     /**
      * 查询
@@ -40,7 +47,7 @@ public abstract class SuperCacheController<S extends SuperCacheService<Id, Entit
     @SysLog("'查询:' + #id")
     @PreAuth("hasAnyPermission('{}view')")
     public R<ResultVO> get(@PathVariable Id id) {
-        return success(BeanPlusUtil.toBean(baseService.getByIdCache(id), getResultVOClass()));
+        return success(BeanPlusUtil.toBean(getSuperService().getByIdCache(id), getResultVOClass()));
     }
 
 
@@ -54,7 +61,7 @@ public abstract class SuperCacheController<S extends SuperCacheService<Id, Entit
     @SysLog("'刷新缓存'")
     @PreAuth("hasAnyPermission('{}add')")
     public R<Boolean> refreshCache() {
-        baseService.refreshCache();
+        getSuperService().refreshCache();
         return success(true);
     }
 
@@ -68,7 +75,7 @@ public abstract class SuperCacheController<S extends SuperCacheService<Id, Entit
     @SysLog("'清理缓存'")
     @PreAuth("hasAnyPermission('{}add')")
     public R<Boolean> clearCache() {
-        baseService.clearCache();
+        getSuperService().clearCache();
         return success(true);
     }
 }
