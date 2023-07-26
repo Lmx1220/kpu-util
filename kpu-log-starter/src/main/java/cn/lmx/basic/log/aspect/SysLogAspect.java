@@ -175,7 +175,7 @@ public class SysLogAspect {
         // 开始时间
         OptLogDTO optLogDTO = get();
         optLogDTO.setCreatedBy(ContextUtil.getUserId());
-        optLogDTO.setUserName(ContextUtil.getName());
+        optLogDTO.setNickName(ContextUtil.getNickName());
         setDescription(joinPoint, sysLog, optLogDTO);
         // 类名
         optLogDTO.setClassPath(joinPoint.getTarget().getClass().getName());
@@ -225,7 +225,7 @@ public class SysLogAspect {
             }
         }
 
-        String controllerMethodDescription = LogUtil.getDescribe(sysLog);
+        String controllerMethodDescription = LogUtil.getRemarks(sysLog);
 
         if (StrUtil.isNotEmpty(controllerMethodDescription) && StrUtil.contains(controllerMethodDescription, StrPool.HASH)) {
             //获取方法参数值

@@ -16,5 +16,5 @@ public class ThreadLocalParam implements Serializable {
     private String tenant;
     private Long userid;
     private String name;
-    private String account;
+    private String username;
 }

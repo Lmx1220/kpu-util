@@ -8,12 +8,14 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import java.util.Objects;
+
 /**
  * @author lmx
  * @description: 全局响应体包装
  * @date 2023/7/4 14:27
  */
-public class AbstractGlobalResponseBodyAdvice implements ResponseBodyAdvice {
+public class AbstractGlobalResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter methodParameter, Class aClass) {
         // 类上如果被 IgnoreResponseBodyAdvice 标识就不拦截
@@ -22,10 +24,7 @@ public class AbstractGlobalResponseBodyAdvice implements ResponseBodyAdvice {
         }
 
         // 方法上被标注也不拦截
-        if (methodParameter.getMethod().isAnnotationPresent(IgnoreResponseBodyAdvice.class)) {
-            return false;
-        }
-        return true;
+        return !Objects.requireNonNull(methodParameter.getMethod()).isAnnotationPresent(IgnoreResponseBodyAdvice.class);
     }
 
     @Override
@@ -36,7 +35,6 @@ public class AbstractGlobalResponseBodyAdvice implements ResponseBodyAdvice {
         if (o instanceof R) {
             return o;
         }
-
         return R.success(o);
     }
 }

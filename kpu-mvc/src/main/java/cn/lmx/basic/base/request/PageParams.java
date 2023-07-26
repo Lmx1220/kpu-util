@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class PageParams<T> {
 
     @NotNull(message = "查询对象model不能为空")
     @ApiModelProperty(value = "查询参数", required = true)
+    @Valid
     private T model;
 
     @ApiModelProperty(value = "页面大小", example = "10")
@@ -76,7 +78,7 @@ public class PageParams<T> {
      *
      * @param entityClazz 字段中标注了@TableName 或 @TableId 注解的实体类。
      * @return 分页对象
-     * @since 3.5.0
+     * @since 1.0.0
      */
     @JsonIgnore
     public <E> IPage<E> buildPage(Class<?> entityClazz) {
@@ -97,7 +99,7 @@ public class PageParams<T> {
             String humpSort = sortArr[i];
             // 简单的 驼峰 转 下划线
             String underlineSort = Wraps.getDbField(humpSort, entityClazz);
-            orders.add(StrUtil.equalsAny(orderArr[i], "ascending", "ascend") ? OrderItem.asc(underlineSort) : OrderItem.desc(underlineSort));
+            orders.add(StrUtil.equalsAny(orderArr[i], "ascending", "ascend", "asc") ? OrderItem.asc(underlineSort) : OrderItem.desc(underlineSort));
         }
 
         page.setOrders(orders);

@@ -46,7 +46,7 @@ public class OptLogDTO {
     /**
      * 操作人
      */
-    private String userName;
+    private String nickName;
 
     /**
      * 操作描述

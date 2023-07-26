@@ -593,7 +593,7 @@ public class RedisOps {
      * @return 设置成功返回true。
      * @throws IllegalArgumentException 如果{@code key} 或 {@code value} 不存在
      * @see <a href="https://redis.io/commands/set">Redis Documentation: SET</a>
-     * @since 2.1
+     * @since 1.0
      */
     @Nullable
     public Boolean setXx(@NonNull String key, String value, boolean... cacheNullValues) {
@@ -610,7 +610,7 @@ public class RedisOps {
      * @return 设置成功返回true。
      * @throws IllegalArgumentException 如果{@code key} 或 {@code value} 不存在
      * @see <a href="https://redis.io/commands/set">Redis Documentation: SET</a>
-     * @since 2.1
+     * @since 1.0
      */
     @Nullable
     public Boolean setXx(@NonNull String key, String value, long seconds, boolean... cacheNullValues) {
@@ -627,7 +627,7 @@ public class RedisOps {
      * @return 设置成功返回true。
      * @throws IllegalArgumentException 如果{@code key} 或 {@code value} 不存在
      * @see <a href="https://redis.io/commands/set">Redis Documentation: SET</a>
-     * @since 2.1
+     * @since 1.0
      */
     @Nullable
     public Boolean setXx(@NonNull String key, String value, Duration timeout, boolean... cacheNullValues) {

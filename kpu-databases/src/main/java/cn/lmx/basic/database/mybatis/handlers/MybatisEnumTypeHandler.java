@@ -58,7 +58,7 @@ public class MybatisEnumTypeHandler<E extends Enum<E>> extends BaseTypeHandler<E
      *
      * @param clazz class
      * @return EnumValue字段
-     * @since 3.3.1
+     * @since 1.0.0
      */
     public static Optional<String> findEnumValueFieldName(Class<?> clazz) {
         if (clazz != null && clazz.isEnum()) {
@@ -80,7 +80,7 @@ public class MybatisEnumTypeHandler<E extends Enum<E>> extends BaseTypeHandler<E
      *
      * @param clazz class
      * @return 是否为MP枚举处理
-     * @since 3.3.1
+     * @since 1.0.0
      */
     public static boolean isMpEnums(Class<?> clazz) {
         return clazz != null && clazz.isEnum() && (IEnum.class.isAssignableFrom(clazz) || findEnumValueFieldName(clazz).isPresent());
@@ -136,7 +136,7 @@ public class MybatisEnumTypeHandler<E extends Enum<E>> extends BaseTypeHandler<E
      * @param sourceValue 数据库字段值
      * @param targetValue 当前枚举属性值
      * @return 是否匹配
-     * @since 3.3.0
+     * @since 1.0.0
      */
     protected boolean equalsValue(Object sourceValue, Object targetValue) {
         String sValue = StringUtils.toStringTrim(sourceValue);

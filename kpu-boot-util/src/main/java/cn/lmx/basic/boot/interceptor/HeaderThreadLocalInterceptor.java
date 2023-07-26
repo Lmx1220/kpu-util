@@ -35,8 +35,8 @@ public class HeaderThreadLocalInterceptor implements AsyncHandlerInterceptor {
         if (!ContextUtil.getBoot()) {
             ContextUtil.setPath(getHeader(request, ContextConstants.PATH_HEADER));
             ContextUtil.setUserId(getHeader(request, ContextConstants.JWT_KEY_USER_ID));
-            ContextUtil.setAccount(getHeader(request, ContextConstants.JWT_KEY_ACCOUNT));
-            ContextUtil.setName(getHeader(request, ContextConstants.JWT_KEY_NAME));
+            ContextUtil.setUsername(getHeader(request, ContextConstants.JWT_KEY_USERNAME));
+            ContextUtil.setNickName(getHeader(request, ContextConstants.JWT_KEY_NICK_NAME));
             ContextUtil.setTenant(getHeader(request, ContextConstants.JWT_KEY_TENANT));
             ContextUtil.setSubTenant(getHeader(request, ContextConstants.JWT_KEY_SUB_TENANT));
 

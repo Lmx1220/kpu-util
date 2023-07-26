@@ -23,10 +23,10 @@ public class JwtUserInfo implements Serializable {
     /**
      * 账号
      */
-    private String account;
+    private String username;
     /**
      * 姓名
      */
-    private String name;
+    private String nickName;
 
 }

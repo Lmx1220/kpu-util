@@ -82,7 +82,7 @@ public class ArgumentAssert {
      * @param expression    布尔值
      * @param errorSupplier 指定断言不通过时抛出的异常
      * @throws X if expression is {@code false}
-     * @since 5.4.5
+     * @since 1.0.0
      */
     public static <X extends Throwable> void isFalse(boolean expression, Supplier<X> errorSupplier) throws X {
         if (expression) {
@@ -134,7 +134,7 @@ public class ArgumentAssert {
      * @param object        被检查的对象
      * @param errorSupplier 错误抛出异常附带的消息生产接口
      * @throws X if the object is not {@code null}
-     * @since 5.4.5
+     * @since 1.0.0
      */
     public static <X extends Throwable> void isNull(Object object, Supplier<X> errorSupplier) throws X {
         if (null != object) {
@@ -190,7 +190,7 @@ public class ArgumentAssert {
      * @param errorSupplier 错误抛出异常附带的消息生产接口
      * @return 被检查后的对象 t
      * @throws X if the object is {@code null}
-     * @since 5.4.5
+     * @since 1.0.0
      */
     public static <T, X extends Throwable> T notNull(T object, Supplier<X> errorSupplier) throws X {
         if (null == object) {
@@ -251,7 +251,7 @@ public class ArgumentAssert {
      * @return 非空字符串 t
      * @throws X 被检查字符串为空抛出此异常
      * @see StrUtil#isNotEmpty(CharSequence) StrUtil#isNotEmpty(CharSequence)
-     * @since 5.4.5
+     * @since 1.0.0
      */
     public static <T extends CharSequence, X extends Throwable> T notEmpty(T text, Supplier<X> errorSupplier) throws X {
         if (StrUtil.isEmpty(text)) {
@@ -375,7 +375,7 @@ public class ArgumentAssert {
      * @return 被检查的子串 t
      * @throws X 非子串抛出异常
      * @see StrUtil#contains(CharSequence, CharSequence) StrUtil#contains(CharSequence, CharSequence)
-     * @since 5.4.5
+     * @since 1.0.0
      */
     public static <T extends CharSequence, X extends Throwable> T notContain(CharSequence textToSearch, T substring, Supplier<X> errorSupplier) throws X {
         if (StrUtil.contains(textToSearch, substring)) {
@@ -542,7 +542,7 @@ public class ArgumentAssert {
      * @return 被检查的数组 t [ ]
      * @throws X if the object array is {@code null} or has no elements
      * @see ArrayUtil#isNotEmpty(Object[]) ArrayUtil#isNotEmpty(Object[])
-     * @since 5.4.5
+     * @since 1.0.0
      */
     public static <T, X extends Throwable> T[] notEmpty(T[] array, Supplier<X> errorSupplier) throws X {
         if (ArrayUtil.isEmpty(array)) {
@@ -602,7 +602,7 @@ public class ArgumentAssert {
      * @return 被检查的数组 t [ ]
      * @throws X if the object array contains a {@code null} element
      * @see ArrayUtil#hasNull(Object[]) ArrayUtil#hasNull(Object[])
-     * @since 5.4.5
+     * @since 1.0.0
      */
     public static <T, X extends Throwable> T[] noNullElements(T[] array, Supplier<X> errorSupplier) throws X {
         if (ArrayUtil.hasNull(array)) {
@@ -663,7 +663,7 @@ public class ArgumentAssert {
      * @return 非空集合 t
      * @throws X if the collection is {@code null} or has no elements
      * @see CollUtil#isNotEmpty(Iterable) CollUtil#isNotEmpty(Iterable)
-     * @since 5.4.5
+     * @since 1.0.0
      */
     public static <E, T extends Iterable<E>, X extends Throwable> T notEmpty(T collection, Supplier<X> errorSupplier) throws X {
         if (CollUtil.isEmpty(collection)) {
@@ -727,7 +727,7 @@ public class ArgumentAssert {
      * @return 被检查的Map t
      * @throws X if the map is {@code null} or has no entries
      * @see MapUtil#isNotEmpty(Map) MapUtil#isNotEmpty(Map)
-     * @since 5.4.5
+     * @since 1.0.0
      */
     public static <K, V, T extends Map<K, V>, X extends Throwable> T notEmpty(T map, Supplier<X> errorSupplier) throws X {
         if (MapUtil.isEmpty(map)) {
@@ -915,7 +915,7 @@ public class ArgumentAssert {
      * @return 检查后的下标 int
      * @throws ArgumentException         如果size &lt; 0 抛出此异常
      * @throws IndexOutOfBoundsException 如果index &lt; 0或者 index &ge; size 抛出此异常
-     * @since 4.1.9
+     * @since 1.0.0
      */
     public static int checkIndex(int index, int size) throws ArgumentException, IndexOutOfBoundsException {
         return checkIndex(index, size, "[Assertion failed]");
@@ -935,7 +935,7 @@ public class ArgumentAssert {
      * @return 检查后的下标 int
      * @throws ArgumentException         如果size &lt; 0 抛出此异常
      * @throws IndexOutOfBoundsException 如果index &lt; 0或者 index &ge; size 抛出此异常
-     * @since 4.1.9
+     * @since 1.0.0
      */
     public static int checkIndex(int index, int size, String errorMsgTemplate, Object... params) throws ArgumentException, IndexOutOfBoundsException {
         if (index < 0 || index >= size) {
@@ -951,7 +951,7 @@ public class ArgumentAssert {
      * @param min   最小值（包含）
      * @param max   最大值（包含）
      * @return 检查后的长度值 int
-     * @since 4.1.10
+     * @since 1.0.0
      */
     public static int checkBetween(int value, int min, int max) {
         if (value < min || value > max) {
@@ -967,7 +967,7 @@ public class ArgumentAssert {
      * @param min   最小值（包含）
      * @param max   最大值（包含）
      * @return 检查后的长度值 long
-     * @since 4.1.10
+     * @since 1.0.0
      */
     public static long checkBetween(long value, long min, long max) {
         if (value < min || value > max) {
@@ -983,7 +983,7 @@ public class ArgumentAssert {
      * @param min   最小值（包含）
      * @param max   最大值（包含）
      * @return 检查后的长度值 double
-     * @since 4.1.10
+     * @since 1.0.0
      */
     public static double checkBetween(double value, double min, double max) {
         if (value < min || value > max) {
@@ -999,7 +999,7 @@ public class ArgumentAssert {
      * @param min   最小值（包含）
      * @param max   最大值（包含）
      * @return 检查后的长度值 number
-     * @since 4.1.10
+     * @since 1.0.0
      */
     public static Number checkBetween(Number value, Number min, Number max) {
         notNull(value);

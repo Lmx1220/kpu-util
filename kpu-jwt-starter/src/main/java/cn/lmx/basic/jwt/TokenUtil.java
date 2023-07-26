@@ -44,14 +44,14 @@ public class TokenUtil {
         Map<String, String> param = new HashMap<>(16);
         param.put(JWT_KEY_TOKEN_TYPE, BEARER_HEADER_KEY);
         param.put(JWT_KEY_USER_ID, Convert.toStr(userInfo.getUserId(), "0"));
-        param.put(JWT_KEY_ACCOUNT, userInfo.getAccount());
-        param.put(JWT_KEY_NAME, userInfo.getName());
+        param.put(JWT_KEY_USERNAME, userInfo.getUsername());
+        param.put(JWT_KEY_NICK_NAME, userInfo.getNickName());
 
         Token token = JwtUtil.createJwt(param, expireMillis);
 
         AuthInfo authInfo = new AuthInfo();
-        authInfo.setAccount(userInfo.getAccount());
-        authInfo.setName(userInfo.getName());
+        authInfo.setUsername(userInfo.getUsername());
+        authInfo.setNickName(userInfo.getNickName());
         authInfo.setUserId(userInfo.getUserId());
         authInfo.setTokenType(BEARER_HEADER_KEY);
         authInfo.setToken(token.getToken());
@@ -85,13 +85,13 @@ public class TokenUtil {
         Claims claims = JwtUtil.getClaims(token, jwtProperties.getAllowedClockSkewSeconds());
         String tokenType = Convert.toStr(claims.get(JWT_KEY_TOKEN_TYPE));
         Long userId = Convert.toLong(claims.get(JWT_KEY_USER_ID));
-        String account = Convert.toStr(claims.get(JWT_KEY_ACCOUNT));
-        String name = Convert.toStr(claims.get(JWT_KEY_NAME));
+        String username = Convert.toStr(claims.get(JWT_KEY_USERNAME));
+        String nickName = Convert.toStr(claims.get(JWT_KEY_NICK_NAME));
         Date expiration = claims.getExpiration();
         return new AuthInfo().setToken(token)
                 .setExpire(expiration != null ? expiration.getTime() : 0L)
                 .setTokenType(tokenType).setUserId(userId)
-                .setAccount(account).setName(name);
+                .setUsername(username).setNickName(nickName);
     }
 
     /**

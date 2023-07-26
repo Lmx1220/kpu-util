@@ -15,7 +15,7 @@ public final class ContextConstants {
     /**
      * JWT中封装的 用户名称
      */
-    public static final String JWT_KEY_NAME = "name";
+    public static final String JWT_KEY_NICK_NAME = "name";
     /**
      * JWT中封装的 token 类型
      */
@@ -23,7 +23,7 @@ public final class ContextConstants {
     /**
      * JWT中封装的 用户账号
      */
-    public static final String JWT_KEY_ACCOUNT = "account";
+    public static final String JWT_KEY_USERNAME = "username";
     /**
      * JWT中封装的 客户端id
      */

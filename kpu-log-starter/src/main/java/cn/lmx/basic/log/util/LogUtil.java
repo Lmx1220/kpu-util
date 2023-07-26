@@ -22,7 +22,7 @@ public final class LogUtil {
     /***
      * 获取操作信息
      */
-    public static String getDescribe(JoinPoint point) {
+    public static String getRemarks(JoinPoint point) {
         SysLog annotation = getTargetAnnotation(point);
         if (annotation == null) {
             return StrPool.EMPTY;
@@ -30,7 +30,7 @@ public final class LogUtil {
         return annotation.value();
     }
 
-    public static String getDescribe(SysLog annotation) {
+    public static String getRemarks(SysLog annotation) {
         if (annotation == null) {
             return StrPool.EMPTY;
         }
