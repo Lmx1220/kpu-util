@@ -10,10 +10,15 @@ import cn.lmx.basic.base.mapper.SuperMapper;
 import cn.lmx.basic.cache.repository.CacheOps;
 import cn.lmx.basic.model.cache.CacheKey;
 import cn.lmx.basic.model.cache.CacheKeyBuilder;
+import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
+import com.baomidou.mybatisplus.core.toolkit.*;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import org.apache.ibatis.binding.MapperMethod;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -49,6 +56,9 @@ public abstract class SuperCacheManagerImpl<M extends SuperMapper<T>, T extends 
         return cacheOps.get(cacheKey, k -> super.getById(id));
     }
 
+    //    private List<CacheResult<T>> find(List<CacheKey> keys) {
+//        return cacheOps.find(keys);
+//    }
     @Override
     @Transactional(readOnly = true)
     public List<T> findByIds(@NonNull Collection<? extends Serializable> ids, Function<Collection<? extends Serializable>, Collection<T>> loader) {
@@ -90,33 +100,6 @@ public abstract class SuperCacheManagerImpl<M extends SuperMapper<T>, T extends 
         }
         return allList;
     }
-//    @Transactional(readOnly = true)
-//    public <E> Set<E> findCollectByIds(List<Long> keyIdList, Function<Collection<? extends Serializable>, Collection<T>> loader) {
-//        if (CollUtil.isEmpty(keyIdList)) {
-//            return Collections.emptySet();
-//        }
-//        // 拼接keys
-//        List<CacheKey> cacheKeys = keyIdList.stream().map(cacheKeyBuilder()::key).collect(Collectors.toList());
-//       List<E>  resultList=cacheOps.find(cacheKeys);
-//       if (resultList.size() != cacheKeys.size()){
-//           log.warn("key和结果数据不一致，请排查原因！");
-//
-//       }
-//       Set<E> resultIdSet = new HashSet<>();
-//       /*
-//        * 有可能缓存中不存在某些缓存，导致resultList中部分元素是null
-//        */
-//        for (int i = 0; i < resultList.size(); i++) {
-//            List<E> resultIdList = (List<E>) resultList.get(i);
-//            if(resultIdList!=null) {
-//                resultIdSet.addAll(resultIdList);
-//            }else {
-//                Long keyId = keyIdList.get(i);
-//                loader.apply(keyId).forEach(this::setCache);
-//            }
-//        }
-//        return resultIdSet;
-//    }
 
     @Override
     @Transactional(readOnly = true)
@@ -141,7 +124,6 @@ public abstract class SuperCacheManagerImpl<M extends SuperMapper<T>, T extends 
             return true;
         }
         boolean flag = super.removeByIds(idList);
-
         delCache(idList);
         return flag;
     }
@@ -168,6 +150,70 @@ public abstract class SuperCacheManagerImpl<M extends SuperMapper<T>, T extends 
         boolean save = super.updateById(model);
         delCache(model);
         return save;
+    }
+
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean saveBatch(Collection<T> entityList, int batchSize) {
+        String sqlStatement = getSqlStatement(SqlMethod.INSERT_ONE);
+        return executeBatch(entityList, batchSize, (sqlSession, entity) -> {
+            sqlSession.insert(sqlStatement, entity);
+
+            // 设置缓存
+            setCache(entity);
+        });
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean saveOrUpdateBatch(Collection<T> entityList, int batchSize) {
+        TableInfo tableInfo = TableInfoHelper.getTableInfo(getEntityClass());
+        Assert.notNull(tableInfo, "error: can not execute. because can not find cache of TableInfo for entity!");
+        String keyProperty = tableInfo.getKeyProperty();
+        Assert.notEmpty(keyProperty, "error: can not execute. because can not find column for id from entity!");
+
+        BiPredicate<SqlSession, T> predicate = (sqlSession, entity) -> {
+            Object idVal = ReflectionKit.getFieldValue(entity, keyProperty);
+            return StringUtils.checkValNull(idVal)
+                    || CollectionUtils.isEmpty(sqlSession.selectList(getSqlStatement(SqlMethod.SELECT_BY_ID), entity));
+        };
+
+        BiConsumer<SqlSession, T> consumer = (sqlSession, entity) -> {
+            MapperMethod.ParamMap<T> param = new MapperMethod.ParamMap<>();
+            param.put(Constants.ENTITY, entity);
+            sqlSession.update(getSqlStatement(SqlMethod.UPDATE_BY_ID), param);
+
+            // 清理缓存
+            delCache(entity);
+        };
+
+        String sqlStatement = SqlHelper.getSqlStatement(this.mapperClass, SqlMethod.INSERT_ONE);
+        return SqlHelper.executeBatch(getEntityClass(), log, entityList, batchSize, (sqlSession, entity) -> {
+            if (predicate.test(sqlSession, entity)) {
+                sqlSession.insert(sqlStatement, entity);
+                // 设置缓存
+                setCache(entity);
+            } else {
+                consumer.accept(sqlSession, entity);
+            }
+        });
+
+
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean updateBatchById(Collection<T> entityList, int batchSize) {
+        String sqlStatement = getSqlStatement(SqlMethod.UPDATE_BY_ID);
+        return executeBatch(entityList, batchSize, (sqlSession, entity) -> {
+            MapperMethod.ParamMap<T> param = new MapperMethod.ParamMap<>();
+            param.put(Constants.ENTITY, entity);
+            sqlSession.update(sqlStatement, param);
+
+            // 清理缓存
+            delCache(entity);
+        });
     }
 
     @Override

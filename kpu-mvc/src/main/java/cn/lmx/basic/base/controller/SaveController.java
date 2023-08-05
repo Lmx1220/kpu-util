@@ -51,9 +51,9 @@ public interface SaveController<Id extends Serializable, Entity extends SuperEnt
      * @return 实体
      */
     @ApiOperation(value = "复制")
-    @PostMapping
+    @PostMapping("/copy")
     @SysLog(value = "复制", request = false)
-    default R<Entity> save(@RequestParam("id") Id id) {
+    default R<Entity> copy(@RequestParam("id") Id id) {
         return R.success(getSuperService().copy(id));
     }
 

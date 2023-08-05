@@ -17,6 +17,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static cn.lmx.basic.utils.StrPool.PERCENT;
@@ -74,6 +76,10 @@ public final class Wraps {
      * 右模糊
      */
     public static final String LIKE_RIGHT = "_likeRight";
+    /**
+     * 区间
+     */
+    public static final String BETWEEN = "_between";
 
     private Wraps() {
         // ignore
@@ -155,7 +161,7 @@ public final class Wraps {
      * @return cn.lmx.basic.database.mybatis.conditions.query.QueryWrap<Entity>
      * @description: 构建查询条件
      * 1. 若model不为空，则将model中不为空的参数拼接到sql中；
-     * 2. 若extra中有 _st、_ed、_ge、_gt、_le、_lt、_eq、_ne、_like、_likeLeft、_likeRigth 等结尾的参数，在sql中拼接为相应的查询条件
+     * 2. 若extra中有 _between、_st、_ed、_ge、_gt、_le、_lt、_eq、_ne、_like、_likeLeft、_likeRight 等结尾的参数，在sql中拼接为相应的查询条件
      * @author lmx
      * @date 2023/7/4 14:27
      * @version 1.0
@@ -171,7 +177,13 @@ public final class Wraps {
                 if (ObjectUtil.isEmpty(value)) {
                     continue;
                 }
-                if (key.endsWith(ST)) {
+                if (key.endsWith(BETWEEN)) {
+                    String beanField = StrUtil.subBefore(key, BETWEEN, true);
+                    List<Object> between = new ArrayList<>((List<Object>) value);
+                    if (between.size() == 2) {
+                        wrapper.between(getDbField(beanField, modelClazz), between.get(0), between.get(1));
+                    }
+                } else if (key.endsWith(ST)) {
                     String beanField = StrUtil.subBefore(key, ST, true);
                     wrapper.ge(getDbField(beanField, modelClazz), DateUtils.getStartTime(value.toString()));
                 } else if (key.endsWith(ED)) {

@@ -180,8 +180,8 @@ public interface BaseController<Id extends Serializable, Entity extends SuperEnt
      *
      * @return 账号
      */
-    default String getAccount() {
-        return ContextUtil.getAccount();
+    default String getUsername() {
+        return ContextUtil.getUsername();
     }
 
     /**
@@ -189,8 +189,8 @@ public interface BaseController<Id extends Serializable, Entity extends SuperEnt
      *
      * @return 姓名
      */
-    default String getName() {
-        return ContextUtil.getName();
+    default String getNickName() {
+        return ContextUtil.getNickName();
     }
 
 }

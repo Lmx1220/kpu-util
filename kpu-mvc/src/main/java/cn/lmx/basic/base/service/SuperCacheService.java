@@ -1,6 +1,7 @@
 package cn.lmx.basic.base.service;
 
 import cn.lmx.basic.base.entity.SuperEntity;
+import cn.lmx.basic.model.cache.CacheKey;
 import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
@@ -23,6 +24,8 @@ public interface SuperCacheService<Id extends Serializable, Entity extends Super
         extends SuperService<Id, Entity, SaveVO, UpdateVO, PageQuery, ResultVO> {
 
     Entity getByIdCache(Id id);
+
+    Entity getByKey(CacheKey key, Function<CacheKey, Object> loader);
 
     /**
      * 可能会缓存穿透

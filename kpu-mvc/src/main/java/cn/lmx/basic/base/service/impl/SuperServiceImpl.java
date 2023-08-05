@@ -143,11 +143,13 @@ public class SuperServiceImpl<M extends SuperManager<Entity>, Id extends Seriali
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Entity getById(Serializable id) {
         return getSuperManager().getById(id);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void removeByIds(List<Id> ids) {
         getSuperManager().removeByIds(ids);
     }
@@ -168,6 +170,7 @@ public class SuperServiceImpl<M extends SuperManager<Entity>, Id extends Seriali
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Entity copy(Id id) {
         Entity old = getById(id);
         ArgumentAssert.notNull(old, "您要复制的数据不存在或已被删除，请刷新重试");
@@ -183,21 +186,25 @@ public class SuperServiceImpl<M extends SuperManager<Entity>, Id extends Seriali
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean removeById(Serializable id) {
         return getSuperManager().removeById(id);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean removeByIds(Collection<?> idList) {
         return getSuperManager().removeByIds(idList);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean remove(Wrapper<Entity> wrapper) {
         return getSuperManager().remove(wrapper);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean saveBatch(Collection<Entity> entityList) {
         return getSuperManager().saveBatch(entityList);
     }
