@@ -101,12 +101,20 @@ public class LbuWrapper<T> extends AbstractLambdaWrapper<T, LbuWrapper<T>>
     }
 
     @Override
-    public LbuWrapper<T> setSql(boolean condition, String sql) {
-        if (condition && StringUtils.isNotBlank(sql)) {
-            sqlSet.add(sql);
+    public LbuWrapper<T> setSql(boolean condition, String setSql, Object... params) {
+        if (condition && StringUtils.isNotBlank(setSql)) {
+            sqlSet.add(this.formatSqlMaybeWithParam(setSql, params));
         }
         return typedThis;
     }
+
+//    @Override
+//    public LbuWrapper<T> setSql(boolean condition, String sql) {
+//        if (condition && StringUtils.isNotBlank(sql)) {
+//            sqlSet.add(sql);
+//        }
+//        return typedThis;
+//    }
 
     @Override
     public String getSqlSet() {

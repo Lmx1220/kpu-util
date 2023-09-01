@@ -11,4 +11,5 @@ public interface Constants {
      * 项目前缀
      */
     String PROJECT_PREFIX = "kpu";
+    String TEST_CONNECT_SQL = "show databases";
 }

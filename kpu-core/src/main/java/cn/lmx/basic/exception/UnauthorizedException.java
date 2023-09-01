@@ -2,7 +2,6 @@ package cn.lmx.basic.exception;
 
 
 import cn.lmx.basic.exception.code.ExceptionCode;
-
 /**
  * @author lmx
  * @version 1.0

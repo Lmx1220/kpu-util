@@ -10,12 +10,14 @@ import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
 import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.core.toolkit.ArrayUtils;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
@@ -95,6 +97,15 @@ public class QueryWrap<T> extends AbstractWrapper<T, String, QueryWrap<T>>
             this.sqlSelect.setStringValue(String.join(StringPool.COMMA, columns));
         }
         return typedThis;
+    }
+
+    @Override
+    public QueryWrap<T> select(boolean condition, List<String> columns) {
+        if (condition && CollectionUtils.isNotEmpty(columns)) {
+            this.sqlSelect.setStringValue(String.join(StringPool.COMMA, columns));
+        }
+
+        return this.typedThis;
     }
 
     @Override
