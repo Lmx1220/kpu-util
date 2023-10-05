@@ -3,19 +3,14 @@ package cn.lmx.basic.database.datasource;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ReflectUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.lmx.basic.constant.Constants;
-import cn.lmx.basic.context.ContextUtil;
 import cn.lmx.basic.database.injector.KpuSqlInjector;
 import cn.lmx.basic.database.mybatis.WriteInterceptor;
 import cn.lmx.basic.database.mybatis.typehandler.FullLikeTypeHandler;
 import cn.lmx.basic.database.mybatis.typehandler.LeftLikeTypeHandler;
 import cn.lmx.basic.database.mybatis.typehandler.RightLikeTypeHandler;
-import cn.lmx.basic.database.plugins.SchemaInterceptor;
 import cn.lmx.basic.database.properties.DatabaseProperties;
-import cn.lmx.basic.database.properties.MultiTenantType;
 import cn.lmx.basic.uid.dao.WorkerNodeDao;
-import cn.lmx.basic.utils.ArgumentAssert;
 import com.baidu.fsg.uid.UidGenerator;
 import com.baidu.fsg.uid.buffer.RejectedPutBufferHandler;
 import com.baidu.fsg.uid.buffer.RejectedTakeBufferHandler;
@@ -26,11 +21,11 @@ import com.baidu.fsg.uid.worker.DisposableWorkerIdAssigner;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
-import com.baomidou.mybatisplus.extension.plugins.inner.*;
+import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.IllegalSQLInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.jsqlparser.expression.Expression;
-import net.sf.jsqlparser.expression.StringValue;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
@@ -70,7 +65,7 @@ public abstract class BaseMybatisConfiguration {
     @ConditionalOnMissingBean
     @ConditionalOnProperty(prefix = DatabaseProperties.PREFIX, name = "isNotWrite", havingValue = "true")
     public WriteInterceptor getWriteInterceptor() {
-        return new WriteInterceptor();
+        return new WriteInterceptor(databaseProperties);
     }
 
 
@@ -93,39 +88,9 @@ public abstract class BaseMybatisConfiguration {
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         log.info("检测到 kpu.database.multiTenantType={}，已启用 {} 模式", databaseProperties.getMultiTenantType().name(), databaseProperties.getMultiTenantType().getRemarks());
-        if (StrUtil.equalsAny(databaseProperties.getMultiTenantType().name(),
-                MultiTenantType.SCHEMA.name(), MultiTenantType.SCHEMA_COLUMN.name())) {
-            ArgumentAssert.notNull(databaseProperties.getDbType(), "SCHEMA 模式请在mysql.yml、oracle.yml、sqlserver.yml中配置: {}.dbType", DatabaseProperties.PREFIX);
 
-            // SCHEMA 动态表名插件
-            SchemaInterceptor schemaInterceptor = new SchemaInterceptor(databaseProperties.getTenantDatabasePrefix(), databaseProperties.getOwner(), databaseProperties.getDbType());
-            interceptor.addInnerInterceptor(schemaInterceptor);
-        }
-        if (StrUtil.equalsAny(databaseProperties.getMultiTenantType().name(),
-                MultiTenantType.COLUMN.name(), MultiTenantType.SCHEMA_COLUMN.name(), MultiTenantType.DATASOURCE_COLUMN.name())) {
-            // COLUMN 模式 多租户插件
-            TenantLineInnerInterceptor tli = new TenantLineInnerInterceptor();
-            tli.setTenantLineHandler(new TenantLineHandler() {
-                @Override
-                public String getTenantIdColumn() {
-                    return databaseProperties.getTenantIdColumn();
-                }
 
-                @Override
-                public boolean ignoreTable(String tableName) {
-                    return databaseProperties.getIgnoreTables() != null && databaseProperties.getIgnoreTables().contains(tableName);
-                }
-
-                @Override
-                public Expression getTenantId() {
-                    return MultiTenantType.COLUMN.eq(databaseProperties.getMultiTenantType()) ?
-                            new StringValue(ContextUtil.getTenant()) :
-                            new StringValue(ContextUtil.getSubTenant());
-                }
-            });
-            interceptor.addInnerInterceptor(tli);
-        }
-
+        // 插件
         List<InnerInterceptor> beforeInnerInterceptor = getPaginationBeforeInnerInterceptor();
         if (!beforeInnerInterceptor.isEmpty()) {
             beforeInnerInterceptor.forEach(interceptor::addInnerInterceptor);

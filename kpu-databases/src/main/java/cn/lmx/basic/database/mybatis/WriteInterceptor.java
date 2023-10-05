@@ -4,10 +4,10 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.lmx.basic.constant.Constants;
 import cn.lmx.basic.context.ContextUtil;
+import cn.lmx.basic.database.properties.DatabaseProperties;
 import cn.lmx.basic.exception.BizException;
 import cn.lmx.basic.utils.SpringUtils;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
-import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.StatementHandler;
@@ -32,10 +32,14 @@ import static org.apache.ibatis.mapping.SqlCommandType.*;
  */
 @SuppressWarnings("AlibabaUndefineMagicConstant")
 @Slf4j
-@NoArgsConstructor
 @Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})})
 public class WriteInterceptor implements Interceptor {
 
+    private final DatabaseProperties databaseProperties;
+
+    public WriteInterceptor(final DatabaseProperties databaseProperties) {
+        this.databaseProperties = databaseProperties;
+    }
 
     @Override
     @SneakyThrows
