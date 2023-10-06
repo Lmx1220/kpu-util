@@ -8,6 +8,7 @@ package cn.lmx.basic.context;
  */
 public final class ContextConstants {
     public static final String DEF_TENANT = "master";
+    public static final String DEF_TENANT_ID_STR = "0";
     /**
      * JWT中封装的 用户id
      */
@@ -28,6 +29,9 @@ public final class ContextConstants {
      * JWT中封装的 客户端id
      */
     public static final String JWT_KEY_CLIENT_ID = "client_id";
+
+    public static final String JWT_KEY_COMPANY_ID = "CurrentCompanyId";
+
     /**
      * JWT token 签名
      * <p>
@@ -103,6 +107,10 @@ public final class ContextConstants {
      * 灰度发布版本号
      */
     public static final String GRAY_VERSION = "gray_version";
+    /**
+     * 当前线程 所属单位
+     */
+    public static final String CURRENT_COMPANY_ID_HEADER = JWT_KEY_COMPANY_ID;
 
     private ContextConstants() {
     }

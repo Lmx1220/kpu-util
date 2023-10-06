@@ -3,6 +3,7 @@ package cn.lmx.basic.database.plugins;
 import com.baomidou.mybatisplus.core.plugins.InterceptorIgnoreHelper;
 import com.baomidou.mybatisplus.core.toolkit.*;
 import com.baomidou.mybatisplus.extension.parser.JsqlParserSupport;
+import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
 import com.baomidou.mybatisplus.extension.toolkit.PropertyMapper;
 import lombok.*;
@@ -44,11 +45,11 @@ import java.util.Properties;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @SuppressWarnings({"rawtypes"})
-public class MultiTenantLineInnerInterceptor extends JsqlParserSupport implements InnerInterceptor {
+public class KpuTenantLineInnerInterceptor extends JsqlParserSupport implements InnerInterceptor {
 
     private final static String SELECT = "SELECT";
 
-    private MultiTenantLineHandler tenantLineHandler;
+    private TenantLineHandler tenantLineHandler;
 
     @Override
     public void beforeQuery(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
@@ -61,6 +62,7 @@ public class MultiTenantLineInnerInterceptor extends JsqlParserSupport implement
 
     @Override
     public void beforePrepare(StatementHandler sh, Connection connection, Integer transactionTimeout) {
+//        new TenantLineInnerInterceptor();
         PluginUtils.MPStatementHandler mpSh = PluginUtils.mpStatementHandler(sh);
         MappedStatement ms = mpSh.mappedStatement();
         SqlCommandType sct = ms.getSqlCommandType();
@@ -424,20 +426,20 @@ public class MultiTenantLineInnerInterceptor extends JsqlParserSupport implement
      * @update [2023/6/21 19:43] [lmx] 支持拼接多个租户id
      */
     protected Expression builderExpression(Expression currentExpression, Table table) {
-        ValueListExpression listExpression = tenantLineHandler.getTenantIdList();
-        if (listExpression != null) {
-            InExpression in = new InExpression();
-            in.setLeftExpression(this.getAliasColumn(table));
-            in.setRightExpression(listExpression);
-            if (currentExpression == null) {
-                return in;
-            }
-            if (currentExpression instanceof OrExpression) {
-                return new AndExpression(new Parenthesis(currentExpression), in);
-            } else {
-                return new AndExpression(currentExpression, in);
-            }
-        } else {
+//        ValueListExpression listExpression = tenantLineHandler.getTenantId();
+//        if (listExpression != null) {
+//            InExpression in = new InExpression();
+//            in.setLeftExpression(this.getAliasColumn(table));
+//            in.setRightExpression(listExpression);
+//            if (currentExpression == null) {
+//                return in;
+//            }
+//            if (currentExpression instanceof OrExpression) {
+//                return new AndExpression(new Parenthesis(currentExpression), in);
+//            } else {
+//                return new AndExpression(currentExpression, in);
+//            }
+//        } else {
             Expression tenantId = tenantLineHandler.getTenantId();
             EqualsTo equalsTo = new EqualsTo();
             if (tenantId != null) {
@@ -454,7 +456,7 @@ public class MultiTenantLineInnerInterceptor extends JsqlParserSupport implement
             } else {
                 return new AndExpression(currentExpression, equalsTo);
             }
-        }
+//        }
     }
 
     /**

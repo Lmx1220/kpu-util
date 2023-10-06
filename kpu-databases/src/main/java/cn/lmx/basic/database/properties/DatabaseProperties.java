@@ -23,6 +23,7 @@ import static cn.lmx.basic.database.properties.MultiTenantType.SCHEMA;
  * @description: 客户端认证配置
  * @date 2023/7/4 14:27
  */
+//@Configuration
 @Data
 @NoArgsConstructor
 @ConfigurationProperties(prefix = DatabaseProperties.PREFIX)
@@ -66,12 +67,13 @@ public class DatabaseProperties {
      */
     private Boolean isDataScope = true;
 
+
     /**
      * 当前服务的租户库前缀
      * <p>
      * 仅SCHEMA模式使用
      */
-    private String tenantDatabasePrefix = " kpu_base";
+    private String tenantDatabasePrefix = "kpu_base";
     /**
      * SCHEMA 模式专用
      */
@@ -102,7 +104,14 @@ public class DatabaseProperties {
      * 在执行sql时，忽略 租户插件自动拼接租户编码的表
      * 仅 COLUMN 模式有效
      */
-    private List<String> ignoreTables = new ArrayList<>();
+    /**
+     * 在执行sql时，租户插件 不会自动拼接租户ID的 表前缀
+     */
+    private List<String> ignoreTable = new ArrayList<>();
+    /**
+     * 在执行sql时，租户插件 不会自动拼接租户ID的 表名
+     */
+    private List<String> ignoreTablePrefix = new ArrayList<>();
     /**
      * id 类型
      */
