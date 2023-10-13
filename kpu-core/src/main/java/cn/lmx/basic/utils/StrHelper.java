@@ -89,4 +89,16 @@ public final class StrHelper {
         return like(value, SqlLike.DEFAULT);
     }
 
+    public static String convertToCamelCase(String text) {
+        if (StrUtil.isBlank(text)) {
+            return StrPool.EMPTY;
+        }
+        // user_name -> UserName Java实体类驼峰命名
+        String[] split = text.split(StrPool.UNDERSCORE);
+        StringBuilder sb = new StringBuilder();
+        for (String s : split) {
+            sb.append(StrUtil.upperFirst(s));
+        }
+        return sb.toString();
+    }
 }

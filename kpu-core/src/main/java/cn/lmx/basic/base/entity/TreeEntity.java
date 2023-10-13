@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author lmx
  * @version 1.0
- * @description: 包括id、create_time、created_by、updated_by、update_time、label、parent_id、sort_value 字段的表继承的树形实体
+ * @description: 包括id、created_time、created_by、updated_by、updated_time、label、parent_id、sort_value 字段的表继承的树形实体
  * @date 2023/7/4 14:27
  */
 @Getter

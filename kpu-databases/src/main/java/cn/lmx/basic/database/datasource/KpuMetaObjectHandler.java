@@ -21,16 +21,16 @@ import java.time.LocalDateTime;
  * @author lmx
  * @version 1.0
  * @description: MyBatis Plus 元数据处理类
- * 用于自动 注入 id, createTime, updateTime, createdBy, updatedBy 等字段
+ * 用于自动 注入 id, createdTime, updatedTime, createdBy, updatedBy 等字段
  * <p>
  * 判断逻辑：
- * 1. insert 方法，自动填充 id, createTime, updateTime, createdBy, updatedBy 字段，字段为空则自动生成，不为空则使用传递进来的
- * 2. update 方法，自动填充 id, updateTime, updatedBy 字段，字段为空则自动生成，不为空则使用传递进来的
+ * 1. insert 方法，自动填充 id, createdTime, updatedTime, createdBy, updatedBy 字段，字段为空则自动生成，不为空则使用传递进来的
+ * 2. update 方法，自动填充 id, updatedTime, updatedBy 字段，字段为空则自动生成，不为空则使用传递进来的
  * <p>
  * 注入值：
  * id：  IdUtil.getSnowflake(workerId, dataCenterId);
- * createTime：LocalDateTime.now()
- * updateTime：LocalDateTime.now()
+ * createdTime：LocalDateTime.now()
+ * updatedTime：LocalDateTime.now()
  * createdBy：BaseContextHandler.getUserId()
  * updatedBy：BaseContextHandler.getUserId()
  * @date 2023/7/4 14:27
@@ -51,7 +51,7 @@ public class KpuMetaObjectHandler implements MetaObjectHandler {
      * 1、所有的继承了Entity、SuperEntity的实体，在insert时，
      * id： id为空时， 通过IdGenerate生成唯一ID。
      * createdBy, updatedBy: 自动赋予 当前线程上的登录人id。
-     * createTime, updateTime: 自动赋予 服务器的当前时间。
+     * createdTime, updatedTime: 自动赋予 服务器的当前时间。
      * <p>
      * 注意：实体中字段为空时才会赋值，若手动传值了，这里不会重新赋值
      * <p>
@@ -79,20 +79,20 @@ public class KpuMetaObjectHandler implements MetaObjectHandler {
             if (oldId != null) {
                 return;
             }
-            Object idVal = StrPool.STRING_TYPE_NAME.equals(metaObject.getGetterType(SuperEntity.FIELD_ID).getName()) ? String.valueOf(id) : id;
-            this.setFieldValByName(SuperEntity.FIELD_ID, idVal, metaObject);
+            Object idVal = StrPool.STRING_TYPE_NAME.equals(metaObject.getGetterType(SuperEntity.ID_FIELD).getName()) ? String.valueOf(id) : id;
+            this.setFieldValByName(SuperEntity.ID_FIELD, idVal, metaObject);
             return;
         }
 
         // 2. 没有继承SuperEntity， 但主键的字段名为：  id
-        if (metaObject.hasGetter(SuperEntity.FIELD_ID)) {
-            Object oldId = metaObject.getValue(SuperEntity.FIELD_ID);
+        if (metaObject.hasGetter(SuperEntity.ID_FIELD)) {
+            Object oldId = metaObject.getValue(SuperEntity.ID_FIELD);
             if (oldId != null) {
                 return;
             }
 
-            Object idVal = StrPool.STRING_TYPE_NAME.equals(metaObject.getGetterType(SuperEntity.FIELD_ID).getName()) ? String.valueOf(id) : id;
-            this.setFieldValByName(SuperEntity.FIELD_ID, idVal, metaObject);
+            Object idVal = StrPool.STRING_TYPE_NAME.equals(metaObject.getGetterType(SuperEntity.ID_FIELD).getName()) ? String.valueOf(id) : id;
+            this.setFieldValByName(SuperEntity.ID_FIELD, idVal, metaObject);
             return;
         }
 
@@ -137,10 +137,10 @@ public class KpuMetaObjectHandler implements MetaObjectHandler {
                 this.setFieldValByName(Entity.CREATED_BY, ContextUtil.getUserId(), metaObject);
             }
         }
-        if (metaObject.hasGetter(Entity.CREATE_TIME)) {
-            Object oldVal = metaObject.getValue(Entity.CREATE_TIME);
+        if (metaObject.hasGetter(Entity.CREATED_TIME)) {
+            Object oldVal = metaObject.getValue(Entity.CREATED_TIME);
             if (oldVal == null) {
-                this.setFieldValByName(Entity.CREATE_TIME, LocalDateTime.now(), metaObject);
+                this.setFieldValByName(Entity.CREATED_TIME, LocalDateTime.now(), metaObject);
             }
         }
 
@@ -148,8 +148,8 @@ public class KpuMetaObjectHandler implements MetaObjectHandler {
 
     private void created(MetaObject metaObject) {
         SuperEntity entity = (SuperEntity) metaObject.getOriginalObject();
-        if (entity.getCreateTime() == null) {
-            this.setFieldValByName(Entity.CREATE_TIME, LocalDateTime.now(), metaObject);
+        if (entity.getCreatedTime() == null) {
+            this.setFieldValByName(Entity.CREATED_TIME, LocalDateTime.now(), metaObject);
         }
         if (entity.getCreatedBy() == null || entity.getCreatedBy().equals(0)) {
             Object userIdVal = StrPool.STRING_TYPE_NAME.equals(metaObject.getGetterType(SuperEntity.CREATED_BY).getName()) ? String.valueOf(ContextUtil.getUserId()) : ContextUtil.getUserId();
@@ -171,10 +171,10 @@ public class KpuMetaObjectHandler implements MetaObjectHandler {
                 this.setFieldValByName(Entity.UPDATED_BY, ContextUtil.getUserId(), metaObject);
             }
         }
-        if (metaObject.hasGetter(Entity.UPDATE_TIME)) {
-            Object oldVal = metaObject.getValue(Entity.UPDATE_TIME);
+        if (metaObject.hasGetter(Entity.UPDATED_TIME)) {
+            Object oldVal = metaObject.getValue(Entity.UPDATED_TIME);
             if (oldVal == null) {
-                this.setFieldValByName(Entity.UPDATE_TIME, LocalDateTime.now(), metaObject);
+                this.setFieldValByName(Entity.UPDATED_TIME, LocalDateTime.now(), metaObject);
             }
         }
     }
@@ -185,15 +185,15 @@ public class KpuMetaObjectHandler implements MetaObjectHandler {
             Object userIdVal = StrPool.STRING_TYPE_NAME.equals(metaObject.getGetterType(Entity.UPDATED_BY).getName()) ? String.valueOf(ContextUtil.getUserId()) : ContextUtil.getUserId();
             this.setFieldValByName(Entity.UPDATED_BY, userIdVal, metaObject);
         }
-        if (entity.getUpdateTime() == null) {
-            this.setFieldValByName(Entity.UPDATE_TIME, LocalDateTime.now(), metaObject);
+        if (entity.getUpdatedTime() == null) {
+            this.setFieldValByName(Entity.UPDATED_TIME, LocalDateTime.now(), metaObject);
         }
     }
 
     /**
      * 所有的继承了Entity、SuperEntity的实体，在update时，
      * updatedBy: 自动赋予 当前线程上的登录人id
-     * updateTime: 自动赋予 服务器的当前时间
+     * updatedTime: 自动赋予 服务器的当前时间
      */
     @Override
     public void updateFill(MetaObject metaObject) {

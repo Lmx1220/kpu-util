@@ -42,8 +42,8 @@ public class PageParams<T> {
     @ApiModelProperty(value = "当前页", example = "1")
     private long current = 1;
 
-    @ApiModelProperty(value = "排序,默认createTime", allowableValues = "id,createTime,updateTime", example = "id")
-    private String sort = SuperEntity.FIELD_ID;
+    @ApiModelProperty(value = "排序,默认createTime", allowableValues = "id,createdTime,updatedTime", example = "id")
+    private String sort = SuperEntity.ID_FIELD;
 
     @ApiModelProperty(value = "排序规则, 默认descending", allowableValues = "descending,ascending", example = "descending")
     private String order = "descending";

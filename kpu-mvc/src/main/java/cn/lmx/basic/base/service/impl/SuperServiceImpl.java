@@ -3,7 +3,6 @@ package cn.lmx.basic.base.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.lmx.basic.base.entity.SuperEntity;
 import cn.lmx.basic.base.manager.SuperManager;
-import cn.lmx.basic.base.manager.impl.SuperManagerImpl;
 import cn.lmx.basic.base.service.SuperService;
 import cn.lmx.basic.utils.ArgumentAssert;
 import cn.lmx.basic.utils.BeanPlusUtil;
@@ -67,15 +66,15 @@ public class SuperServiceImpl<M extends SuperManager<Entity>, Id extends Seriali
     }
 
     protected Class<M> currentManagerClass() {
-        return (Class<M>) ReflectionKit.getSuperClassGenericType(this.getClass(), SuperManagerImpl.class, 0);
+        return (Class<M>) ReflectionKit.getSuperClassGenericType(this.getClass(), SuperServiceImpl.class, 0);
     }
 
     protected Class<Id> currentIdClass() {
-        return (Class<Id>) ReflectionKit.getSuperClassGenericType(this.getClass(), SuperManagerImpl.class, 1);
+        return (Class<Id>) ReflectionKit.getSuperClassGenericType(this.getClass(), SuperServiceImpl.class, 1);
     }
 
     protected Class<Entity> currentModelClass() {
-        return (Class<Entity>) ReflectionKit.getSuperClassGenericType(this.getClass(), SuperManagerImpl.class, 2);
+        return (Class<Entity>) ReflectionKit.getSuperClassGenericType(this.getClass(), SuperServiceImpl.class, 2);
     }
 
     @Override

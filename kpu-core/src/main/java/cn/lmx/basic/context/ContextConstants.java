@@ -59,6 +59,7 @@ public final class ContextConstants {
      * 请求头和线程变量中的 extend库 租户数据源标识
      */
     public static final String TENANT_EXTEND_POOL_NAME_HEADER = "kpu_extend";
+    public static final String TENANT_XXX_POOL_NAME_HEADER = "kpu_xxx";
     /**
      * User信息 认证请求头
      */
