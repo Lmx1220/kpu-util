@@ -1,5 +1,6 @@
 package cn.lmx.basic.utils;
 
+import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.enums.SqlLike;
@@ -100,5 +101,22 @@ public final class StrHelper {
             sb.append(StrUtil.upperFirst(s));
         }
         return sb.toString();
+    }
+    public static String convertUriToCamelCase(String uri) {
+        StringBuilder result = new StringBuilder();
+        boolean toUpperCase = true;
+
+        for (int i = 0; i < uri.length(); i++) {
+            String c = Convert.toStr(uri.charAt(i));
+
+            if (c.equals(StrPool.SLASH) || c.equals(StrPool.DASH) || c.equals(StrPool.UNDERSCORE)) {
+                toUpperCase = true;
+            } else {
+                result.append(toUpperCase ? Character.toUpperCase(Convert.toChar(c)) : Character.toLowerCase(Convert.toChar(c)));
+                toUpperCase = false;
+            }
+        }
+
+        return result.toString();
     }
 }
