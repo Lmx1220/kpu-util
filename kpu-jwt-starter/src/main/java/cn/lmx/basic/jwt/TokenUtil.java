@@ -20,8 +20,10 @@ import static cn.lmx.basic.context.ContextConstants.*;
  * @description: 认证工具类
  * @date 2023/7/4 14:27
  */
+
 @AllArgsConstructor
 public class TokenUtil {
+
     /**
      * 认证服务端使用，如 authority-server
      * 生成和 解析token
