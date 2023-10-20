@@ -78,7 +78,7 @@ public class SysLogAspect {
      * \@annotation(cn.lmx.basic.annotation.log.SysLog) 解释：
      * 标记了@SysLog 注解的方法
      */
-    @Pointcut("execution(public * cn.lmx.basic.base.controller.*.*(..)) || @annotation(cn.lmx.basic.annotation.log.SysLog)")
+    @Pointcut("execution(public * cn.lmx.basic.*.controller.*.*(..)) || @annotation(cn.lmx.basic.annotation.log.SysLog)")
     public void sysLogAspect() {
 
     }
