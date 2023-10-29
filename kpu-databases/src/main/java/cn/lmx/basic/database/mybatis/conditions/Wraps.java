@@ -1,6 +1,7 @@
 package cn.lmx.basic.database.mybatis.conditions;
 
 
+import cn.hutool.core.annotation.AnnotationUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReflectUtil;
@@ -12,12 +13,14 @@ import cn.lmx.basic.exception.BizException;
 import cn.lmx.basic.utils.ArgumentAssert;
 import cn.lmx.basic.utils.DateUtils;
 import cn.lmx.basic.utils.StrHelper;
+import com.baomidou.mybatisplus.annotation.SqlCondition;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -77,9 +80,9 @@ public final class Wraps {
      */
     public static final String LIKE_RIGHT = "_likeRight";
     /**
-     * 区间
+     * 范围内
      */
-    public static final String BETWEEN = "_between";
+    public static final String IN = "_in";
 
     private Wraps() {
         // ignore
@@ -153,18 +156,17 @@ public final class Wraps {
         return q(model, extra, modelClazz).lambda();
     }
 
-
     /**
+     * 构建查询条件
+     * 1. 若model不为空，则将model中不为空的参数拼接到sql中；
+     * 2. 若extra中有 _st、_ed、_ge、_gt、_le、_lt、_eq、_ne、_like、_likeLeft、_likeRigth 等结尾的参数，在sql中拼接为相应的查询条件
+     *
      * @param model      model 条件对象实例
      * @param extra      extra 扩展参数
      * @param modelClazz modelClazz 条件对象类型
      * @return cn.lmx.basic.database.mybatis.conditions.query.QueryWrap<Entity>
-     * @description: 构建查询条件
-     * 1. 若model不为空，则将model中不为空的参数拼接到sql中；
-     * 2. 若extra中有 _between、_st、_ed、_ge、_gt、_le、_lt、_eq、_ne、_like、_likeLeft、_likeRight 等结尾的参数，在sql中拼接为相应的查询条件
      * @author lmx
-     * @date 2023/7/4 14:27
-     * @version 1.0
+     * @date 2023/10/13 14:27
      */
     public static <Entity> QueryWrap<Entity> q(Entity model, Map<String, Object> extra, Class<Entity> modelClazz) {
         QueryWrap<Entity> wrapper = model != null ? Wraps.q(model) : Wraps.q();
@@ -177,45 +179,42 @@ public final class Wraps {
                 if (ObjectUtil.isEmpty(value)) {
                     continue;
                 }
-                if (key.endsWith(BETWEEN)) {
-                    String beanField = StrUtil.subBefore(key, BETWEEN, true);
-                    List<Object> between = new ArrayList<>((List<Object>) value);
-                    if (between.size() == 2) {
-                        wrapper.between(getDbField(beanField, modelClazz), between.get(0), between.get(1));
-                    }
-                } else if (key.endsWith(ST)) {
-                    String beanField = StrUtil.subBefore(key, ST, true);
-                    wrapper.ge(getDbField(beanField, modelClazz), DateUtils.getStartTime(value.toString()));
-                } else if (key.endsWith(ED)) {
-                    String beanField = StrUtil.subBefore(key, ED, true);
-                    wrapper.le(getDbField(beanField, modelClazz), DateUtils.getEndTime(value.toString()));
-                } else if (key.endsWith(GE)) {
-                    String beanField = StrUtil.subBefore(key, GE, true);
-                    wrapper.ge(getDbField(beanField, modelClazz), value);
-                } else if (key.endsWith(GT)) {
-                    String beanField = StrUtil.subBefore(key, GT, true);
-                    wrapper.gt(getDbField(beanField, modelClazz), value);
-                } else if (key.endsWith(LT)) {
-                    String beanField = StrUtil.subBefore(key, LT, true);
-                    wrapper.lt(getDbField(beanField, modelClazz), value);
-                } else if (key.endsWith(LE)) {
-                    String beanField = StrUtil.subBefore(key, LE, true);
-                    wrapper.le(getDbField(beanField, modelClazz), value);
-                } else if (key.endsWith(NE)) {
-                    String beanField = StrUtil.subBefore(key, NE, true);
-                    wrapper.ne(getDbField(beanField, modelClazz), value);
-                } else if (key.endsWith(EQ)) {
-                    String beanField = StrUtil.subBefore(key, EQ, true);
-                    wrapper.eq(getDbField(beanField, modelClazz), value);
-                } else if (key.endsWith(LIKE)) {
-                    String beanField = StrUtil.subBefore(key, LIKE, true);
-                    wrapper.like(getDbField(beanField, modelClazz), value);
-                } else if (key.endsWith(LIKE_LEFT)) {
-                    String beanField = StrUtil.subBefore(key, LIKE_LEFT, true);
-                    wrapper.likeLeft(getDbField(beanField, modelClazz), value);
-                } else if (key.endsWith(LIKE_RIGHT)) {
-                    String beanField = StrUtil.subBefore(key, LIKE_RIGHT, true);
-                    wrapper.likeRight(getDbField(beanField, modelClazz), value);
+                if (key.endsWith(Wraps.ST)) {
+                    String beanField = StrUtil.subBefore(key, Wraps.ST, true);
+                    wrapper.ge(Wraps.getDbField(beanField, modelClazz), DateUtils.getStartTime(value.toString()));
+                } else if (key.endsWith(Wraps.ED)) {
+                    String beanField = StrUtil.subBefore(key, Wraps.ED, true);
+                    wrapper.le(Wraps.getDbField(beanField, modelClazz), DateUtils.getEndTime(value.toString()));
+                } else if (key.endsWith(Wraps.GE)) {
+                    String beanField = StrUtil.subBefore(key, Wraps.GE, true);
+                    wrapper.ge(Wraps.getDbField(beanField, modelClazz), value);
+                } else if (key.endsWith(Wraps.GT)) {
+                    String beanField = StrUtil.subBefore(key, Wraps.GT, true);
+                    wrapper.gt(Wraps.getDbField(beanField, modelClazz), value);
+                } else if (key.endsWith(Wraps.LT)) {
+                    String beanField = StrUtil.subBefore(key, Wraps.LT, true);
+                    wrapper.lt(Wraps.getDbField(beanField, modelClazz), value);
+                } else if (key.endsWith(Wraps.LE)) {
+                    String beanField = StrUtil.subBefore(key, Wraps.LE, true);
+                    wrapper.le(Wraps.getDbField(beanField, modelClazz), value);
+                } else if (key.endsWith(Wraps.NE)) {
+                    String beanField = StrUtil.subBefore(key, Wraps.NE, true);
+                    wrapper.ne(Wraps.getDbField(beanField, modelClazz), value);
+                } else if (key.endsWith(Wraps.EQ)) {
+                    String beanField = StrUtil.subBefore(key, Wraps.EQ, true);
+                    wrapper.eq(Wraps.getDbField(beanField, modelClazz), value);
+                } else if (key.endsWith(Wraps.LIKE)) {
+                    String beanField = StrUtil.subBefore(key, Wraps.LIKE, true);
+                    wrapper.like(Wraps.getDbField(beanField, modelClazz), value);
+                } else if (key.endsWith(Wraps.LIKE_LEFT)) {
+                    String beanField = StrUtil.subBefore(key, Wraps.LIKE_LEFT, true);
+                    wrapper.likeLeft(Wraps.getDbField(beanField, modelClazz), value);
+                } else if (key.endsWith(Wraps.LIKE_RIGHT)) {
+                    String beanField = StrUtil.subBefore(key, Wraps.LIKE_RIGHT, true);
+                    wrapper.likeRight(Wraps.getDbField(beanField, modelClazz), value);
+                } else if (key.endsWith(Wraps.IN)) {
+                    String beanField = StrUtil.subBefore(key, Wraps.IN, true);
+                    wrapper.in(Wraps.getDbField(beanField, modelClazz), Wraps.castList(value));
                 }
             }
         }
@@ -257,7 +256,6 @@ public final class Wraps {
         if (source == null) {
             return null;
         }
-        Object target = source;
 
         Class<?> srcClass = source.getClass();
         Field[] fields = ReflectUtil.getFields(srcClass);
@@ -274,13 +272,35 @@ public final class Wraps {
             if (!(classValue instanceof String)) {
                 continue;
             }
+            TableField tableField = AnnotationUtil.getAnnotation(field, TableField.class);
+            if (tableField == null) {
+                continue;
+            }
+
+            String condition = tableField.condition();
+            if (StrUtil.isEmpty(condition) || StrUtil.equalsAny(condition, SqlCondition.EQUAL, SqlCondition.NOT_EQUAL)) {
+                continue;
+            }
+
             String srcValue = (String) classValue;
             if (srcValue.contains(PERCENT) || srcValue.contains(UNDERSCORE)) {
                 String tarValue = StrHelper.keywordConvert(srcValue);
-                ReflectUtil.setFieldValue(target, field, tarValue);
+                ReflectUtil.setFieldValue(source, field, tarValue);
             }
         }
-        return (T) target;
+        return (T) source;
     }
 
+    /**
+     * object 转成集合类，如果非集合返回 null
+     *
+     * @param obj 对象
+     * @return 对应集合
+     */
+    public static Collection<?> castList(Object obj) {
+        if (obj instanceof Collection<?>) {
+            return (Collection<?>) obj;
+        }
+        return null;
+    }
 }

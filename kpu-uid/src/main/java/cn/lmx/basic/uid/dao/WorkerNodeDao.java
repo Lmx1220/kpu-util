@@ -3,6 +3,8 @@ package cn.lmx.basic.uid.dao;
 import com.baidu.fsg.uid.worker.entity.WorkerNodeEntity;
 import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.SelectKey;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,8 +22,15 @@ public interface WorkerNodeDao {
      *
      * @param workerNodeEntity
      */
-    @Insert("INSERT INTO worker_node( host_name,port, type, launch_date,modified,created) " +
-            "VALUES (#{hostName},#{port},#{type},#{launchDate},#{modified}, #{created})")
+
+    /**
+     * Add {@link WorkerNodeEntity}
+     *
+     * @param workerNodeEntity
+     */
+    @Insert("INSERT INTO worker_node( id, host_name,port, type, launch_date,modified,created) " +
+            "VALUES (null, #{hostName},#{port},#{type},#{launchDate},#{modified}, #{created})")
+    @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     // oracle 用下面2个注解！ mysql sql server 用上面1个注解！
 //    @Insert(databaseId = "oracle", value = "INSERT INTO worker_node(id, host_name,port, type, launch_date,modified,created) " +
 //            "VALUES (#{id}, #{hostName},#{port},#{type},#{launchDate},#{modified}, #{created})")

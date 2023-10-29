@@ -3,20 +3,21 @@ package cn.lmx.basic.validator.extract;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.lmx.basic.utils.StrPool;
-import cn.lmx.basic.validator.mateconstraint.IConstraintConverter;
-import cn.lmx.basic.validator.mateconstraint.impl.*;
-import cn.lmx.basic.validator.model.ConstraintInfo;
-import cn.lmx.basic.validator.model.FieldValidatorDesc;
-import cn.lmx.basic.validator.model.ValidConstraint;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.internal.engine.ValidatorImpl;
 import org.hibernate.validator.internal.metadata.BeanMetaDataManager;
 import org.hibernate.validator.internal.metadata.aggregated.BeanMetaData;
 import org.hibernate.validator.internal.metadata.core.MetaConstraint;
 import org.hibernate.validator.internal.metadata.location.ConstraintLocation;
+import cn.lmx.basic.utils.StrPool;
+import cn.lmx.basic.validator.mateconstraint.IConstraintConverter;
+import cn.lmx.basic.validator.mateconstraint.impl.*;
+import cn.lmx.basic.validator.model.ConstraintInfo;
+import cn.lmx.basic.validator.model.FieldValidatorDesc;
+import cn.lmx.basic.validator.model.ValidConstraint;
 
 import javax.validation.Validator;
+import javax.validation.metadata.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -90,15 +91,18 @@ public class DefaultConstraintExtractImpl implements IConstraintExtract {
 
         BeanMetaData<?> res = beanMetaDataManager.getBeanMetaData(targetClazz);
         Set<MetaConstraint<?>> r = res.getMetaConstraints();
+        Set<PropertyDescriptor> constrainedProperties = res.getBeanDescriptor().getConstrainedProperties();
         for (MetaConstraint<?> metaConstraint : r) {
-            builderFieldValidatorDesc(metaConstraint, groups, fieldValidatorDesc);
+            builderFieldValidatorDesc(metaConstraint, constrainedProperties, groups, fieldValidatorDesc);
         }
 
         CACHE.put(key, fieldValidatorDesc);
     }
 
 
-    private void builderFieldValidatorDesc(MetaConstraint<?> metaConstraint, Class<?>[] groups,
+    private void builderFieldValidatorDesc(MetaConstraint<?> metaConstraint,
+                                           Set<PropertyDescriptor> constraintDescriptors,
+                                           Class<?>[] groups,
                                            Map<String, FieldValidatorDesc> fieldValidatorDesc) throws Exception {
         //字段上的组
         Set<Class<?>> groupsMeta = metaConstraint.getGroupList();
@@ -126,6 +130,16 @@ public class DefaultConstraintExtractImpl implements IConstraintExtract {
         String fieldName = con.getConstrainable().getName();
         String key = domainName + fieldName;
 
+        boolean flag = false;
+        for (PropertyDescriptor constraintDescriptor : constraintDescriptors) {
+            if (constraintDescriptor.getPropertyName().equals(fieldName)) {
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            return;
+        }
         FieldValidatorDesc desc = fieldValidatorDesc.get(key);
         if (desc == null) {
             desc = new FieldValidatorDesc();
