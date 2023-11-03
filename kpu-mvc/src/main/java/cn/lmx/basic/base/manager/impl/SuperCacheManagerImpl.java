@@ -10,11 +10,13 @@ import cn.lmx.basic.base.mapper.SuperMapper;
 import cn.lmx.basic.cache.repository.CacheOps;
 import cn.lmx.basic.model.cache.CacheKey;
 import cn.lmx.basic.model.cache.CacheKeyBuilder;
+import cn.lmx.basic.utils.CollHelper;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.core.toolkit.*;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.apache.ibatis.binding.MapperMethod;
@@ -77,28 +79,44 @@ public abstract class SuperCacheManagerImpl<M extends SuperMapper<T>, T extends 
         List<Serializable> keysList = Lists.newArrayList(ids);
         log.debug(StrUtil.format("keysList:{}, valueList:{}", keysList.size(), valueList.size()));
         // 缓存不存在的key
-        Set<Serializable> missedKeys = Sets.newLinkedHashSet();
+        Set<Serializable> missedIds = Sets.newLinkedHashSet();
 
-        List<T> allList = new ArrayList<>();
+        Map<Serializable,T> allMap = new LinkedHashMap<>();
         for (int i = 0; i < valueList.size(); i++) {
             T v = valueList.get(i);
             Serializable k = keysList.get(i);
-            if (v == null) {
-                missedKeys.add(k);
+            if (v == null ) {
+                missedIds.add(k);
+                allMap.put(k,null);
             } else {
-                allList.add(v);
+                allMap.put(k,v);
             }
         }
         // 加载miss 的数据，并设置到缓存
-        if (CollUtil.isNotEmpty(missedKeys)) {
+        if (CollUtil.isNotEmpty(missedIds)) {
             if (loader == null) {
-                loader = this::listByIds;
+                loader = missIds -> super.listByIds(missIds.stream().filter(Objects::nonNull).map(Convert::toLong).collect(Collectors.toList()));
             }
-            Collection<T> missList = loader.apply(missedKeys);
-            missList.forEach(this::setCache);
-            allList.addAll(missList);
+            Collection<T> missList = loader.apply(missedIds);
+            ImmutableMap<Serializable, T> missMap = CollHelper.uniqueIndex(missList, item ->(Serializable) item.getId(), item -> item);
+            allMap.forEach((k,v) -> {
+                if(missMap.containsKey(k)){
+                    allMap.put(k,missMap.get(k));
+                }
+            });
+
+            // 讲缓存中不存在的数据设置到缓存,缓存 "空值" 或 “实际值"
+            for (Serializable missedKey: missedIds
+                 ) {
+                CacheKey key = cacheKeyBuilder().key(missedKey);
+                // 存在就缓存 实际值
+                // 不存在就缓存 空值，防止缓存穿透
+                cacheOps.set(key, missMap.getOrDefault(missedKey,null));
+            }
+
         }
-        return allList;
+        Collection<T> values = allMap.values();
+        return Lists.newArrayList(values);
     }
 
     @Override
