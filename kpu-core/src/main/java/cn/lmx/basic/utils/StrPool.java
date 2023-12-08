@@ -138,5 +138,6 @@ public interface StrPool {
 
     String UNKNOW = "unknown";
     String DEV = "dev";
+    Long ADMIN_ID = 1L;
 }
 
