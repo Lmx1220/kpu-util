@@ -7,6 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.lmx.basic.base.entity.SuperEntity;
 import cn.lmx.basic.base.manager.SuperCacheManager;
 import cn.lmx.basic.base.mapper.SuperMapper;
+import cn.lmx.basic.cache.redis2.CacheResult;
 import cn.lmx.basic.cache.repository.CacheOps;
 import cn.lmx.basic.model.cache.CacheKey;
 import cn.lmx.basic.model.cache.CacheKeyBuilder;
@@ -55,12 +56,13 @@ public abstract class SuperCacheManagerImpl<M extends SuperMapper<T>, T extends 
     @Transactional(readOnly = true)
     public T getByIdCache(Serializable id) {
         CacheKey cacheKey = cacheKeyBuilder().key(id);
-        return cacheOps.get(cacheKey, k -> super.getById(id));
+        CacheResult<T> result = cacheOps.get(cacheKey, k -> super.getById(id));
+        return result.getValue();
     }
 
-    //    private List<CacheResult<T>> find(List<CacheKey> keys) {
-//        return cacheOps.find(keys);
-//    }
+        private List<CacheResult<T>> find(List<CacheKey> keys) {
+        return cacheOps.find(keys);
+    }
     @Override
     @Transactional(readOnly = true)
     public List<T> findByIds(@NonNull Collection<? extends Serializable> ids, Function<Collection<? extends Serializable>, Collection<T>> loader) {
@@ -73,7 +75,7 @@ public abstract class SuperCacheManagerImpl<M extends SuperMapper<T>, T extends 
         List<List<CacheKey>> partitionKeys = Lists.partition(keys, MAX_BATCH_KEY_SIZE);
 
         // 用切割后的 partitionKeys 分批去缓存查， 返回的是缓存中存在的数据
-        List<T> valueList = partitionKeys.stream().map(ks -> cacheOps.<T>find(ks)).flatMap(Collection::stream).collect(Collectors.toList());
+        List<CacheResult<T>> valueList = partitionKeys.stream().map(this::find).flatMap(Collection::stream).collect(Collectors.toList());
 
         // 所有的key
         List<Serializable> keysList = Lists.newArrayList(ids);
@@ -83,13 +85,13 @@ public abstract class SuperCacheManagerImpl<M extends SuperMapper<T>, T extends 
 
         Map<Serializable,T> allMap = new LinkedHashMap<>();
         for (int i = 0; i < valueList.size(); i++) {
-            T v = valueList.get(i);
+            CacheResult<T> v = valueList.get(i);
             Serializable k = keysList.get(i);
-            if (v == null ) {
+            if (v == null || v.isNull() ) {
                 missedIds.add(k);
                 allMap.put(k,null);
             } else {
-                allMap.put(k,v);
+                allMap.put(k,v.getValue());
             }
         }
         // 加载miss 的数据，并设置到缓存
@@ -122,8 +124,8 @@ public abstract class SuperCacheManagerImpl<M extends SuperMapper<T>, T extends 
     @Override
     @Transactional(readOnly = true)
     public T getByKey(CacheKey key, Function<CacheKey, Object> loader) {
-        Object id = cacheOps.get(key, loader);
-        return id == null ? null : getByIdCache(Convert.toLong(id));
+        CacheResult<Object> result = cacheOps.get(key, loader);
+        return result.isNull() ? null : getByIdCache(Convert.toLong(result.getValue()));
     }
 
 
