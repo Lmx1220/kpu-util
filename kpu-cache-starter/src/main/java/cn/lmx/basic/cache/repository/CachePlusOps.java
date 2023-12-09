@@ -1,5 +1,6 @@
 package cn.lmx.basic.cache.repository;
 
+import cn.lmx.basic.cache.redis2.CacheResult;
 import cn.lmx.basic.model.cache.CacheHashKey;
 import cn.lmx.basic.model.cache.CacheKey;
 import org.springframework.lang.NonNull;
@@ -122,7 +123,7 @@ public interface CachePlusOps extends CacheOps {
      * @param cacheNullValues 是否缓存空值
      * @return 默认情况下返回给定域的值, 如果给定域不存在于哈希表中， 又或者给定的哈希表并不存在， 那么命令返回 nil
      */
-    <T> T hGet(@NonNull CacheHashKey key, boolean... cacheNullValues);
+    <T> CacheResult<T> hGet(@NonNull CacheHashKey key, boolean... cacheNullValues);
 
     /**
      * 返回哈希表 key 中给定域 field 的值。
@@ -132,7 +133,7 @@ public interface CachePlusOps extends CacheOps {
      * @param cacheNullValues 是否缓存空值
      * @return 默认情况下返回给定域的值, 如果给定域不存在于哈希表中， 又或者给定的哈希表并不存在， 那么命令返回 nil
      */
-    <T> T hGet(@NonNull CacheHashKey key, Function<CacheHashKey, T> loader, boolean... cacheNullValues);
+    <T> CacheResult<T> hGet(@NonNull CacheHashKey key, Function<CacheHashKey, T> loader, boolean... cacheNullValues);
 
     /**
      * 检查给定域 field 是否存在于哈希表 hash 当中

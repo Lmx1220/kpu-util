@@ -1,6 +1,7 @@
 package cn.lmx.basic.cache.repository.impl;
 
 import cn.hutool.core.util.StrUtil;
+import cn.lmx.basic.cache.redis2.CacheResult;
 import cn.lmx.basic.cache.repository.CacheOps;
 import cn.lmx.basic.cache.repository.CachePlusOps;
 import cn.lmx.basic.model.cache.CacheHashKey;
@@ -67,30 +68,30 @@ public class CaffeineOpsImpl implements CacheOps, CachePlusOps {
     }
 
     @Override
-    public <T> T get(@NonNull CacheKey key, boolean... cacheNullValues) {
+    public <T> CacheResult<T> get(@NonNull CacheKey key, boolean... cacheNullValues) {
         Cache<String, Object> ifPresent = cacheMap.getIfPresent(key.getKey());
         if (ifPresent == null) {
-            return null;
+            new CacheResult(key, null);
         }
-        return (T) ifPresent.getIfPresent(key.getKey());
+        return new CacheResult(key,(T) ifPresent.getIfPresent(key.getKey()));
     }
 
     @Override
-    public <T> T get(String key, boolean... cacheNullValues) {
+    public <T> CacheResult<T> get(String key, boolean... cacheNullValues) {
         Cache<String, Object> ifPresent = cacheMap.getIfPresent(key);
         if (ifPresent == null) {
-            return null;
+            new CacheResult(key, null);
         }
-        return (T) ifPresent.getIfPresent(key);
+        return new CacheResult(key, ifPresent.getIfPresent(key));
     }
 
     @Override
-    public <T> List<T> find(@NonNull Collection<CacheKey> keys) {
-        return keys.stream().map(k -> (T) get(k, false)).filter(Objects::nonNull).collect(Collectors.toList());
+    public <T> List<CacheResult<T>> find(@NonNull Collection<CacheKey> keys) {
+        return keys.stream().map(k -> (CacheResult<T>) get(k, false)).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     @Override
-    public <T> T get(@NonNull CacheKey key, Function<CacheKey, ? extends T> loader, boolean... cacheNullValues) {
+    public <T> CacheResult<T> get(@NonNull CacheKey key, Function<CacheKey, ? extends T> loader, boolean... cacheNullValues) {
         Cache<String, Object> cache = cacheMap.get(key.getKey(), (k) -> {
             Caffeine<Object, Object> builder = Caffeine.newBuilder()
                     .maximumSize(DEF_MAX_SIZE);
@@ -102,7 +103,7 @@ public class CaffeineOpsImpl implements CacheOps, CachePlusOps {
             return newCache;
         });
 
-        return (T) cache.getIfPresent(key.getKey());
+        return new CacheResult(key, cache.getIfPresent(key.getKey()));
     }
 
     @Override
@@ -122,7 +123,7 @@ public class CaffeineOpsImpl implements CacheOps, CachePlusOps {
 
     @Override
     public Long incr(@NonNull CacheKey key) {
-        Long old = get(key, k -> 0L);
+        Long old = get(key, k -> 0L).getValue();
         Long newVal = old + 1;
         set(key, newVal);
         return newVal;
@@ -130,12 +131,12 @@ public class CaffeineOpsImpl implements CacheOps, CachePlusOps {
 
     @Override
     public Long getCounter(CacheKey key, Function<CacheKey, Long> loader) {
-        return get(key);
+        return (Long) get(key).getValue();
     }
 
     @Override
     public Long incrBy(@NonNull CacheKey key, long increment) {
-        Long old = get(key, k -> 0L);
+        Long old = get(key, k -> 0L).getValue();
         Long newVal = old + increment;
         set(key, newVal);
         return newVal;
@@ -143,7 +144,7 @@ public class CaffeineOpsImpl implements CacheOps, CachePlusOps {
 
     @Override
     public Double incrByFloat(@NonNull CacheKey key, double increment) {
-        Double old = get(key, k -> 0D);
+        Double old = get(key, k -> 0D).getValue();
         Double newVal = old + increment;
         set(key, newVal);
         return newVal;
@@ -151,7 +152,7 @@ public class CaffeineOpsImpl implements CacheOps, CachePlusOps {
 
     @Override
     public Long decr(@NonNull CacheKey key) {
-        Long old = get(key, k -> 0L);
+        Long old = get(key, k -> 0L).getValue();
         Long newVal = old - 1;
         set(key, newVal);
         return newVal;
@@ -159,7 +160,7 @@ public class CaffeineOpsImpl implements CacheOps, CachePlusOps {
 
     @Override
     public Long decrBy(@NonNull CacheKey key, long decrement) {
-        Long old = get(key, k -> 0L);
+        Long old = get(key, k -> 0L).getValue();
         Long newVal = old - decrement;
         set(key, newVal);
         return newVal;
@@ -249,12 +250,12 @@ public class CaffeineOpsImpl implements CacheOps, CachePlusOps {
     }
 
     @Override
-    public <T> T hGet(@NonNull CacheHashKey key, boolean... cacheNullValues) {
+    public <T> CacheResult<T> hGet(@NonNull CacheHashKey key, boolean... cacheNullValues) {
         return get(key.tran(), cacheNullValues);
     }
 
     @Override
-    public <T> T hGet(@NonNull CacheHashKey key, Function<CacheHashKey, T> loader, boolean... cacheNullValues) {
+    public <T> CacheResult<T> hGet(@NonNull CacheHashKey key, Function<CacheHashKey, T> loader, boolean... cacheNullValues) {
         Function<CacheKey, T> ckLoader = k -> loader.apply(key);
         return get(key.tran(), ckLoader, cacheNullValues);
     }

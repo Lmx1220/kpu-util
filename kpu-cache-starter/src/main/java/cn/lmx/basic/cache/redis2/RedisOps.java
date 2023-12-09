@@ -16,6 +16,7 @@ import cn.lmx.basic.utils.StrPool;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.*;
@@ -649,7 +650,7 @@ public class RedisOps extends BaseRedis {
             set(key, newNullVal(), true);
         }
         // NullVal 值
-        return new CacheResult(key, value);
+        return new CacheResult<>(key, value);
     }
 
     /**
@@ -741,7 +742,7 @@ public class RedisOps extends BaseRedis {
      * @see <a href="https://redis.io/commands/get">Redis Documentation: GET</a>
      */
     @Nullable
-    public <T> CacheResult<T> get(@NonNull CacheKey key, Function<CacheKey, ? extends CacheResult<T>> loader, boolean... cacheNullValues) {
+    public <T> CacheResult<T> get(@NonNull CacheKey key, Function<CacheKey, ? extends T> loader, boolean... cacheNullValues) {
         ArgumentAssert.notNull(key, CACHE_KEY_NOT_NULL);
         ArgumentAssert.notNull(key.getKey(), KEY_NOT_NULL);
         boolean cacheNullVal = cacheNullValues.length > 0 ? cacheNullValues[0] : defaultCacheNullVal;
@@ -757,7 +758,7 @@ public class RedisOps extends BaseRedis {
             }
 
             try {
-                cacheResult = loader.apply(key);
+                value = loader.apply(key);
                 this.set(key, value, cacheNullVal);
             } finally {
                 KEY_LOCKS.remove(key.getKey());
@@ -1220,6 +1221,7 @@ public class RedisOps extends BaseRedis {
             }
             try {
                 value = loader.apply(key);
+
                 this.hSet(key, value, cacheNullVal);
             } finally {
                 KEY_LOCKS.remove(key.getKey());
@@ -2437,5 +2439,6 @@ public class RedisOps extends BaseRedis {
     public Long zRemRangeByScore(@NonNull String key, double min, double max) {
         return zSetOps.removeRangeByScore(key, min, max);
     }
+
 
 }

@@ -3,7 +3,7 @@ package cn.lmx.basic.cache;
 import cn.lmx.basic.cache.lock.RedisDistributedLock;
 import cn.lmx.basic.cache.properties.CustomCacheProperties;
 import cn.lmx.basic.cache.properties.SerializerType;
-import cn.lmx.basic.cache.redis.RedisOps;
+import cn.lmx.basic.cache.redis2.RedisOps;
 import cn.lmx.basic.cache.repository.CacheOps;
 import cn.lmx.basic.cache.repository.CachePlusOps;
 import cn.lmx.basic.cache.repository.impl.RedisOpsImpl;

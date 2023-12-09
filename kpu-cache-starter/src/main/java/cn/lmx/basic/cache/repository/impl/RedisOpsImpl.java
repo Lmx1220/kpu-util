@@ -1,6 +1,7 @@
 package cn.lmx.basic.cache.repository.impl;
 
-import cn.lmx.basic.cache.redis.RedisOps;
+import cn.lmx.basic.cache.redis2.CacheResult;
+import cn.lmx.basic.cache.redis2.RedisOps;
 import cn.lmx.basic.cache.repository.CacheOps;
 import cn.lmx.basic.cache.repository.CachePlusOps;
 import cn.lmx.basic.model.cache.CacheHashKey;
@@ -63,22 +64,22 @@ public class RedisOpsImpl implements CacheOps, CachePlusOps {
     }
 
     @Override
-    public <T> T get(@NonNull CacheKey key, boolean... cacheNullValues) {
+    public <T> CacheResult<T> get(@NonNull CacheKey key, boolean... cacheNullValues) {
         return redisOps.get(key, cacheNullValues);
     }
 
     @Override
-    public <T> T get(String key, boolean... cacheNullValues) {
+    public <T> CacheResult<T> get(String key, boolean... cacheNullValues) {
         return redisOps.get(key, cacheNullValues);
     }
 
     @Override
-    public <T> List<T> find(@NonNull Collection<CacheKey> keys) {
+    public <T>  List<CacheResult<T>> find(@NonNull Collection<CacheKey> keys) {
         return redisOps.mGetByCacheKey(keys);
     }
 
     @Override
-    public <T> T get(@NonNull CacheKey key, Function<CacheKey, ? extends T> loader, boolean... cacheNullValues) {
+    public <T> CacheResult<T> get(@NonNull CacheKey key, Function<CacheKey, ? extends T> loader, boolean... cacheNullValues) {
         return redisOps.get(key, loader, cacheNullValues);
     }
 
@@ -170,12 +171,12 @@ public class RedisOpsImpl implements CacheOps, CachePlusOps {
     }
 
     @Override
-    public <T> T hGet(@NonNull CacheHashKey key, boolean... cacheNullValues) {
+    public <T> CacheResult<T> hGet(@NonNull CacheHashKey key, boolean... cacheNullValues) {
         return redisOps.hGet(key, cacheNullValues);
     }
 
     @Override
-    public <T> T hGet(@NonNull CacheHashKey key, Function<CacheHashKey, T> loader, boolean... cacheNullValues) {
+    public <T> CacheResult<T> hGet(@NonNull CacheHashKey key, Function<CacheHashKey, T> loader, boolean... cacheNullValues) {
         return redisOps.hGet(key, loader, cacheNullValues);
     }
 
