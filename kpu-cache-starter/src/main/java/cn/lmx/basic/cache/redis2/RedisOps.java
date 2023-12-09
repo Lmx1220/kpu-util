@@ -759,6 +759,7 @@ public class RedisOps extends BaseRedis {
 
             try {
                 value = loader.apply(key);
+                cacheResult.setRawValue(value);
                 this.set(key, value, cacheNullVal);
             } finally {
                 KEY_LOCKS.remove(key.getKey());
