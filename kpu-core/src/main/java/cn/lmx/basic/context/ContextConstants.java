@@ -112,6 +112,10 @@ public final class ContextConstants {
      * 当前线程 所属单位
      */
     public static final String CURRENT_COMPANY_ID_HEADER = JWT_KEY_COMPANY_ID;
+    /**
+     * 当前线程 所属
+     */
+    public static final  String TENANT_ID_HEADER = "Tenant-Id";
 
     private ContextConstants() {
     }

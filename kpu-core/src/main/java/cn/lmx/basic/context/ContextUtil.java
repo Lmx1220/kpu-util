@@ -293,4 +293,8 @@ public final class ContextUtil {
     public static long getCurrentCompanyId() {
         return get(ContextConstants.CURRENT_COMPANY_ID_HEADER, Long.class);
     }
+
+    public static Long getTenantId() {
+        return get(ContextConstants.TENANT_ID_HEADER, Long.class);
+    }
 }
