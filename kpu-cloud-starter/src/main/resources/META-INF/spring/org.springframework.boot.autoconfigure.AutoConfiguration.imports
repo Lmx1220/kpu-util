@@ -1,0 +1,3 @@
+cn.lmx.basic.cloud.config.OpenFeignAutoConfiguration
+cn.lmx.basic.cloud.config.RestTemplateConfiguration
+cn.lmx.basic.cloud.config.GrayscaleConfig
