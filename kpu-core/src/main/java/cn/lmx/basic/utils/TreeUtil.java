@@ -3,6 +3,7 @@ package cn.lmx.basic.utils;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.lmx.basic.base.entity.TreeEntity;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * list列表 转换成tree列表
@@ -61,31 +63,29 @@ public final class TreeUtil {
         if (CollUtil.isEmpty(treeList)) {
             return Collections.emptyList();
         }
+        // 找出根节点集合
+        List<E> trees = new ArrayList<>();
         //记录自己是自己的父节点的id集合
         List<Serializable> selfIdEqSelfParent = new ArrayList<>();
+
         // 为每一个节点找到子节点集合
-        for (E parent : treeList) {
-            Serializable id = parent.getId();
-            for (E children : treeList) {
-                if (parent != children) {
-                    //parent != children 这个来判断自己的孩子不允许是自己，因为有时候，根节点的parent会被设置成为自己
-                    if (id.equals(children.getParentId())) {
+        for (E parent :  treeList) {
+            if (parent.getParentId().equals(DEF_PARENT_ID)) {
+                trees.add(parent);
+            }
+            for (E it : treeList) {
+                if (it.getParentId().equals(parent.getId())) {
+                    if (parent.getChildren() == null) {
                         parent.initChildren();
-                        parent.getChildren().add(children);
                     }
-                } else if (id.equals(parent.getParentId())) {
-                    selfIdEqSelfParent.add(id);
+                    parent.getChildren().add(it);
+                    selfIdEqSelfParent.add(it.getId());
                 }
             }
         }
-        // 找出根节点集合
-        List<E> trees = new ArrayList<>();
 
-        List<? extends Serializable> allIds = treeList.stream().map(TreeEntity::getId).toList();
-        for (E baseNode : treeList) {
-            if (!allIds.contains(baseNode.getParentId()) || selfIdEqSelfParent.contains(baseNode.getParentId())) {
-                trees.add(baseNode);
-            }
+        if(trees.size() == 0){
+            trees = treeList.stream().filter(s -> !selfIdEqSelfParent.contains(s.getId())).collect(Collectors.toList());
         }
         return trees;
     }
