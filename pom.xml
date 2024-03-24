@@ -81,11 +81,6 @@
             </dependency>
             <dependency>
                 <groupId>cn.lmx.basic</groupId>
-                <artifactId>kpu-dozer-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.lmx.basic</groupId>
                 <artifactId>kpu-echo-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
